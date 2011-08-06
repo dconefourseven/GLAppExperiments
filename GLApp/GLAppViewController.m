@@ -29,10 +29,10 @@ enum {
 @property (nonatomic, retain) EAGLContext *context;
 @property (nonatomic, assign) CADisplayLink *displayLink;
 @property (nonatomic, assign) NSTimer *animationTimer;
-- (BOOL)loadShaders;
+/*- (BOOL)loadShaders;
 - (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file;
 - (BOOL)linkProgram:(GLuint)prog;
-- (BOOL)validateProgram:(GLuint)prog;
+- (BOOL)validateProgram:(GLuint)prog;*/
 @end
 
 @implementation GLAppViewController
@@ -62,8 +62,8 @@ enum {
     [(EAGLView *)self.view setContext:context];
     [(EAGLView *)self.view setFramebuffer];
     
-    if ([context API] == kEAGLRenderingAPIOpenGLES2)
-        [self loadShaders];
+    /*if ([context API] == kEAGLRenderingAPIOpenGLES2)
+        [self loadShaders];*/
     
     animating = FALSE;
     animationFrameInterval = 1;
@@ -198,10 +198,10 @@ enum {
     
     // Replace the implementation of this method to do your own custom drawing.
     static const GLfloat squareVertices[] = {
-        -160.0f, -160.0f,
-        160.0f, -160.0f,
-        -160.0f,  160.0f,
-        160.0f,  160.0f,
+        -30.0f, -30.0f,
+        30.0f, -30.0f,
+        -30.0f,  30.0f,
+        30.0f,  30.0f,
     };
     
     static const GLubyte squareColors[] = {
@@ -220,7 +220,11 @@ enum {
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrthof(-320.0f, 320.0f, -480.0f, 480.0f, -1.0f, 1.0f);
+    
+    NSInteger halfScreenWidth = self.view.frame.size.width/2;
+    NSInteger halfScreenHeight = self.view.frame.size.height/2;
+    
+    glOrthof(-halfScreenWidth, halfScreenWidth, -halfScreenHeight, halfScreenHeight, -1.0f, 1.0f);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glTranslatef(0.0f, 0.0f, 0.0f);
@@ -238,7 +242,7 @@ enum {
     [(EAGLView *)self.view presentFramebuffer];
 }
 
-- (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file
+/*- (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file
 {
     GLint status;
     const GLchar *source;
@@ -391,6 +395,6 @@ enum {
         glDeleteShader(fragShader);
     
     return TRUE;
-}
+}*/
 
 @end
