@@ -259,6 +259,14 @@ static CGPoint myPoint;
     //m_UIIVPlayer.center = [myTouch locationInView:self.view];
 }
 
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *myTouch = [[event allTouches] anyObject];
+    
+    myPoint = [myTouch locationInView:self.view];
+    //m_UIIVPlayer.center = [myTouch locationInView:self.view];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
