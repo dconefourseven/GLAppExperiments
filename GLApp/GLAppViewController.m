@@ -35,6 +35,8 @@ enum {
 - (BOOL)validateProgram:(GLuint)prog;*/
 @end
 
+static CGPoint myPoint;
+
 @implementation GLAppViewController
 
 @synthesize animating;
@@ -71,6 +73,7 @@ enum {
     self.displayLink = nil;
     animationTimer = nil;
   
+    myPoint = CGPointMake(0.0f, 0.0f);
     
     // A system version of 3.1 or greater is required to use CADisplayLink. The NSTimer
     // class is used as fallback when it isn't available.
@@ -205,10 +208,10 @@ enum {
     };
     
     static const GLubyte squareColors[] = {
-        255, 255,   0, 255,
-        0,   255, 255, 255,
-        0,     0,   0,   0,
-        255,   0, 255, 255,
+        255, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
     };
     
     static float transY = 0.0f;
@@ -221,15 +224,21 @@ enum {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     
-    NSInteger halfScreenWidth = self.view.frame.size.width/2;
-    NSInteger halfScreenHeight = self.view.frame.size.height/2;
+    NSInteger ScreenWidth = self.view.frame.size.width;
+    NSInteger ScreenHeight = self.view.frame.size.height;
     
-    glOrthof(-halfScreenWidth, halfScreenWidth, -halfScreenHeight, halfScreenHeight, -1.0f, 1.0f);
+    //if([[UIDevice currentDevice] orientation] == UIInterfaceOrientationPortrait)
+        //glOrthof(0, ScreenWidth, ScreenHeight, 0, -1.0f, 1.0f);
+    //if([[UIDevice currentDevice] orientation] == UIInterfaceOrientationLandscapeLeft)
+        glOrthof(0, ScreenHeight, ScreenWidth, 0, -1.0f, 1.0f);  
+    //if([[UIDevice currentDevice] orientation] == UIInterfaceOrientationLandscapeRight)
+        //glOrthof(0, ScreenHeight, ScreenWidth, 0, -1.0f, 1.0f);  
+        
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glTranslatef(0.0f, 0.0f, 0.0f);
+    glTranslatef(myPoint.x, myPoint.y, 0.0f);
     transY += 0.75f;
-    glRotatef(transY, 0.0f, 0.0f, 1.0f);
+    glRotatef(0.0f, 0.0f, 0.0f, 1.0f);
     
     glVertexPointer(2, GL_FLOAT, 0, squareVertices);
     glEnableClientState(GL_VERTEX_ARRAY);
@@ -240,6 +249,20 @@ enum {
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     
     [(EAGLView *)self.view presentFramebuffer];
+}
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *myTouch = [[event allTouches] anyObject];
+    
+    myPoint = [myTouch locationInView:self.view];
+    //m_UIIVPlayer.center = [myTouch locationInView:self.view];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft);
 }
 
 /*- (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file

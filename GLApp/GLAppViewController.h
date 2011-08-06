@@ -32,4 +32,6 @@
 - (void)startAnimation;
 - (void)stopAnimation;
 
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
+
 @end

@@ -70,6 +70,12 @@
     [self.viewController stopAnimation];
 }
 
+/*- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft);
+}*/
+
 - (void)dealloc
 {
     [_window release];
