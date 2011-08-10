@@ -28,13 +28,13 @@
 //The EAGL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:.
 - (id)initWithCoder:(NSCoder*)coder
 {
-    if([[UIScreen mainScreen] respondsToSelector: NSSelectorFromString(@"scale")])
+    /*if([[UIScreen mainScreen] respondsToSelector: NSSelectorFromString(@"scale")])
     {
         if([self respondsToSelector: NSSelectorFromString(@"contentScaleFactor")])
         {
             self.contentScaleFactor = [[UIScreen mainScreen] scale];
         }
-    }
+    }*/
     
     self = [super initWithCoder:coder];
 	if (self) {
@@ -121,7 +121,6 @@
         glBindFramebuffer(GL_FRAMEBUFFER, defaultFramebuffer);
         
         glViewport(0, 0, framebufferWidth, framebufferHeight);
-        //glViewport(0, 0, 320, 480);
     }
 }
 

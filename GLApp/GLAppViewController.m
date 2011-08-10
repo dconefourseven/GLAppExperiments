@@ -75,6 +75,8 @@ static CGPoint myPoint;
   
     myPoint = CGPointMake(0.0f, 0.0f);
     
+    
+    
     // A system version of 3.1 or greater is required to use CADisplayLink. The NSTimer
     // class is used as fallback when it isn't available.
     NSString *reqSysVer = @"3.1";
@@ -192,14 +194,6 @@ static CGPoint myPoint;
     [(EAGLView *)self.view setFramebuffer];
     
     // Replace the implementation of this method to do your own custom drawing.
-    /*static const GLfloat squareVertices[] = {
-        -0.5f, -0.33f,
-        0.5f, -0.33f,
-        -0.5f,  0.33f,
-        0.5f,  0.33f,
-    };*/
-    
-    // Replace the implementation of this method to do your own custom drawing.
     static const GLfloat squareVertices[] = {
         -30.0f, -30.0f,
         30.0f, -30.0f,
@@ -226,13 +220,8 @@ static CGPoint myPoint;
     
     NSInteger ScreenWidth = self.view.frame.size.width;
     NSInteger ScreenHeight = self.view.frame.size.height;
-    
-    //if([[UIDevice currentDevice] orientation] == UIInterfaceOrientationPortrait)
-        //glOrthof(0, ScreenWidth, ScreenHeight, 0, -1.0f, 1.0f);
-    //if([[UIDevice currentDevice] orientation] == UIInterfaceOrientationLandscapeLeft)
-        glOrthof(0, ScreenHeight, ScreenWidth, 0, -1.0f, 1.0f);  
-    //if([[UIDevice currentDevice] orientation] == UIInterfaceOrientationLandscapeRight)
-        //glOrthof(0, ScreenHeight, ScreenWidth, 0, -1.0f, 1.0f);  
+
+    glOrthof(0, ScreenHeight, ScreenWidth, 0, -1.0f, 1.0f);  
         
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -256,7 +245,6 @@ static CGPoint myPoint;
     UITouch *myTouch = [[event allTouches] anyObject];
     
     myPoint = [myTouch locationInView:self.view];
-    //m_UIIVPlayer.center = [myTouch locationInView:self.view];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -264,13 +252,15 @@ static CGPoint myPoint;
     UITouch *myTouch = [[event allTouches] anyObject];
     
     myPoint = [myTouch locationInView:self.view];
-    //m_UIIVPlayer.center = [myTouch locationInView:self.view];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft);
+    if ((orientation == UIInterfaceOrientationLandscapeRight) ||
+        (orientation == UIInterfaceOrientationLandscapeLeft))
+        return YES;
+    
+    return NO;
 }
 
 /*- (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file
