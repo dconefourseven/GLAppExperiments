@@ -44,6 +44,8 @@ static CGPoint myPoint;
 @synthesize displayLink;
 @synthesize animationTimer;
 
+static int ScreenWidth = 0, ScreenHeight = 0;
+
 - (void)awakeFromNib
 {
     //EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
@@ -75,7 +77,8 @@ static CGPoint myPoint;
   
     myPoint = CGPointMake(0.0f, 0.0f);
     
-    
+    ScreenWidth = self.view.frame.size.width;
+    ScreenHeight = self.view.frame.size.height;
     
     // A system version of 3.1 or greater is required to use CADisplayLink. The NSTimer
     // class is used as fallback when it isn't available.
@@ -203,39 +206,59 @@ static CGPoint myPoint;
     
     static const GLubyte squareColors[] = {
         255, 0, 0, 0,
-        0, 0, 0, 0,
+        255, 0, 0, 0,
         0, 0, 0, 0,
         0, 0, 0, 0,
     };
     
-    static float transY = 0.0f;
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     
     #if defined(DEBUG)
     #endif
-
+    
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    
-    NSInteger ScreenWidth = self.view.frame.size.width;
-    NSInteger ScreenHeight = self.view.frame.size.height;
 
-    glOrthof(0, ScreenHeight, ScreenWidth, 0, -1.0f, 1.0f);  
+    glOrthof(0, ScreenWidth, ScreenHeight, 0, -1.0f, 1.0f);  
+    
+    glPushMatrix();   // Push a matrix to the stack
+    
+    //Right screen orientation
+    glRotatef(90.0f, 0.0f, 0.0f, 1.0f); // Rotate 90 degrees
+    glTranslatef(0.0f, -ScreenWidth, 0.0f);  // Move vertically the screen Width
+    
+    //Left screen orientation
+    //glRotatef(-90.0f, 0.0f, 0.0f, 1.0f);
+    //glTranslatef(-ScreenHeight, 0.0f, 0.0f); // Move horizontally the screen Height
+    
+    /// Draw Stuff
         
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glTranslatef(myPoint.x, myPoint.y, 0.0f);
-    transY += 0.75f;
-    glRotatef(0.0f, 0.0f, 0.0f, 1.0f);
     
     glVertexPointer(2, GL_FLOAT, 0, squareVertices);
     glEnableClientState(GL_VERTEX_ARRAY);
     glColorPointer(4, GL_UNSIGNED_BYTE, 0, squareColors);
     glEnableClientState(GL_COLOR_ARRAY);
-
+    
+    glPushMatrix();
+    
+    glTranslatef(100.0f, 0.0f, 0.0f);
     
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    
+    glPopMatrix();
+    
+    glPushMatrix();
+    
+    glTranslatef(myPoint.y, (-myPoint.x) + ScreenWidth, 0.0f);    
+    
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    
+    glPopMatrix();
+    
+    glPopMatrix();
     
     [(EAGLView *)self.view presentFramebuffer];
 }
@@ -255,10 +278,10 @@ static CGPoint myPoint;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
-{
+{/*
     if ((orientation == UIInterfaceOrientationLandscapeRight) ||
         (orientation == UIInterfaceOrientationLandscapeLeft))
-        return YES;
+        return YES;*/
     
     return NO;
 }
