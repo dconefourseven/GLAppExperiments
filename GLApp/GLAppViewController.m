@@ -45,6 +45,8 @@ static CGPoint myPoint;
 @synthesize animationTimer;
 
 static int ScreenWidth = 0, ScreenHeight = 0;
+enum ScreenOrientation {Portrait, LandscapeLeft, LandscapeRight, PortraitUpsideDown};
+static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
 
 - (void)awakeFromNib
 {
@@ -79,6 +81,10 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     
     ScreenWidth = self.view.frame.size.width;
     ScreenHeight = self.view.frame.size.height;
+    
+    accelerometer = [UIAccelerometer sharedAccelerometer];
+    accelerometer.updateInterval = .1;
+    accelerometer.delegate = self;
     
     // A system version of 3.1 or greater is required to use CADisplayLink. The NSTimer
     // class is used as fallback when it isn't available.
@@ -224,13 +230,19 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     
     glPushMatrix();   // Push a matrix to the stack
     
-    //Right screen orientation
-    glRotatef(90.0f, 0.0f, 0.0f, 1.0f); // Rotate 90 degrees
-    glTranslatef(0.0f, -ScreenWidth, 0.0f);  // Move vertically the screen Width
+    if(CurrentScreenOrientation == LandscapeRight)
+    {
+        //Right screen orientation
+        glRotatef(90.0f, 0.0f, 0.0f, 1.0f); // Rotate 90 degrees
+        glTranslatef(0.0f, -ScreenWidth, 0.0f);  // Move vertically the screen Width
+    }
     
-    //Left screen orientation
-    //glRotatef(-90.0f, 0.0f, 0.0f, 1.0f);
-    //glTranslatef(-ScreenHeight, 0.0f, 0.0f); // Move horizontally the screen Height
+    if(CurrentScreenOrientation == LandscapeLeft)
+    {
+        //Left screen orientation
+        glRotatef(-90.0f, 0.0f, 0.0f, 1.0f);
+        glTranslatef(-ScreenHeight, 0.0f, 0.0f); // Move horizontally the screen Height
+    }
     
     /// Draw Stuff
         
@@ -252,7 +264,8 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     
     glPushMatrix();
     
-    glTranslatef(myPoint.y, (-myPoint.x) + ScreenWidth, 0.0f);    
+    glTranslatef(myPoint.y, myPoint.x, 0.0f);   
+    //glTranslatef(myPoint.y, (-myPoint.x) + ScreenWidth, 0.0f);    
     
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     
@@ -263,18 +276,69 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     [(EAGLView *)self.view presentFramebuffer];
 }
 
--(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    UITouch *myTouch = [[event allTouches] anyObject];
-    
-    myPoint = [myTouch locationInView:self.view];
-}
-
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *myTouch = [[event allTouches] anyObject];
     
-    myPoint = [myTouch locationInView:self.view];
+    if(CurrentScreenOrientation == LandscapeLeft)
+    {
+        myPoint.x = [myTouch locationInView:self.view].x;
+        myPoint.y = -([myTouch locationInView:self.view].y) + ScreenHeight;
+    }
+    
+    if(CurrentScreenOrientation == LandscapeRight)
+    {
+        myPoint.x = -([myTouch locationInView:self.view].x) + ScreenWidth;
+        myPoint.y = [myTouch locationInView:self.view].y;
+    }
+}
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *myTouch = [[event allTouches] anyObject];
+    
+    if(CurrentScreenOrientation == LandscapeLeft)
+    {
+        myPoint.x = [myTouch locationInView:self.view].x;
+        myPoint.y = -([myTouch locationInView:self.view].y) + ScreenHeight;
+    }
+    
+    if(CurrentScreenOrientation == LandscapeRight)
+    {
+        myPoint.x = -([myTouch locationInView:self.view].x) + ScreenWidth;
+        myPoint.y = [myTouch locationInView:self.view].y;
+    }
+    
+}
+
+
+-(void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
+{
+	// Get the current device angle
+	float x = [acceleration x];
+	float y = [acceleration y];
+	float angle = atan2(y, x); 
+    
+    if(angle >= -2.25 && angle <= -0.25)
+	{
+        /// Orientation is regular Portrait
+        //CurrentScreenOrientation = Portrait;
+	}
+	else if(angle >= -1.75 && angle <= 0.75)
+	{
+        /// Orientation is Landscape with Home Button on the Left
+        CurrentScreenOrientation = LandscapeLeft;
+	}
+	else if(angle >= 0.75 && angle <= 2.25)
+	{
+        /// Orientation is Portrait flipped upside down
+        //CurrentScreenOrientation = PortraitUpsideDown;
+	}
+	else if(angle >= -2.25 || angle <= 2.25)
+	{
+        /// Orientation is Landscape with Home Button on the Right
+        CurrentScreenOrientation = LandscapeRight;
+	}
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation

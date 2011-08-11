@@ -15,13 +15,15 @@
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
 
-@interface GLAppViewController : UIViewController {
+@interface GLAppViewController : UIViewController<UIAccelerometerDelegate> {
     EAGLContext *context;
     GLuint program;
     
     BOOL animating;
     NSInteger animationFrameInterval;
     id displayLink;	
+    
+    UIAccelerometer* accelerometer;
     
     BOOL displayLinkSupported;
 }
@@ -34,5 +36,6 @@
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
+- (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration;
 
 @end
