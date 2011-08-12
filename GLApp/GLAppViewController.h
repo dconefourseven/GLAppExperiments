@@ -16,6 +16,7 @@
 #import <OpenGLES/ES2/glext.h>
 
 #import "Sprites/Sprite.h"
+#import "SpriteFont.h"
 
 @interface GLAppViewController : UIViewController<UIAccelerometerDelegate> {
     EAGLContext *context;
@@ -30,6 +31,8 @@
     BOOL displayLinkSupported;
     
     Sprite* mSprite;
+    
+    SpriteFont* mSpriteFont;
 }
 
 @property (readonly, nonatomic, getter=isAnimating) BOOL animating;
