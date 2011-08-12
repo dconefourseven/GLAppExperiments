@@ -24,7 +24,7 @@
 -(id)init: (const NSString*) stringText;
 -(void)AppendToEndOfString:(const NSString*) stringText;
 -(void)ReplaceStringText:(const NSString*) stringText;
--(void)InitialiseSprites:(int) stringSize;
+-(void)InitialiseSprites:(const NSString*)stringText: (int) stringSize;
 -(void)DrawFont;
 
 @end

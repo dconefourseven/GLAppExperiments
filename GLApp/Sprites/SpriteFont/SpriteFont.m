@@ -43,7 +43,7 @@ static const char charMap[] = {
         
         mStringText = [[NSString alloc]initWithString:(NSString*)stringText];
         
-        [self InitialiseSprites:sizeOfString];
+        [self InitialiseSprites:stringText:sizeOfString];
         
     }
     
@@ -60,7 +60,7 @@ static const char charMap[] = {
     
 }
 
--(void)InitialiseSprites:(int) stringSize
+-(void)InitialiseSprites:(const NSString*)stringText: (int) stringSize
 {
     // Sets up an array of values for the texture coordinates.
     static const GLfloat s_spriteTexcoords[] = {
@@ -70,10 +70,21 @@ static const char charMap[] = {
         1.0f, 1.0f,
     };
     
+    NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                @"one", [NSNumber numberWithInt: 1],
+                                @"two", [NSNumber numberWithInt: 2],
+                                @"three", [NSNumber numberWithInt: 3],
+                                nil];
+    
     mSprites = [[NSMutableArray alloc]initWithCapacity:stringSize];
+    
+    //NSNumber* test = [[NSNumber alloc]initWithInteger:[dictionary valueForKey:@"one"]];  
+    
+    //printf("%d", test.intValue);
     
     for(int i = 0; i < stringSize; i++)
     {
+        
         Sprite* sprite = [[Sprite alloc]init:@"SpriteSheet.jpg":(GLfloat*)s_spriteTexcoords];
         
         [mSprites addObject:sprite];
