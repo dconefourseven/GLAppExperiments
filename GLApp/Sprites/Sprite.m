@@ -21,6 +21,17 @@
     return self;
 }
 
+- (id)init : (NSString* const) textureName
+{
+    self = [super init];
+    if (self) {
+        // Initialization code here.
+        [self InitSprite:textureName];
+    }
+    
+    return self;
+}
+
 - (void) InitSprite
 {
     static const GLfloat s_squareVertices[] = { 
@@ -37,6 +48,22 @@
         0, 0, 0, 0,
     };
     
+    squareColors = s_squareColors;
+    squareVertices = s_squareVertices;
+    
+}
+
+- (void) InitSprite: (NSString* const) textureName
+{
+    [self InitTexture:textureName];
+    
+    static const GLfloat s_squareVertices[] = { 
+        -30.0f, -30.0f, 
+        30.0f, -30.0f, 
+        -30.0f, 30.0f, 
+        30.0f,  30.0f,
+    };
+        
     // Sets up an array of values for the texture coordinates.
     static const GLshort s_spriteTexcoords[] = {
         0, 0,
@@ -44,21 +71,29 @@
         0, 1,
         1, 1,
     };
+        
+    spriteTextureCoordinates = s_spriteTexcoords;
     
     squareVertices = s_squareVertices;
-    squareColors = s_squareColors;
-    spriteTextureCoordinates = s_spriteTexcoords;
+    
 }
 
 - (void) DrawSprite
 {
     glVertexPointer(2, GL_FLOAT, 0, squareVertices);
     glEnableClientState(GL_VERTEX_ARRAY);
-    //glColorPointer(4, GL_UNSIGNED_BYTE, 0, squareColors);
-    //glEnableClientState(GL_COLOR_ARRAY);
     
-    glTexCoordPointer(2, GL_SHORT, 0, spriteTextureCoordinates);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    
+    if(spriteTexture)
+    {
+        glTexCoordPointer(2, GL_SHORT, 0, spriteTextureCoordinates);
+        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    }
+    else
+    {
+        glColorPointer(4, GL_UNSIGNED_BYTE, 0, squareColors);
+        glEnableClientState(GL_COLOR_ARRAY);
+    }
     
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }

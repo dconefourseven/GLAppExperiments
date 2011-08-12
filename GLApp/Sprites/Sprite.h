@@ -14,6 +14,7 @@
 
 @interface Sprite : NSObject
 {
+    
     const GLfloat *squareVertices;
     const GLubyte *squareColors;
     const GLshort *spriteTextureCoordinates;
@@ -22,7 +23,10 @@
     GLuint spriteTexture;    
 }
 
+-(id) init;
+-(id) init:(NSString* const)textureName;
 -(void) InitSprite;
+-(void) InitSprite: (NSString* const) textureName;
 -(void) DrawSprite;
 -(void) InitTexture: (NSString* const) textureName;
 

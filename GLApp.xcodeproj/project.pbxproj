@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E5D55A9D13F48C2000667BA4 /* SpriteFont.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D55A9C13F48C2000667BA4 /* SpriteFont.m */; };
 		E5D55AA513F48F3D00667BA4 /* Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D55AA413F48F3D00667BA4 /* Sprite.m */; };
 		E5D55AAB13F4B24300667BA4 /* Sprite.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D55AAA13F4B24300667BA4 /* Sprite.png */; };
+		E5D55AB113F4B83900667BA4 /* SpriteFont.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D55AB013F4B83900667BA4 /* SpriteFont.m */; };
 		E5DC705413EC65550053BD04 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5DC705313EC65550053BD04 /* UIKit.framework */; };
 		E5DC705613EC65550053BD04 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5DC705513EC65550053BD04 /* Foundation.framework */; };
 		E5DC705813EC65550053BD04 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5DC705713EC65550053BD04 /* CoreGraphics.framework */; };
@@ -28,11 +28,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E5D55A9B13F48C2000667BA4 /* SpriteFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteFont.h; sourceTree = "<group>"; };
-		E5D55A9C13F48C2000667BA4 /* SpriteFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteFont.m; sourceTree = "<group>"; };
 		E5D55AA313F48F3D00667BA4 /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
 		E5D55AA413F48F3D00667BA4 /* Sprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sprite.m; sourceTree = "<group>"; };
 		E5D55AAA13F4B24300667BA4 /* Sprite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite.png; sourceTree = "<group>"; };
+		E5D55AAF13F4B83900667BA4 /* SpriteFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteFont.h; sourceTree = "<group>"; };
+		E5D55AB013F4B83900667BA4 /* SpriteFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteFont.m; sourceTree = "<group>"; };
 		E5DC704F13EC65550053BD04 /* GLApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GLApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5DC705313EC65550053BD04 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E5DC705513EC65550053BD04 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -75,6 +75,7 @@
 		E5D55AA213F48F3D00667BA4 /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				E5D55AAE13F4B83900667BA4 /* SpriteFont */,
 				E5D55AA313F48F3D00667BA4 /* Sprite.h */,
 				E5D55AA413F48F3D00667BA4 /* Sprite.m */,
 			);
@@ -88,6 +89,15 @@
 				E5D55AAA13F4B24300667BA4 /* Sprite.png */,
 			);
 			name = Textures;
+			sourceTree = "<group>";
+		};
+		E5D55AAE13F4B83900667BA4 /* SpriteFont */ = {
+			isa = PBXGroup;
+			children = (
+				E5D55AAF13F4B83900667BA4 /* SpriteFont.h */,
+				E5D55AB013F4B83900667BA4 /* SpriteFont.m */,
+			);
+			path = SpriteFont;
 			sourceTree = "<group>";
 		};
 		E5DC704413EC65550053BD04 = {
@@ -124,8 +134,6 @@
 			children = (
 				E5D55AAC13F4B37000667BA4 /* Textures */,
 				E5D55AA213F48F3D00667BA4 /* Sprites */,
-				E5D55A9B13F48C2000667BA4 /* SpriteFont.h */,
-				E5D55A9C13F48C2000667BA4 /* SpriteFont.m */,
 				E5DC706613EC65550053BD04 /* GLAppAppDelegate.h */,
 				E5DC706713EC65550053BD04 /* GLAppAppDelegate.m */,
 				E5DC706913EC65550053BD04 /* MainWindow.xib */,
@@ -220,8 +228,8 @@
 				E5DC706813EC65550053BD04 /* GLAppAppDelegate.m in Sources */,
 				E5DC707213EC65550053BD04 /* EAGLView.m in Sources */,
 				E5DC707513EC65550053BD04 /* GLAppViewController.m in Sources */,
-				E5D55A9D13F48C2000667BA4 /* SpriteFont.m in Sources */,
 				E5D55AA513F48F3D00667BA4 /* Sprite.m in Sources */,
+				E5D55AB113F4B83900667BA4 /* SpriteFont.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
