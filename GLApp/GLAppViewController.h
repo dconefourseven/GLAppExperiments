@@ -15,6 +15,8 @@
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
 
+#import "Sprites/Sprite.h"
+
 @interface GLAppViewController : UIViewController<UIAccelerometerDelegate> {
     EAGLContext *context;
     GLuint program;
@@ -26,6 +28,8 @@
     UIAccelerometer* accelerometer;
     
     BOOL displayLinkSupported;
+    
+    Sprite* mSprite;
 }
 
 @property (readonly, nonatomic, getter=isAnimating) BOOL animating;

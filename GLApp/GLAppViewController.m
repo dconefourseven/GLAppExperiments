@@ -86,6 +86,8 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     accelerometer.updateInterval = .1;
     accelerometer.delegate = self;
     
+    mSprite = [[Sprite alloc]init];
+    
     // A system version of 3.1 or greater is required to use CADisplayLink. The NSTimer
     // class is used as fallback when it isn't available.
     NSString *reqSysVer = @"3.1";
@@ -100,6 +102,8 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
         glDeleteProgram(program);
         program = 0;
     }
+    
+    [mSprite dealloc];
     
     // Tear down context.
     if ([EAGLContext currentContext] == context)
@@ -128,7 +132,6 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self stopAnimation];
-    
     [super viewWillDisappear:animated];
 }
 
@@ -202,21 +205,6 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
 {
     [(EAGLView *)self.view setFramebuffer];
     
-    // Replace the implementation of this method to do your own custom drawing.
-    static const GLfloat squareVertices[] = {
-        -30.0f, -30.0f,
-        30.0f, -30.0f,
-        -30.0f,  30.0f,
-        30.0f,  30.0f,
-    };
-    
-    static const GLubyte squareColors[] = {
-        255, 0, 0, 0,
-        255, 0, 0, 0,
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-    };
-    
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     
@@ -249,25 +237,21 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     
-    glVertexPointer(2, GL_FLOAT, 0, squareVertices);
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glColorPointer(4, GL_UNSIGNED_BYTE, 0, squareColors);
-    glEnableClientState(GL_COLOR_ARRAY);
-    
     glPushMatrix();
     
-    glTranslatef(100.0f, 0.0f, 0.0f);
+    glTranslatef(100.0f, 100.0, 0.0f);
     
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    [mSprite DrawSprite];
     
     glPopMatrix();
     
     glPushMatrix();
     
-    glTranslatef(myPoint.y, myPoint.x, 0.0f);   
-    //glTranslatef(myPoint.y, (-myPoint.x) + ScreenWidth, 0.0f);    
+    glTranslatef(myPoint.y, myPoint.x, 0.0f);     
     
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    [mSprite DrawSprite];
     
     glPopMatrix();
     
