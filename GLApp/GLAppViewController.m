@@ -87,6 +87,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     accelerometer.delegate = self;
     
     mSprite = [[Sprite alloc]init];
+    [mSprite InitTexture:@"SpriteSheet.jpg"];
     
     // A system version of 3.1 or greater is required to use CADisplayLink. The NSTimer
     // class is used as fallback when it isn't available.
