@@ -6,6 +6,9 @@
 //  Copyright 2011 David Clarke. All rights reserved.
 //
 
+#define LETTERWIDTH  0.125
+#define LETTERHEIGHT 0.125
+
 #import "SpriteFont.h"
 
 @implementation SpriteFont
@@ -62,13 +65,6 @@ static const char charMap[] = {
 
 -(void)InitialiseSprites:(const NSString*)stringText: (int) stringSize
 {
-    // Sets up an array of values for the texture coordinates.
-    static const GLfloat s_spriteTexcoords[] = {
-        0.0f, 0.0f,
-        1.0f, 0.0f,
-        0.0f, 1.0f,
-        1.0f, 1.0f,
-    };
     
     NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:
                                 @"0", @"A",
@@ -142,7 +138,7 @@ static const char charMap[] = {
     for(int i = 0; i < stringSize; i++)
     {
         char characterAtIndex = [stringText characterAtIndex:(NSUInteger)i];
-        NSString* charInString = [[NSString alloc]initWithCString:&characterAtIndex];
+        NSString* charInString = [[NSString alloc]initWithFormat:@"%C", characterAtIndex];
          
         NSString *positionInMap = [[NSString alloc]initWithString:[dictionary objectForKey:charInString]]; 
         
@@ -152,18 +148,30 @@ static const char charMap[] = {
         int xPositionIn2DMap = intPositionInMap % 8;
         int yPositionIn2DMap = intPositionInMap / 8;
         
+        GLfloat texCoords[] = {
+            LETTERWIDTH * xPositionIn2DMap,                 LETTERHEIGHT * yPositionIn2DMap,
+            (LETTERWIDTH * xPositionIn2DMap) + LETTERWIDTH, LETTERHEIGHT * yPositionIn2DMap,
+            LETTERWIDTH * xPositionIn2DMap,                 (LETTERHEIGHT * yPositionIn2DMap) + LETTERHEIGHT,
+            (LETTERWIDTH * xPositionIn2DMap) + LETTERWIDTH, (LETTERHEIGHT * yPositionIn2DMap) + LETTERHEIGHT,
+        };
         
-        
-        Sprite* sprite = [[Sprite alloc]init:@"SpriteSheet.jpg":(GLfloat*)s_spriteTexcoords];
+        Sprite* sprite = [[Sprite alloc]init:@"SpriteSheet.jpg":(GLfloat*)texCoords];
         
         [mSprites addObject:sprite];
         
         [sprite release];
+        characterAtIndex = 0;
+        [charInString release];
+        [positionInMap release];
+        intPositionInMap = 0;
+        xPositionIn2DMap = 0;
+        yPositionIn2DMap = 0;
     }
     
     [dictionary release];
     [mSprites release];
 }
+
 
 -(void)DrawFont
 {

@@ -77,10 +77,10 @@
         
     // Sets up an array of values for the texture coordinates.
     static const GLfloat s_spriteTexcoords[] = {
-        0.0f, 0.0f,
+        0.875f, 0.0f,
         1.0f, 0.0f,
-        0.0f, 1.0f,
-        1.0f, 1.0f,
+        0.875f, 0.125f,
+        1.0f, 0.125f,
     };
         
     spriteTextureCoordinatesF = s_spriteTexcoords;
