@@ -88,7 +88,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     
     mSprite = [[Sprite alloc]init:@"Sprite.png"];
     
-    mSpriteFont = [[SpriteFont alloc] init:@"Hello"];
+    mSpriteFont = [[SpriteFont alloc] init:@"Hello David"];
     
     // A system version of 3.1 or greater is required to use CADisplayLink. The NSTimer
     // class is used as fallback when it isn't available.
@@ -241,7 +241,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     
     glPushMatrix();
     
-    glTranslatef(100.0f, 100.0, 0.0f);
+    glTranslatef(240.0f, 100.0, 0.0f);
     
     //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     [mSprite DrawSprite];

@@ -122,7 +122,7 @@
                                 @"59", @"7",
                                 @"60", @"8",
                                 @"61", @"9",
-                                @"62", @"+",
+                                @"62", @" ",
                                 @"63", @"-",
                                 nil];
     
@@ -172,7 +172,7 @@
     {
         glPushMatrix();
     
-        glTranslatef(200 + ( i * 20) , 200, 0.0f);     
+        glTranslatef(200 + ( i * 15) , 200, 0.0f);     
     
         //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         [[mSprites objectAtIndex:(NSInteger)i] DrawSprite];
