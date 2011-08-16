@@ -257,6 +257,8 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     
     glPopMatrix();
     
+    [mSpriteFont DrawFont];
+    
     glPopMatrix();
     
     [(EAGLView *)self.view presentFramebuffer];

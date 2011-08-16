@@ -46,10 +46,10 @@
 - (void) InitSprite
 {
     static const GLfloat s_squareVertices[] = { 
-        -30.0f, -30.0f, 
-        30.0f, -30.0f, 
-        -30.0f, 30.0f, 
-        30.0f,  30.0f,
+        -10.0f, -10.0f, 
+        10.0f, -10.0f, 
+        -10.0f, 10.0f, 
+        10.0f,  10.0f,
     };
     
     static const GLubyte s_squareColors[] = {
@@ -69,21 +69,21 @@
     [self InitTexture:textureName];
     
     static const GLfloat s_squareVertices[] = { 
-        -30.0f, -30.0f, 
-        30.0f, -30.0f, 
-        -30.0f, 30.0f, 
-        30.0f,  30.0f,
+        -10.0f, -10.0f, 
+        10.0f, -10.0f, 
+        -10.0f, 10.0f, 
+        10.0f,  10.0f,
     };
         
     // Sets up an array of values for the texture coordinates.
     static const GLfloat s_spriteTexcoords[] = {
-        0.875f, 0.0f,
+        0.0f, 0.0f,
         1.0f, 0.0f,
-        0.875f, 0.125f,
-        1.0f, 0.125f,
+        0.0f, 1.0f,
+        1.0f, 1.0f,
     };
-        
-    spriteTextureCoordinatesF = s_spriteTexcoords;
+    
+    spriteTextureCoordinatesF = (GLfloat*)s_spriteTexcoords;
     
     squareVertices = s_squareVertices;
     
@@ -94,26 +94,34 @@
     [self InitTexture:textureName];
     
     static const GLfloat s_squareVertices[] = { 
-        -30.0f, -30.0f, 
-        30.0f, -30.0f, 
-        -30.0f, 30.0f, 
-        30.0f,  30.0f,
+        -10.0f, -10.0f, 
+        10.0f, -10.0f, 
+        -10.0f, 10.0f, 
+        10.0f,  10.0f,
     };
     
-    spriteTextureCoordinatesF = texCoords;
+    for(int i = 0; i < 8; i++)
+    {
+        spriteTexCoords[i] = texCoords[i];
+    }
     
     squareVertices = s_squareVertices;
 }
 
 - (void) DrawSprite
 {
+    glBindTexture(GL_TEXTURE_2D, spriteTexture);
+    
     glVertexPointer(2, GL_FLOAT, 0, squareVertices);
     glEnableClientState(GL_VERTEX_ARRAY);
     
     
     if(spriteTexture)
     {
-        glTexCoordPointer(2, GL_FLOAT, 0, spriteTextureCoordinatesF);
+        if(spriteTextureCoordinatesF == nil)
+            glTexCoordPointer(2, GL_FLOAT, 0, spriteTexCoords); 
+        else
+            glTexCoordPointer(2, GL_FLOAT, 0, spriteTextureCoordinatesF);
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     }
     else

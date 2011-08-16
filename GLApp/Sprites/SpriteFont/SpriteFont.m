@@ -155,7 +155,7 @@ static const char charMap[] = {
             (LETTERWIDTH * xPositionIn2DMap) + LETTERWIDTH, (LETTERHEIGHT * yPositionIn2DMap) + LETTERHEIGHT,
         };
         
-        Sprite* sprite = [[Sprite alloc]init:@"SpriteSheet.jpg":(GLfloat*)texCoords];
+        Sprite* sprite = [[Sprite alloc]init:@"SpriteSheet.png":(GLfloat*)texCoords];
         
         [mSprites addObject:sprite];
         
@@ -169,13 +169,23 @@ static const char charMap[] = {
     }
     
     [dictionary release];
-    [mSprites release];
+    //[mSprites release];
 }
 
 
 -(void)DrawFont
 {
+    for(int i = 0; i < [mStringText length]; i++)
+    {
+        glPushMatrix();
     
+        glTranslatef(200 + ( i * 20) , 200, 0.0f);     
+    
+        //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        [[mSprites objectAtIndex:(NSInteger)i] DrawSprite];
+        
+        glPopMatrix();
+    }    
 }
 
 @end

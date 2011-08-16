@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E51F1CED13FADB9C00D4360C /* SpriteSheet.png in Resources */ = {isa = PBXBuildFile; fileRef = E51F1CEC13FADB9C00D4360C /* SpriteSheet.png */; };
 		E5D55AA513F48F3D00667BA4 /* Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D55AA413F48F3D00667BA4 /* Sprite.m */; };
 		E5D55AAB13F4B24300667BA4 /* Sprite.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D55AAA13F4B24300667BA4 /* Sprite.png */; };
 		E5D55AB113F4B83900667BA4 /* SpriteFont.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D55AB013F4B83900667BA4 /* SpriteFont.m */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E51F1CEC13FADB9C00D4360C /* SpriteSheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpriteSheet.png; sourceTree = "<group>"; };
 		E5D55AA313F48F3D00667BA4 /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
 		E5D55AA413F48F3D00667BA4 /* Sprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sprite.m; sourceTree = "<group>"; };
 		E5D55AAA13F4B24300667BA4 /* Sprite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite.png; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 		E5D55AAC13F4B37000667BA4 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				E51F1CEC13FADB9C00D4360C /* SpriteSheet.png */,
 				E5E0149D13F489E200474ED0 /* SpriteSheet.jpg */,
 				E5D55AAA13F4B24300667BA4 /* Sprite.png */,
 			);
@@ -214,6 +217,7 @@
 				E5DC707813EC65550053BD04 /* GLAppViewController.xib in Resources */,
 				E5E0149E13F489E200474ED0 /* SpriteSheet.jpg in Resources */,
 				E5D55AAB13F4B24300667BA4 /* Sprite.png in Resources */,
+				E51F1CED13FADB9C00D4360C /* SpriteSheet.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
