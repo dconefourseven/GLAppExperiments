@@ -43,6 +43,19 @@
     return self;
 }
 
+-(id) initWithTexture:(GLuint) spriteTexture: (GLfloat[8]) texCoords
+{
+    self = [super init];
+    if (self) {
+        // Initialization code here.
+        [self InitSpriteWithTexture:texCoords];
+        
+        mSpriteTexture = spriteTexture;
+    }
+    
+    return self;
+}
+
 - (void) InitSprite
 {
     static const GLfloat s_squareVertices[] = { 
@@ -108,15 +121,32 @@
     squareVertices = s_squareVertices;
 }
 
+-(void) InitSpriteWithTexture: (GLfloat[8]) texCoords
+{
+    static const GLfloat s_squareVertices[] = { 
+        -10.0f, -10.0f, 
+        10.0f, -10.0f, 
+        -10.0f, 10.0f, 
+        10.0f,  10.0f,
+    };
+    
+    for(int i = 0; i < 8; i++)
+    {
+        spriteTexCoords[i] = texCoords[i];
+    }
+    
+    squareVertices = s_squareVertices;
+}
+
 - (void) DrawSprite
 {
-    glBindTexture(GL_TEXTURE_2D, spriteTexture);
+    glBindTexture(GL_TEXTURE_2D, mSpriteTexture);
     
     glVertexPointer(2, GL_FLOAT, 0, squareVertices);
     glEnableClientState(GL_VERTEX_ARRAY);
     
     
-    if(spriteTexture)
+    if(mSpriteTexture)
     {
         if(spriteTextureCoordinatesF == nil)
             glTexCoordPointer(2, GL_FLOAT, 0, spriteTexCoords); 
@@ -159,9 +189,9 @@
 		CGContextRelease(spriteContext);
 		
 		// Use OpenGL ES to generate a name for the texture.
-		glGenTextures(1, &spriteTexture);
+		glGenTextures(1, &mSpriteTexture);
 		// Bind the texture name. 
-		glBindTexture(GL_TEXTURE_2D, spriteTexture);
+		glBindTexture(GL_TEXTURE_2D, mSpriteTexture);
 		// Set the texture parameters to use a minifying filter and a linear filer (weighted average)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		// Specify a 2D texture image, providing the a pointer to the image data in memory

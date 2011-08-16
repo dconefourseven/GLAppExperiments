@@ -13,22 +13,12 @@
 
 @implementation SpriteFont
 
-static const char charMap[] = {
-    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
-    'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
-    'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-    'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
-    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
-    'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
-    'w', 'x', 'y', 'z', '0', '1', '2', '3',
-    '4', '5', '6', '7', '8', '9', 'A', 'A',
-};
-
 - (id)init
 {
     self = [super init];
     if (self) {
         // Initialization code here.
+        mSpriteTexture = 0;
     }
     
     return self;
@@ -43,6 +33,8 @@ static const char charMap[] = {
         
         if(sizeOfString == 0)
             return NO;
+        
+        mSpriteTexture = 0;
         
         mStringText = [[NSString alloc]initWithString:(NSString*)stringText];
         
@@ -65,6 +57,7 @@ static const char charMap[] = {
 
 -(void)InitialiseSprites:(const NSString*)stringText: (int) stringSize
 {
+    [self InitTexture:@"SpriteSheet.png"];
     
     NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:
                                 @"0", @"A",
@@ -155,7 +148,7 @@ static const char charMap[] = {
             (LETTERWIDTH * xPositionIn2DMap) + LETTERWIDTH, (LETTERHEIGHT * yPositionIn2DMap) + LETTERHEIGHT,
         };
         
-        Sprite* sprite = [[Sprite alloc]init:@"SpriteSheet.png":(GLfloat*)texCoords];
+        Sprite* sprite = [[Sprite alloc]initWithTexture:mSpriteTexture :texCoords];
         
         [mSprites addObject:sprite];
         
@@ -186,6 +179,51 @@ static const char charMap[] = {
         
         glPopMatrix();
     }    
+}
+
+- (void) InitTexture : (NSString* const) textureName
+{
+    CGImageRef spriteImage;
+    CGContextRef spriteContext;
+    GLubyte *spriteData;
+	size_t	width, height;
+    
+    // Creates a Core Graphics image from an image file
+	spriteImage = [UIImage imageNamed:textureName].CGImage;
+	// Get the width and height of the image
+	width = CGImageGetWidth(spriteImage);
+	height = CGImageGetHeight(spriteImage);
+	// Texture dimensions must be a power of 2. If you write an application that allows users to supply an image,
+	// you'll want to add code that checks the dimensions and takes appropriate action if they are not a power of 2.
+    
+	if(spriteImage) {
+		// Allocated memory needed for the bitmap context
+		spriteData = (GLubyte *) calloc(width * height * 4, sizeof(GLubyte));
+		// Uses the bitmap creation function provided by the Core Graphics framework. 
+		spriteContext = CGBitmapContextCreate(spriteData, width, height, 8, width * 4, CGImageGetColorSpace(spriteImage), kCGImageAlphaPremultipliedLast);
+		// After you create the context, you can draw the sprite image to the context.
+		CGContextDrawImage(spriteContext, CGRectMake(0.0, 0.0, (CGFloat)width, (CGFloat)height), spriteImage);
+		// You don't need the context at this point, so you need to release it to avoid memory leaks.
+		CGContextRelease(spriteContext);
+		
+		// Use OpenGL ES to generate a name for the texture.
+		glGenTextures(1, &mSpriteTexture);
+		// Bind the texture name. 
+		glBindTexture(GL_TEXTURE_2D, mSpriteTexture);
+		// Set the texture parameters to use a minifying filter and a linear filer (weighted average)
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		// Specify a 2D texture image, providing the a pointer to the image data in memory
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
+		// Release the image data
+		free(spriteData);
+		
+		// Enable use of the texture
+		glEnable(GL_TEXTURE_2D);
+		// Set a blending function to use
+		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+		// Enable blending
+		glEnable(GL_BLEND);
+    }
 }
 
 @end

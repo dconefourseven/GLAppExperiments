@@ -22,16 +22,19 @@
     GLfloat spriteTexCoords[8];
     
     /* OpenGL name for the sprite texture */
-    GLuint spriteTexture;    
+    GLuint mSpriteTexture;    
 }
 
 -(id) init;
 -(id) init:(NSString* const)textureName;
 -(id) init:(NSString* const)textureName:(GLfloat[8]) texCoords;
 
+-(id) initWithTexture:(GLuint) spriteTexture: (GLfloat[8]) texCoords;
+
 -(void) InitSprite;
 -(void) InitSprite: (NSString* const) textureName;
 -(void) InitSprite: (NSString* const) textureName: (GLfloat[8]) texCoords;
+-(void) InitSpriteWithTexture: (GLfloat[8]) texCoords;
 
 -(void) DrawSprite;
 

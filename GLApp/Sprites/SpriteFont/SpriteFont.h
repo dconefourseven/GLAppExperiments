@@ -18,13 +18,19 @@
 {
     NSString* mStringText;
     NSMutableArray* mSprites;
+    
+    GLuint mSpriteTexture;
 }
 
 -(id)init;
 -(id)init: (const NSString*) stringText;
+
 -(void)AppendToEndOfString:(const NSString*) stringText;
 -(void)ReplaceStringText:(const NSString*) stringText;
 -(void)InitialiseSprites:(const NSString*)stringText: (int) stringSize;
+
+-(void) InitTexture: (NSString* const) textureName;
+
 -(void)DrawFont;
 
 @end
