@@ -141,11 +141,16 @@ static const char charMap[] = {
     
     for(int i = 0; i < stringSize; i++)
     {
-        //int positionInCharMap = 0;
         char characterAtIndex = [stringText characterAtIndex:(NSUInteger)i];
         NSString* charInString = [[NSString alloc]initWithCString:&characterAtIndex];
          
-        NSString *test = [[NSString alloc]initWithString:[dictionary objectForKey:charInString]]; 
+        NSString *positionInMap = [[NSString alloc]initWithString:[dictionary objectForKey:charInString]]; 
+        
+        int intPositionInMap = [positionInMap intValue];
+        
+        //Calculate the x position using the modulus of the position in the char map, divide by 8 because our tex is 8x8
+        int xPositionIn2DMap = intPositionInMap % 8;
+        int yPositionIn2DMap = intPositionInMap / 8;
         
         
         
