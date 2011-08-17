@@ -29,10 +29,10 @@ enum {
 @property (nonatomic, retain) EAGLContext *context;
 @property (nonatomic, assign) CADisplayLink *displayLink;
 @property (nonatomic, assign) NSTimer *animationTimer;
-/*- (BOOL)loadShaders;
+- (BOOL)loadShaders;
 - (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file;
 - (BOOL)linkProgram:(GLuint)prog;
-- (BOOL)validateProgram:(GLuint)prog;*/
+- (BOOL)validateProgram:(GLuint)prog;
 @end
 
 static CGPoint myPoint;
@@ -50,12 +50,15 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
 
 - (void)awakeFromNib
 {
-    //EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+    EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     
     //USE THIS TO INITIALISE OPENGL ES 2
     //Right now we want to use OpenGL ES 1.1. Hence why this is ignored
-    //if (!aContext) { }
-    EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
+    
+    if (!aContext) 
+    { 
+        aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
+    }
     
     if (!aContext)
         NSLog(@"Failed to create ES context");
@@ -68,8 +71,8 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     [(EAGLView *)self.view setContext:context];
     [(EAGLView *)self.view setFramebuffer];
     
-    /*if ([context API] == kEAGLRenderingAPIOpenGLES2)
-        [self loadShaders];*/
+    if ([context API] == kEAGLRenderingAPIOpenGLES2)
+        [self loadShaders];
     
     animating = FALSE;
     animationFrameInterval = 1;
@@ -206,7 +209,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     }
 }
 
-int testInt = 0;
+
 
 - (void)drawFrame
 {
@@ -218,62 +221,120 @@ int testInt = 0;
     #if defined(DEBUG)
     #endif
     
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-
-    glOrthof(0, ScreenWidth, ScreenHeight, 0, -1.0f, 1.0f);  
     
-    glPushMatrix();   // Push a matrix to the stack
+    //Replace the implementation of this method to do your own custom drawing.
+        static const GLfloat squareVertices[] = {
+            -0.5f, -0.33f,
+            0.5f, -0.33f,
+            -0.5f,  0.33f,
+            0.5f,  0.33f,
+        };
     
-    if(CurrentScreenOrientation == LandscapeRight)
-    {
-        //Right screen orientation
-        glRotatef(90.0f, 0.0f, 0.0f, 1.0f); // Rotate 90 degrees
-        glTranslatef(0.0f, -ScreenWidth, 0.0f);  // Move vertically the screen Width
-    }
+    static const GLubyte squareColors[] = {
+        255, 255,   0, 255,
+        0,   255, 255, 255,
+        0,     0,   0,   0,
+        255,   0, 255, 255,
+    };
     
-    if(CurrentScreenOrientation == LandscapeLeft)
-    {
-        //Left screen orientation
-        glRotatef(-90.0f, 0.0f, 0.0f, 1.0f);
-        glTranslatef(-ScreenHeight, 0.0f, 0.0f); // Move horizontally the screen Height
-    }
+    static float transY = 0.0f;
     
-    /// Draw Stuff
+    glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
         
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
     
-    glPushMatrix();
+    if ([context API] == kEAGLRenderingAPIOpenGLES2) {
+        
+        // Use shader program.
+        glUseProgram(program);
+        
+        // Update uniform value.
+        glUniform1f(uniforms[UNIFORM_TRANSLATE], (GLfloat)transY);
+        transY += 0.075f;	
+        
+        // Update attribute values.
+        glVertexAttribPointer(ATTRIB_VERTEX, 2, GL_FLOAT, 0, 0, squareVertices);
+        glEnableVertexAttribArray(ATTRIB_VERTEX);
+        glVertexAttribPointer(ATTRIB_COLOR, 4, GL_UNSIGNED_BYTE, 1, 0, squareColors);
+        glEnableVertexAttribArray(ATTRIB_COLOR);
+        
+        // Validate program before drawing. This is a good check, but only really necessary in a debug build.
+        // DEBUG macro must be defined in your debug configurations if that's not already the case.
+#if defined(DEBUG)
+        if (![self validateProgram:program]) {
+            NSLog(@"Failed to validate program: %d", program);
+            return;
+        }
+#endif
+        
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+    }
+    else
+    {
     
-    glTranslatef(240.0f, 100.0, 0.0f);
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+
+        glOrthof(0, ScreenWidth, ScreenHeight, 0, -1.0f, 1.0f);  
     
-    //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    [mSprite DrawSprite];
+        glPushMatrix();   // Push a matrix to the stack
     
-    glPopMatrix();
+        if(CurrentScreenOrientation == LandscapeRight)
+        {
+            //Right screen orientation
+            glRotatef(90.0f, 0.0f, 0.0f, 1.0f); // Rotate 90 degrees
+            glTranslatef(0.0f, -ScreenWidth, 0.0f);  // Move vertically the screen Width
+        }
+        
+        if(CurrentScreenOrientation == LandscapeLeft)
+        {
+            //Left screen orientation
+            glRotatef(-90.0f, 0.0f, 0.0f, 1.0f);
+            glTranslatef(-ScreenHeight, 0.0f, 0.0f); // Move horizontally the screen Height
+        }
     
-    glPushMatrix();
+        /// Draw Stuff
+        
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
     
-    glTranslatef(myPoint.y, myPoint.x, 0.0f);     
+        glPushMatrix();
     
-    //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    [mSprite DrawSprite];
+        glTranslatef(240.0f, 100.0, 0.0f);
     
-    glPopMatrix();
+        //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        [mSprite DrawSprite];
     
-    testInt ++;
+        glPopMatrix();
     
-    NSString* testNSString = [[NSString alloc]initWithFormat:@"%d", testInt];
+        glPushMatrix();
     
-    [mSpriteFont DrawFont:testNSString];
-    //[mSpriteFont DrawFont];
+        glTranslatef(myPoint.y, myPoint.x, 0.0f);     
     
-    glPopMatrix();
+        //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        [mSprite DrawSprite];
+    
+        glPopMatrix();
+    
+       static int testInt = 0;
+        
+        testInt ++;
+    
+        NSString* testNSString = [[NSString alloc]initWithFormat:@"%d", testInt];
+    
+        [mSpriteFont DrawFont:testNSString];
+        //[mSpriteFont DrawFont];
+    
+        glPopMatrix();
+        
+        [testNSString release];
+    
+    }
     
     [(EAGLView *)self.view presentFramebuffer];
     
-    [testNSString release];
+    
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -350,7 +411,7 @@ int testInt = 0;
     return NO;
 }
 
-/*- (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file
+- (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file
 {
     GLint status;
     const GLchar *source;
@@ -503,6 +564,6 @@ int testInt = 0;
         glDeleteShader(fragShader);
     
     return TRUE;
-}*/
+}
 
 @end
