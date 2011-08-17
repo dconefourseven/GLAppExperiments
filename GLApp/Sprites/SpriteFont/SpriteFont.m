@@ -38,7 +38,7 @@
         
         mStringText = [[NSString alloc]initWithString:(NSString*)stringText];
         
-        [self InitialiseSprites:stringText:sizeOfString];
+        [self InitialiseSprites];
         
     }
     
@@ -55,9 +55,10 @@
     
 }
 
--(void)InitialiseSprites:(const NSString*)stringText: (int) stringSize
+-(void)InitialiseSprites
 {
-    [self InitTexture:@"SpriteSheet.png"];
+    if(mSpriteTexture == 0)
+        [self InitTexture:@"SpriteSheet.png"];
     
     NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:
                                 @"0", @"A",
@@ -126,11 +127,11 @@
                                 @"63", @"-",
                                 nil];
     
-    mSprites = [[NSMutableArray alloc]initWithCapacity:stringSize];
+    mSprites = [[NSMutableArray alloc]initWithCapacity:[mStringText length]];
     
-    for(int i = 0; i < stringSize; i++)
+    for(int i = 0; i < [mStringText length]; i++)
     {
-        char characterAtIndex = [stringText characterAtIndex:(NSUInteger)i];
+        char characterAtIndex = [mStringText characterAtIndex:(NSUInteger)i];
         NSString* charInString = [[NSString alloc]initWithFormat:@"%C", characterAtIndex];
          
         NSString *positionInMap = [[NSString alloc]initWithString:[dictionary objectForKey:charInString]]; 
@@ -165,15 +166,39 @@
     //[mSprites release];
 }
 
-
 -(void)DrawFont
 {
     for(int i = 0; i < [mStringText length]; i++)
     {
         glPushMatrix();
     
-        glTranslatef(200 + ( i * 15) , 200, 0.0f);     
+        glTranslatef(200 + ( i * 20) , 200, 0.0f);     
     
+        //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        [[mSprites objectAtIndex:(NSInteger)i] DrawSprite];
+        
+        glPopMatrix();
+    }    
+}
+
+-(void)DrawFont:(const NSString*) newText
+{
+    if(![newText isEqualToString:mStringText])
+    {
+        [mStringText dealloc];
+        [mSprites dealloc];
+        
+        
+        mStringText = [[NSString alloc] initWithString:(NSString*)newText];
+        [self InitialiseSprites];
+    }
+        
+    for(int i = 0; i < [mStringText length]; i++)
+    {
+        glPushMatrix();
+        
+        glTranslatef(200 + ( i * 20) , 200, 0.0f);     
+        
         //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         [[mSprites objectAtIndex:(NSInteger)i] DrawSprite];
         
@@ -224,6 +249,18 @@
 		// Enable blending
 		glEnable(GL_BLEND);
     }
+}
+
+-(id)release
+{
+    [mStringText release];
+    [mSprites release];
+    
+    mSpriteTexture = 0;
+    
+    [super release];
+    
+    return self;
 }
 
 @end

@@ -88,7 +88,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     
     mSprite = [[Sprite alloc]init:@"Sprite.png"];
     
-    mSpriteFont = [[SpriteFont alloc] init:@"Hello David"];
+    mSpriteFont = [[SpriteFont alloc] init:@"Hello World"];
     
     // A system version of 3.1 or greater is required to use CADisplayLink. The NSTimer
     // class is used as fallback when it isn't available.
@@ -105,7 +105,10 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
         program = 0;
     }
     
+    [mSprite release];
     [mSprite dealloc];
+    [mSpriteFont release];
+    [mSpriteFont dealloc];
     
     // Tear down context.
     if ([EAGLContext currentContext] == context)
@@ -203,6 +206,8 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     }
 }
 
+int testInt = 0;
+
 - (void)drawFrame
 {
     [(EAGLView *)self.view setFramebuffer];
@@ -257,7 +262,11 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     
     glPopMatrix();
     
-    [mSpriteFont DrawFont];
+    testInt ++;
+    
+    NSString* testNSString = [[NSString alloc]initWithFormat:@"%d", testInt];
+    
+    [mSpriteFont DrawFont:testNSString];
     
     glPopMatrix();
     

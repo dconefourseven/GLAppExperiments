@@ -27,11 +27,14 @@
 
 -(void)AppendToEndOfString:(const NSString*) stringText;
 -(void)ReplaceStringText:(const NSString*) stringText;
--(void)InitialiseSprites:(const NSString*)stringText: (int) stringSize;
+-(void)InitialiseSprites;
 
 -(void) InitTexture: (NSString* const) textureName;
 
 -(void)DrawFont;
+-(void)DrawFont:(const NSString*) newText;
+
+-(id)release;
 
 @end
 
