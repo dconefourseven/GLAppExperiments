@@ -185,8 +185,8 @@
 {
     if(![newText isEqualToString:mStringText])
     {
-        [mStringText dealloc];
-        [mSprites dealloc];
+        [mStringText release];
+        [mSprites release];
         
         
         mStringText = [[NSString alloc] initWithString:(NSString*)newText];
