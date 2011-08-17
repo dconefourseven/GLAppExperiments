@@ -267,10 +267,13 @@ int testInt = 0;
     NSString* testNSString = [[NSString alloc]initWithFormat:@"%d", testInt];
     
     [mSpriteFont DrawFont:testNSString];
+    //[mSpriteFont DrawFont];
     
     glPopMatrix();
     
     [(EAGLView *)self.view presentFramebuffer];
+    
+    [testNSString release];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
