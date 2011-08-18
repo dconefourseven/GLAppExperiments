@@ -85,7 +85,10 @@
         1.0f, 1.0f,
     };
     
-    spriteTextureCoordinatesF = (GLfloat*)s_spriteTexcoords;
+    for(int i = 0; i < 8; i++)
+    {
+        spriteTextureCoordinates[i] = s_spriteTexcoords[i];
+    }
     
     squareVertices = s_squareVertices;
     
@@ -102,7 +105,7 @@
     
     for(int i = 0; i < 8; i++)
     {
-        spriteTexCoords[i] = texCoords[i];
+        spriteTextureCoordinates[i] = texCoords[i];
     }
     
     squareVertices = s_squareVertices;
@@ -118,10 +121,7 @@
     
     if(mSpriteTexture)
     {
-        if(spriteTextureCoordinatesF == nil)
-            glTexCoordPointer(2, GL_FLOAT, 0, spriteTexCoords); 
-        else
-            glTexCoordPointer(2, GL_FLOAT, 0, spriteTextureCoordinatesF);
+        glTexCoordPointer(2, GL_FLOAT, 0, spriteTextureCoordinates); 
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     }
     else

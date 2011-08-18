@@ -56,10 +56,7 @@
 }
 
 -(void)InitialiseSprites
-{
-    if(mSpriteTexture == 0)
-        [self InitTexture:@"SpriteSheet.png"];
-    
+{    
     NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:
                                 @"0", @"A",
                                 @"1", @"B",
@@ -127,21 +124,32 @@
                                 @"63", @"-",
                                 nil];
     
+    //Create the sprites here as this is called from places other than "init"
     mSprites = [[NSMutableArray alloc]initWithCapacity:[mStringText length]];
+    
+    //Make sure to load the spritefont texture if it hasn't been loaded already
+    if(mSpriteTexture == 0)
+        //Load ONLY if it hasn't been loaded already. Do not waste resources
+        [self InitTexture:@"SpriteSheet.png"];
     
     for(int i = 0; i < [mStringText length]; i++)
     {
+        //Get the character at the current index in the string
         char characterAtIndex = [mStringText characterAtIndex:(NSUInteger)i];
+        //Convert it to an NSString so it is usable
         NSString* charInString = [[NSString alloc]initWithFormat:@"%C", characterAtIndex];
          
+        //Find it's position in the char map dictionary
         NSString *positionInMap = [[NSString alloc]initWithString:[dictionary objectForKey:charInString]]; 
         
+        //Convert that data into an index
         int intPositionInMap = [positionInMap intValue];
         
         //Calculate the x position using the modulus of the position in the char map, divide by 8 because our tex is 8x8
         int xPositionIn2DMap = intPositionInMap % 8;
         int yPositionIn2DMap = intPositionInMap / 8;
         
+        //Work out the texture co-ordinates for each letter in the spritefont texture
         GLfloat texCoords[] = {
             LETTERWIDTH * xPositionIn2DMap,                 LETTERHEIGHT * yPositionIn2DMap,
             (LETTERWIDTH * xPositionIn2DMap) + LETTERWIDTH, LETTERHEIGHT * yPositionIn2DMap,
@@ -149,32 +157,35 @@
             (LETTERWIDTH * xPositionIn2DMap) + LETTERWIDTH, (LETTERHEIGHT * yPositionIn2DMap) + LETTERHEIGHT,
         };
         
+        //Create the sprite
         Sprite* sprite = [[Sprite alloc]initWithTexture:mSpriteTexture :texCoords];
         
+        //Add it onto the mutable array
         [mSprites addObject:sprite];
         
+        //Clean up after ourselves, these temp objects should not be seen outside of this function
         [sprite release];
-        characterAtIndex = 0;
         [charInString release];
         [positionInMap release];
+        characterAtIndex = 0;
         intPositionInMap = 0;
         xPositionIn2DMap = 0;
         yPositionIn2DMap = 0;
     }
     
+    //Release the dictionary as we don't need it outside of this function
     [dictionary release];
-    //[mSprites release];
 }
 
 -(void)DrawFont
 {
+    //Loop through all the sprites and draw them
     for(int i = 0; i < [mStringText length]; i++)
     {
         glPushMatrix();
     
         glTranslatef(200 + ( i * 20) , 200, 0.0f);     
     
-        //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         [[mSprites objectAtIndex:(NSInteger)i] DrawSprite];
         
         glPopMatrix();
@@ -183,23 +194,25 @@
 
 -(void)DrawFont:(const NSString*) newText
 {
+    //If the string has changed, something needs to be done
     if(![newText isEqualToString:mStringText])
     {
+        //First thing's first, clear up after ourselves
         [mStringText release];
         [mSprites release];
         
-        
+        //Load the new string and initialise the sprites again
         mStringText = [[NSString alloc] initWithString:(NSString*)newText];
         [self InitialiseSprites];
     }
         
+    //Loop through all the sprites and draw them
     for(int i = 0; i < [mStringText length]; i++)
     {
         glPushMatrix();
         
         glTranslatef(200 + ( i * 20) , 200, 0.0f);     
         
-        //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         [[mSprites objectAtIndex:(NSInteger)i] DrawSprite];
         
         glPopMatrix();
@@ -257,8 +270,6 @@
     [mSprites release];
     
     mSpriteTexture = 0;
-    
-    [super release];
     
     return self;
 }

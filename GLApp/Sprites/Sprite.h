@@ -17,8 +17,7 @@
     
     const GLfloat *squareVertices;
     const GLubyte *squareColors;
-    const GLfloat *spriteTextureCoordinatesF;
-    GLfloat spriteTexCoords[8];
+    GLfloat spriteTextureCoordinates[8];
     
     /* OpenGL name for the sprite texture */
     GLuint mSpriteTexture;    
