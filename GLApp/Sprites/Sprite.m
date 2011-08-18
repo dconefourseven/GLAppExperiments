@@ -32,17 +32,6 @@
     return self;
 }
 
-- (id)init : (NSString* const) textureName : (GLfloat[8]) texCoords
-{
-    self = [super init];
-    if (self) {
-        // Initialization code here.
-        [self InitSprite:textureName:texCoords];
-    }
-    
-    return self;
-}
-
 -(id) initWithTexture:(GLuint) spriteTexture: (GLfloat[8]) texCoords
 {
     self = [super init];
@@ -100,25 +89,6 @@
     
     squareVertices = s_squareVertices;
     
-}
-
--(void) InitSprite: (NSString* const) textureName: (GLfloat[8]) texCoords
-{
-    [self InitTexture:textureName];
-    
-    static const GLfloat s_squareVertices[] = { 
-        -10.0f, -10.0f, 
-        10.0f, -10.0f, 
-        -10.0f, 10.0f, 
-        10.0f,  10.0f,
-    };
-    
-    for(int i = 0; i < 8; i++)
-    {
-        spriteTexCoords[i] = texCoords[i];
-    }
-    
-    squareVertices = s_squareVertices;
 }
 
 -(void) InitSpriteWithTexture: (GLfloat[8]) texCoords

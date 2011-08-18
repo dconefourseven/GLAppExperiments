@@ -55,7 +55,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     //USE THIS TO INITIALISE OPENGL ES 2
     //Right now we want to use OpenGL ES 1.1. Hence why this is ignored
     
-    if (!aContext) 
+    //if (!aContext) 
     { 
         aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
     }
