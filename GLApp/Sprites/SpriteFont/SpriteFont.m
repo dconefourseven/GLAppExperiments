@@ -77,12 +77,9 @@
         char characterAtIndex = [mStringText characterAtIndex:(NSUInteger)i];
         //Convert it to an NSString so it is usable
         NSString* charInString = [[NSString alloc]initWithFormat:@"%C", characterAtIndex];
-         
-        //Find it's position in the char map dictionary
-        NSString *positionInMap = [[NSString alloc]initWithString:[mCharacterMapDictionary objectForKey:charInString]]; 
         
-        //Convert that data into an index
-        int intPositionInMap = [positionInMap intValue];
+        //Get the position value associated with the character (it's position in the map)
+        int intPositionInMap = [[mCharacterMapDictionary objectForKey:charInString] intValue];
         
         //Calculate the x position using the modulus of the position in the char map, divide by 8 because our tex is 8x8
         int xPositionIn2DMap = intPositionInMap % 8;
@@ -105,7 +102,6 @@
         //Clean up after ourselves, these temp objects should not be seen outside of this function
         [sprite release];
         [charInString release];
-        [positionInMap release];
         characterAtIndex = 0;
         intPositionInMap = 0;
         xPositionIn2DMap = 0;
