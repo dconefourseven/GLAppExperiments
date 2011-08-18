@@ -55,7 +55,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     //USE THIS TO INITIALISE OPENGL ES 2
     //Right now we want to use OpenGL ES 1.1. Hence why this is ignored
     
-    //if (!aContext)
+    if (!aContext)
     { 
         aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
     }
@@ -224,11 +224,18 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     
     //Replace the implementation of this method to do your own custom drawing.
         static const GLfloat squareVertices[] = {
-            -0.5f, -0.33f,
-            0.5f, -0.33f,
-            -0.5f,  0.33f,
-            0.5f,  0.33f,
+            -25.0f, -25.0f,
+            25.0f, -25.0f,
+            -25.0f,  25.0f,
+            25.0f,  25.0f,
         };
+    
+    /*static const GLfloat squareVertices[] = {
+        -0.5f, -0.5f,
+        0.5f, -0.5f,
+        -0.5f,  0.5f,
+        0.5f,  0.5f,
+    };*/
     
     static const GLubyte squareColors[] = {
         255, 255,   0, 255,
@@ -249,8 +256,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
         glUseProgram(program);
         
         // Update uniform value.
-        glUniform1f(uniforms[UNIFORM_TRANSLATE], (GLfloat)transY);
-        transY += 0.075f;	
+        glUniform1f(uniforms[UNIFORM_TRANSLATE], (GLfloat)transY);	
         
         // Update attribute values.
         glVertexAttribPointer(ATTRIB_VERTEX, 2, GL_FLOAT, 0, 0, squareVertices);
