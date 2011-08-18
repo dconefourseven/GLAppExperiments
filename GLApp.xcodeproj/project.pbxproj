@@ -25,6 +25,7 @@
 		E5DC707213EC65550053BD04 /* EAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DC707113EC65550053BD04 /* EAGLView.m */; };
 		E5DC707513EC65550053BD04 /* GLAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DC707413EC65550053BD04 /* GLAppViewController.m */; };
 		E5DC707813EC65550053BD04 /* GLAppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5DC707613EC65550053BD04 /* GLAppViewController.xib */; };
+		E5ED90D813FD2CAC00FD44BC /* CharMap.plist in Resources */ = {isa = PBXBuildFile; fileRef = E5ED90D713FD2CAC00FD44BC /* CharMap.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		E5DC707313EC65550053BD04 /* GLAppViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLAppViewController.h; sourceTree = "<group>"; };
 		E5DC707413EC65550053BD04 /* GLAppViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GLAppViewController.m; sourceTree = "<group>"; };
 		E5DC707713EC65550053BD04 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/GLAppViewController.xib; sourceTree = "<group>"; };
+		E5ED90D713FD2CAC00FD44BC /* CharMap.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CharMap.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 		E5DC705E13EC65550053BD04 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E5ED90D713FD2CAC00FD44BC /* CharMap.plist */,
 				E5DC705F13EC65550053BD04 /* GLApp-Info.plist */,
 				E5DC706013EC65550053BD04 /* InfoPlist.strings */,
 				E5DC706313EC65550053BD04 /* main.m */,
@@ -214,6 +217,7 @@
 				E5DC707813EC65550053BD04 /* GLAppViewController.xib in Resources */,
 				E5D55AAB13F4B24300667BA4 /* Sprite.png in Resources */,
 				E51F1CED13FADB9C00D4360C /* SpriteSheet.png in Resources */,
+				E5ED90D813FD2CAC00FD44BC /* CharMap.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

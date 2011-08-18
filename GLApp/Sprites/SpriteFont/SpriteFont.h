@@ -20,6 +20,8 @@
     NSMutableArray* mSprites;
     
     GLuint mSpriteTexture;
+    
+    const NSDictionary* mCharacterMapDictionary;
 }
 
 -(id)init;
