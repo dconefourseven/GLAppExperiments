@@ -14,6 +14,7 @@
 // Uniform index.
 enum {
     UNIFORM_TRANSLATE,
+    UNIFORM_ORIENTATION,
     NUM_UNIFORMS
 };
 GLint uniforms[NUM_UNIFORMS];
@@ -50,15 +51,15 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
 
 - (void)awakeFromNib
 {
-    EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+    //EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     
     //USE THIS TO INITIALISE OPENGL ES 2
     //Right now we want to use OpenGL ES 1.1. Hence why this is ignored
     
-    if (!aContext)
-    { 
-        aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
-    }
+    //if (!aContext)
+    //{ 
+       EAGLContext* aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
+    //}
     
     if (!aContext)
         NSLog(@"Failed to create ES context");
@@ -222,7 +223,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     #endif
     
     
-    //Replace the implementation of this method to do your own custom drawing.
+    /*//Replace the implementation of this method to do your own custom drawing.
         static const GLfloat squareVertices[] = {
             -25.0f, -25.0f,
             25.0f, -25.0f,
@@ -230,12 +231,6 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
             25.0f,  25.0f,
         };
     
-    /*static const GLfloat squareVertices[] = {
-        -0.5f, -0.5f,
-        0.5f, -0.5f,
-        -0.5f,  0.5f,
-        0.5f,  0.5f,
-    };*/
     
     static const GLubyte squareColors[] = {
         255, 255,   0, 255,
@@ -258,6 +253,15 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
         // Update uniform value.
         glUniform1f(uniforms[UNIFORM_TRANSLATE], (GLfloat)transY);	
         
+        if(CurrentScreenOrientation == LandscapeRight)
+        {
+            glUniform1i(uniforms[UNIFORM_ORIENTATION], 0);
+        }
+        if(CurrentScreenOrientation == LandscapeLeft)
+        {
+            glUniform1i(uniforms[UNIFORM_ORIENTATION], 1);
+        }
+        
         // Update attribute values.
         glVertexAttribPointer(ATTRIB_VERTEX, 2, GL_FLOAT, 0, 0, squareVertices);
         glEnableVertexAttribArray(ATTRIB_VERTEX);
@@ -277,7 +281,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
 
     }
     else
-    {
+    {*/
     
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
@@ -336,7 +340,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
         
         [testNSString release];
     
-    }
+    //}
     
     [(EAGLView *)self.view presentFramebuffer];
     
@@ -562,6 +566,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     
     // Get uniform locations.
     uniforms[UNIFORM_TRANSLATE] = glGetUniformLocation(program, "translate");
+    uniforms[UNIFORM_ORIENTATION] = glGetUniformLocation(program, "orientation");
     
     // Release vertex and fragment shaders.
     if (vertShader)
