@@ -22,7 +22,9 @@
     GLfloat spriteTextureCoordinates[8];
     
     /* OpenGL name for the sprite texture */
-    GLuint mSpriteTexture;    
+    GLuint mSpriteTexture;   
+    
+    GLuint VBOHandle;
 }
 
 -(id) init;
