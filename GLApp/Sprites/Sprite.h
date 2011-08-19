@@ -11,6 +11,8 @@
 
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
+#import <OpenGLES/ES2/gl.h>
+#import <OpenGLES/ES2/glext.h>
 
 @interface Sprite : NSObject
 {
@@ -32,6 +34,8 @@
 -(void) InitSpriteWithTexture: (GLfloat[8]) texCoords;
 
 -(void) DrawSprite;
+-(void) DrawSpriteES2WithoutTexture: (int)VertexAttribute: (int)ColorAttribute;
+-(void) DrawSpriteES2WithTexture: (int)VertexAttribute: (int)TexCoordAttribute: (int)UniformSampler;
 
 -(void) InitTexture: (NSString* const) textureName;
 

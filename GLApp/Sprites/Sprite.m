@@ -133,6 +133,31 @@
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
+-(void) DrawSpriteES2WithoutTexture:(int)VertexAttribute :(int)ColorAttribute
+{
+    // Update attribute values.
+    glVertexAttribPointer(VertexAttribute, 2, GL_FLOAT, 0, 0, squareVertices);
+    glEnableVertexAttribArray(VertexAttribute);
+    glVertexAttribPointer(ColorAttribute, 4, GL_UNSIGNED_BYTE, 1, 0, squareColors);
+    glEnableVertexAttribArray(ColorAttribute);
+    
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+}
+
+-(void) DrawSpriteES2WithTexture:(int)VertexAttribute :(int)TexCoordAttribute:(int)UniformSampler
+{
+    // Update attribute values.
+    glVertexAttribPointer(VertexAttribute, 2, GL_FLOAT, 0, 0, squareVertices);
+    glEnableVertexAttribArray(VertexAttribute);
+    glVertexAttribPointer(TexCoordAttribute, 2, GL_FLOAT, 1, 0, spriteTextureCoordinates);
+    glEnableVertexAttribArray(TexCoordAttribute);
+    
+    glBindTexture(GL_TEXTURE_2D, mSpriteTexture);
+    glUniform1i(UniformSampler, mSpriteTexture);
+    
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+}
+
 - (void) InitTexture : (NSString* const) textureName
 {
     CGImageRef spriteImage;

@@ -15,6 +15,7 @@
 enum {
     UNIFORM_TRANSLATE,
     UNIFORM_ORIENTATION,
+    UNIFORM_SAMPLER,
     NUM_UNIFORMS
 };
 GLint uniforms[NUM_UNIFORMS];
@@ -23,6 +24,7 @@ GLint uniforms[NUM_UNIFORMS];
 enum {
     ATTRIB_VERTEX,
     ATTRIB_COLOR,
+    ATTRIB_TEXTURE,
     NUM_ATTRIBUTES
 };
 
@@ -223,28 +225,13 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     #endif
     
     
-    //Replace the implementation of this method to do your own custom drawing.
-        static const GLfloat squareVertices[] = {
-            -25.0f, -25.0f,
-            25.0f, -25.0f,
-            -25.0f,  25.0f,
-            25.0f,  25.0f,
-        };
-    
-    
-    static const GLubyte squareColors[] = {
-        255, 255,   0, 255,
-        0,   255, 255, 255,
-        0,     0,   0,   0,
-        255,   0, 255, 255,
-    };
-    
-    
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
         
     
     if ([context API] == kEAGLRenderingAPIOpenGLES2) {
+        
+        Sprite *testSprite = [[Sprite alloc]init:@"Sprite.png"];
         
         // Use shader program.
         glUseProgram(program);
@@ -252,11 +239,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
         // Update uniform value.
         glUniform2f(uniforms[UNIFORM_TRANSLATE], myPoint.x, myPoint.y);	
                 
-        // Update attribute values.
-        glVertexAttribPointer(ATTRIB_VERTEX, 2, GL_FLOAT, 0, 0, squareVertices);
-        glEnableVertexAttribArray(ATTRIB_VERTEX);
-        glVertexAttribPointer(ATTRIB_COLOR, 4, GL_UNSIGNED_BYTE, 1, 0, squareColors);
-        glEnableVertexAttribArray(ATTRIB_COLOR);
+        [testSprite DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE: UNIFORM_SAMPLER];
         
         // Validate program before drawing. This is a good check, but only really necessary in a debug build.
         // DEBUG macro must be defined in your debug configurations if that's not already the case.
@@ -267,7 +250,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
         }
 #endif
         
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        [testSprite release];
 
     }
     else
@@ -517,6 +500,9 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     // This needs to be done prior to linking.
     glBindAttribLocation(program, ATTRIB_VERTEX, "position");
     glBindAttribLocation(program, ATTRIB_COLOR, "color");
+    glBindAttribLocation(program, ATTRIB_TEXTURE, "a_texCoord");
+    
+    uniforms[UNIFORM_SAMPLER] = glGetUniformLocation(program, "s_Texture");
     
     // Link program.
     if (![self linkProgram:program])
