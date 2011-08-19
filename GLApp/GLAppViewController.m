@@ -111,9 +111,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
         program = 0;
     }
     
-    [mSprite release];
     [mSprite dealloc];
-    [mSpriteFont release];
     [mSpriteFont dealloc];
     
     // Tear down context.

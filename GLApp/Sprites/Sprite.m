@@ -245,4 +245,17 @@ const GLsizeiptr texCoord_size = 8*2*sizeof(GLfloat);
     }
 }
 
+-(void) release
+{
+    squareVertices = 0;
+    squareColors = 0;
+    
+    /* OpenGL name for the sprite texture */
+    mSpriteTexture = 0;   
+    
+    glDeleteBuffers(1, &cubeIBO);
+    glDeleteBuffers(1, &cubeVBO);
+
+}
+
 @end

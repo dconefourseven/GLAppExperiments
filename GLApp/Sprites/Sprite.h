@@ -42,4 +42,6 @@
 
 -(void) InitTexture: (NSString* const) textureName;
 
+-(void)release;
+
 @end
