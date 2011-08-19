@@ -24,7 +24,8 @@
     /* OpenGL name for the sprite texture */
     GLuint mSpriteTexture;   
     
-    GLuint VBOHandle;
+    GLuint cubeVBO;
+    GLuint cubeIBO;
 }
 
 -(id) init;

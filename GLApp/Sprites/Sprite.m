@@ -66,6 +66,9 @@
     
 }
 
+const GLsizeiptr vertex_size = 8*2*sizeof(GLfloat);
+const GLsizeiptr texCoord_size = 8*2*sizeof(GLfloat);
+
 - (void) InitSprite: (NSString* const) textureName
 {
     [self InitTexture:textureName];
@@ -85,12 +88,44 @@
         1.0f, 1.0f,
     };
     
+    // Describes a box, but without a top and bottom
+    GLubyte s_squareIndices[] = 
+    {
+        0,1,
+        2,3,
+    };
+    
     for(int i = 0; i < 8; i++)
     {
         spriteTextureCoordinates[i] = s_spriteTexcoords[i];
     }
     
     squareVertices = s_squareVertices;
+    
+    // allocate a new buffer
+    glGenBuffers(1, &cubeVBO);
+    // bind the buffer object to use
+    glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
+    
+    glBufferData(GL_ARRAY_BUFFER, vertex_size+texCoord_size, 0, GL_STATIC_DRAW);
+    
+    GLvoid* vbo_buffer = glMapBufferOES(GL_ARRAY_BUFFER, GL_WRITE_ONLY_OES);
+	// transfer the vertex data to the VBO
+	memcpy(vbo_buffer, squareVertices, vertex_size);
+    
+	// append color data to vertex data. To be optimal, 
+	// data should probably be interleaved and not appended
+	vbo_buffer += vertex_size;
+	memcpy(vbo_buffer, spriteTextureCoordinates, texCoord_size);
+    glUnmapBufferOES(GL_ARRAY_BUFFER); 
+    
+    // create index buffer
+    glGenBuffers(1, &cubeIBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cubeIBO);
+    
+    // For constrast, instead of glBufferSubData and glMapBuffer, 
+    // we can directly supply the data in one-shot
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4*sizeof(GLubyte), s_squareIndices, GL_STATIC_DRAW);
     
 }
 
@@ -147,15 +182,22 @@
 -(void) DrawSpriteES2WithTexture:(int)VertexAttribute :(int)TexCoordAttribute:(int)UniformSampler
 {
     // Update attribute values.
-    glVertexAttribPointer(VertexAttribute, 2, GL_FLOAT, 0, 0, squareVertices);
+    
+    // Activate the VBOs to draw
+    glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cubeIBO);
+    
+    glVertexAttribPointer(VertexAttribute, 2, GL_FLOAT, 0, 0, (GLvoid*)((char*)NULL));
     glEnableVertexAttribArray(VertexAttribute);
-    glVertexAttribPointer(TexCoordAttribute, 2, GL_FLOAT, 1, 0, spriteTextureCoordinates);
+    glVertexAttribPointer(TexCoordAttribute, 2, GL_FLOAT, 1, 0,(GLvoid*)((char*)NULL+vertex_size));
     glEnableVertexAttribArray(TexCoordAttribute);
     
     glBindTexture(GL_TEXTURE_2D, mSpriteTexture);
     glUniform1i(UniformSampler, mSpriteTexture);
     
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_BYTE, (GLvoid*)((char*)NULL));
+    
+    //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
 - (void) InitTexture : (NSString* const) textureName
