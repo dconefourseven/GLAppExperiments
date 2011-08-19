@@ -51,15 +51,15 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
 
 - (void)awakeFromNib
 {
-    //EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+    EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     
     //USE THIS TO INITIALISE OPENGL ES 2
     //Right now we want to use OpenGL ES 1.1. Hence why this is ignored
     
-    //if (!aContext)
-    //{ 
-       EAGLContext* aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
-    //}
+    if (!aContext)
+    {
+        aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
+    }
     
     if (!aContext)
         NSLog(@"Failed to create ES context");
@@ -223,7 +223,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     #endif
     
     
-    /*//Replace the implementation of this method to do your own custom drawing.
+    //Replace the implementation of this method to do your own custom drawing.
         static const GLfloat squareVertices[] = {
             -25.0f, -25.0f,
             25.0f, -25.0f,
@@ -239,7 +239,6 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
         255,   0, 255, 255,
     };
     
-    static float transY = 0.0f;
     
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -251,17 +250,8 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
         glUseProgram(program);
         
         // Update uniform value.
-        glUniform1f(uniforms[UNIFORM_TRANSLATE], (GLfloat)transY);	
-        
-        if(CurrentScreenOrientation == LandscapeRight)
-        {
-            glUniform1i(uniforms[UNIFORM_ORIENTATION], 0);
-        }
-        if(CurrentScreenOrientation == LandscapeLeft)
-        {
-            glUniform1i(uniforms[UNIFORM_ORIENTATION], 1);
-        }
-        
+        glUniform2f(uniforms[UNIFORM_TRANSLATE], myPoint.x, myPoint.y);	
+                
         // Update attribute values.
         glVertexAttribPointer(ATTRIB_VERTEX, 2, GL_FLOAT, 0, 0, squareVertices);
         glEnableVertexAttribArray(ATTRIB_VERTEX);
@@ -281,28 +271,14 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
 
     }
     else
-    {*/
+    {
     
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
 
-        glOrthof(0, ScreenWidth, ScreenHeight, 0, -1.0f, 1.0f);  
+        glOrthof(0, ScreenHeight, ScreenWidth, 0, -1.0f, 1.0f);  
     
         glPushMatrix();   // Push a matrix to the stack
-    
-        if(CurrentScreenOrientation == LandscapeRight)
-        {
-            //Right screen orientation
-            glRotatef(90.0f, 0.0f, 0.0f, 1.0f); // Rotate 90 degrees
-            glTranslatef(0.0f, -ScreenWidth, 0.0f);  // Move vertically the screen Width
-        }
-        
-        if(CurrentScreenOrientation == LandscapeLeft)
-        {
-            //Left screen orientation
-            glRotatef(-90.0f, 0.0f, 0.0f, 1.0f);
-            glTranslatef(-ScreenHeight, 0.0f, 0.0f); // Move horizontally the screen Height
-        }
     
         /// Draw Stuff
         
@@ -320,14 +296,14 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     
         glPushMatrix();
     
-        glTranslatef(myPoint.y, myPoint.x, 0.0f);     
+        glTranslatef(myPoint.x, myPoint.y, 0.0f);     
     
         //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         [mSprite DrawSprite];
     
         glPopMatrix();
     
-       static int testInt = 0;
+        static int testInt = 0;
         
         testInt ++;
     
@@ -340,10 +316,9 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
         
         [testNSString release];
     
-    //}
+    }
     
     [(EAGLView *)self.view presentFramebuffer];
-    
     
 }
 
@@ -351,7 +326,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
 {
     UITouch *myTouch = [[event allTouches] anyObject];
     
-    if(CurrentScreenOrientation == LandscapeLeft)
+    /*if(CurrentScreenOrientation == LandscapeLeft)
     {
         myPoint.x = [myTouch locationInView:self.view].x;
         myPoint.y = -([myTouch locationInView:self.view].y) + ScreenHeight;
@@ -361,14 +336,16 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     {
         myPoint.x = -([myTouch locationInView:self.view].x) + ScreenWidth;
         myPoint.y = [myTouch locationInView:self.view].y;
-    }
+    }*/
+    
+    myPoint = [myTouch locationInView:self.view];
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *myTouch = [[event allTouches] anyObject];
     
-    if(CurrentScreenOrientation == LandscapeLeft)
+    /*if(CurrentScreenOrientation == LandscapeLeft)
     {
         myPoint.x = [myTouch locationInView:self.view].x;
         myPoint.y = -([myTouch locationInView:self.view].y) + ScreenHeight;
@@ -378,8 +355,9 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     {
         myPoint.x = -([myTouch locationInView:self.view].x) + ScreenWidth;
         myPoint.y = [myTouch locationInView:self.view].y;
-    }
+    }*/
     
+    myPoint = [myTouch locationInView:self.view];    
 }
 
 
@@ -413,10 +391,10 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
-{/*
+{
     if ((orientation == UIInterfaceOrientationLandscapeRight) ||
         (orientation == UIInterfaceOrientationLandscapeLeft))
-        return YES;*/
+        return YES;
     
     return NO;
 }
@@ -566,7 +544,6 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     
     // Get uniform locations.
     uniforms[UNIFORM_TRANSLATE] = glGetUniformLocation(program, "translate");
-    uniforms[UNIFORM_ORIENTATION] = glGetUniformLocation(program, "orientation");
     
     // Release vertex and fragment shaders.
     if (vertShader)
