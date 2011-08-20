@@ -10,6 +10,48 @@
 
 @implementation Sprite
 
+#define AmountOfVertices 8
+#define AmountOfComponentsPerVertex 2
+
+#define AmountOfTextureCoordinates 8
+#define AmountOfComponentsPerTextureCoordinate 2
+
+#define AmountOfColours 16
+#define AmountOfComponentsPerColor 4
+
+const GLsizeiptr vertex_size = AmountOfVertices*AmountOfComponentsPerVertex*sizeof(GLfloat);
+const GLsizeiptr texCoord_size = AmountOfTextureCoordinates*AmountOfComponentsPerTextureCoordinate*sizeof(GLfloat);
+const GLsizeiptr color_size = AmountOfColours*AmountOfComponentsPerColor*sizeof(GLubyte);
+
+static const GLfloat s_squareVertices[] = { 
+    -10.0f, -10.0f, 
+    10.0f, -10.0f, 
+    -10.0f, 10.0f, 
+    10.0f,  10.0f,
+};
+
+// Sets up an array of values for the texture coordinates.
+static const GLfloat s_spriteTexcoords[] = {
+    0.0f, 0.0f,
+    1.0f, 0.0f,
+    0.0f, 1.0f,
+    1.0f, 1.0f,
+};
+
+static const GLubyte s_squareColors[] = {
+    255, 0, 0, 0,
+    255, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+};
+
+// Describes a box, but without a top and bottom
+static const GLubyte s_squareIndices[] = 
+{
+    0,1,
+    2,3,
+};
+
 - (id)init
 {
     self = [super init];
@@ -47,76 +89,25 @@
 
 - (void) InitSprite
 {
-    static const GLfloat s_squareVertices[] = { 
-        -10.0f, -10.0f, 
-        10.0f, -10.0f, 
-        -10.0f, 10.0f, 
-        10.0f,  10.0f,
-    };
     
-    static const GLubyte s_squareColors[] = {
-        255, 0, 0, 0,
-        255, 0, 0, 0,
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-    };
-    
-    squareColors = s_squareColors;
-    squareVertices = s_squareVertices;
-    
-}
-
-const GLsizeiptr vertex_size = 8*2*sizeof(GLfloat);
-const GLsizeiptr texCoord_size = 8*2*sizeof(GLfloat);
-
-- (void) InitSprite: (NSString* const) textureName
-{
-    [self InitTexture:textureName];
-    
-    static const GLfloat s_squareVertices[] = { 
-        -10.0f, -10.0f, 
-        10.0f, -10.0f, 
-        -10.0f, 10.0f, 
-        10.0f,  10.0f,
-    };
-        
-    // Sets up an array of values for the texture coordinates.
-    static const GLfloat s_spriteTexcoords[] = {
-        0.0f, 0.0f,
-        1.0f, 0.0f,
-        0.0f, 1.0f,
-        1.0f, 1.0f,
-    };
-    
-    // Describes a box, but without a top and bottom
-    GLubyte s_squareIndices[] = 
-    {
-        0,1,
-        2,3,
-    };
-    
-    for(int i = 0; i < 8; i++)
-    {
-        spriteTextureCoordinates[i] = s_spriteTexcoords[i];
-    }
-    
-    squareVertices = s_squareVertices;
+    /*squareColors = s_squareColors;
+     squareVertices = s_squareVertices;*/
     
     // allocate a new buffer
     glGenBuffers(1, &cubeVBO);
     // bind the buffer object to use
     glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
     
-    glBufferData(GL_ARRAY_BUFFER, vertex_size+texCoord_size, 0, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertex_size+color_size, 0, GL_STATIC_DRAW);
     
     GLvoid* vbo_buffer = glMapBufferOES(GL_ARRAY_BUFFER, GL_WRITE_ONLY_OES);
 	// transfer the vertex data to the VBO
-	memcpy(vbo_buffer, squareVertices, vertex_size);
+	memcpy(vbo_buffer, s_squareVertices, vertex_size);
     
 	// append color data to vertex data. To be optimal, 
 	// data should probably be interleaved and not appended
 	vbo_buffer += vertex_size;
-	memcpy(vbo_buffer, spriteTextureCoordinates, texCoord_size);
+	memcpy(vbo_buffer, s_squareColors, color_size);
     glUnmapBufferOES(GL_ARRAY_BUFFER); 
     
     // create index buffer
@@ -129,64 +120,139 @@ const GLsizeiptr texCoord_size = 8*2*sizeof(GLfloat);
     
 }
 
+
+
+- (void) InitSprite: (NSString* const) textureName
+{
+    [self InitTexture:textureName];
+    
+    for(int i = 0; i < 8; i++)
+    {
+        spriteTextureCoordinates[i] = s_spriteTexcoords[i];
+    }
+    
+    squareVertices = s_squareVertices;
+    
+    // allocate a new buffer
+     glGenBuffers(1, &cubeVBO);
+     // bind the buffer object to use
+     glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
+     
+     glBufferData(GL_ARRAY_BUFFER, vertex_size+texCoord_size, 0, GL_STATIC_DRAW);
+     
+     GLvoid* vbo_buffer = glMapBufferOES(GL_ARRAY_BUFFER, GL_WRITE_ONLY_OES);
+     // transfer the vertex data to the VBO
+     memcpy(vbo_buffer, squareVertices, vertex_size);
+     
+     // append color data to vertex data. To be optimal, 
+     // data should probably be interleaved and not appended
+     vbo_buffer += vertex_size;
+     memcpy(vbo_buffer, s_spriteTexcoords, texCoord_size);
+     glUnmapBufferOES(GL_ARRAY_BUFFER); 
+     
+     // create index buffer
+     glGenBuffers(1, &cubeIBO);
+     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cubeIBO);
+     
+     // For constrast, instead of glBufferSubData and glMapBuffer, 
+     // we can directly supply the data in one-shot
+     glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4*sizeof(GLubyte), s_squareIndices, GL_STATIC_DRAW);
+    
+}
+
 -(void) InitSpriteWithTexture: (GLfloat[8]) texCoords
 {
-    static const GLfloat s_squareVertices[] = { 
-        -10.0f, -10.0f, 
-        10.0f, -10.0f, 
-        -10.0f, 10.0f, 
-        10.0f,  10.0f,
-    };
-    
     for(int i = 0; i < 8; i++)
     {
         spriteTextureCoordinates[i] = texCoords[i];
     }
     
     squareVertices = s_squareVertices;
+    
+    // allocate a new buffer
+     glGenBuffers(1, &cubeVBO);
+     // bind the buffer object to use
+     glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
+     
+     glBufferData(GL_ARRAY_BUFFER, vertex_size+texCoord_size, 0, GL_STATIC_DRAW);
+     
+     GLvoid* vbo_buffer = glMapBufferOES(GL_ARRAY_BUFFER, GL_WRITE_ONLY_OES);
+     // transfer the vertex data to the VBO
+     memcpy(vbo_buffer, squareVertices, vertex_size);
+     
+     // append color data to vertex data. To be optimal, 
+     // data should probably be interleaved and not appended
+     vbo_buffer += vertex_size;
+     memcpy(vbo_buffer, texCoords, texCoord_size);
+     glUnmapBufferOES(GL_ARRAY_BUFFER); 
+     
+     // create index buffer
+     glGenBuffers(1, &cubeIBO);
+     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cubeIBO);
+     
+     // For constrast, instead of glBufferSubData and glMapBuffer, 
+     // we can directly supply the data in one-shot
+     glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4*sizeof(GLubyte), s_squareIndices, GL_STATIC_DRAW);
 }
 
 - (void) DrawSprite
 {
+    // Activate the VBOs to draw
+    glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cubeIBO);
+    
     glBindTexture(GL_TEXTURE_2D, mSpriteTexture);
     
-    glVertexPointer(2, GL_FLOAT, 0, squareVertices);
+    glVertexPointer(2, GL_FLOAT, 0, (GLvoid*)((char*)NULL));
     glEnableClientState(GL_VERTEX_ARRAY);
     
+    glColorPointer(4, GL_UNSIGNED_BYTE, 0, (GLvoid*)((char*)NULL+vertex_size));
+    glEnableClientState(GL_COLOR_ARRAY);
     
-    if(mSpriteTexture)
-    {
-        glTexCoordPointer(2, GL_FLOAT, 0, spriteTextureCoordinates); 
-        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    }
-    else
-    {
-        glColorPointer(4, GL_UNSIGNED_BYTE, 0, squareColors);
-        glEnableClientState(GL_COLOR_ARRAY);
-    }
+    glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_BYTE, (GLvoid*)((char*)NULL));
+}
+
+- (void) DrawSpriteWithTexture
+{         
+     // Activate the VBOs to draw
+     glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
+     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cubeIBO);
     
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glBindTexture(GL_TEXTURE_2D, mSpriteTexture);
+     
+     glEnableClientState(GL_VERTEX_ARRAY);
+     glVertexPointer(2, GL_FLOAT, 0, (GLvoid*)((char*)NULL));
+     
+     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+     glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid*)((char*)NULL+vertex_size)); 
+     
+     glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_BYTE, (GLvoid*)((char*)NULL));
 }
 
 -(void) DrawSpriteES2WithoutTexture:(int)VertexAttribute :(int)ColorAttribute
 {
+    // Activate the VBOs to draw
+    glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cubeIBO);
+    
     // Update attribute values.
-    glVertexAttribPointer(VertexAttribute, 2, GL_FLOAT, 0, 0, squareVertices);
+    glVertexAttribPointer(VertexAttribute, 2, GL_FLOAT, 0, 0, (GLvoid*)((char*)NULL));
     glEnableVertexAttribArray(VertexAttribute);
-    glVertexAttribPointer(ColorAttribute, 4, GL_UNSIGNED_BYTE, 1, 0, squareColors);
+    glVertexAttribPointer(ColorAttribute, 4, GL_UNSIGNED_BYTE, 1, 0, (GLvoid*)((char*)NULL+vertex_size));
     glEnableVertexAttribArray(ColorAttribute);
     
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_BYTE, (GLvoid*)((char*)NULL));
 }
 
 -(void) DrawSpriteES2WithTexture:(int)VertexAttribute :(int)TexCoordAttribute:(int)UniformSampler
 {
-    // Update attribute values.
+    glBindTexture(GL_TEXTURE_2D, mSpriteTexture);
     
     // Activate the VBOs to draw
     glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cubeIBO);
     
+    // Update attribute values.
     glVertexAttribPointer(VertexAttribute, 2, GL_FLOAT, 0, 0, (GLvoid*)((char*)NULL));
     glEnableVertexAttribArray(VertexAttribute);
     glVertexAttribPointer(TexCoordAttribute, 2, GL_FLOAT, 1, 0,(GLvoid*)((char*)NULL+vertex_size));
@@ -196,8 +262,6 @@ const GLsizeiptr texCoord_size = 8*2*sizeof(GLfloat);
     glUniform1i(UniformSampler, mSpriteTexture);
     
     glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_BYTE, (GLvoid*)((char*)NULL));
-    
-    //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
 - (void) InitTexture : (NSString* const) textureName
@@ -245,17 +309,10 @@ const GLsizeiptr texCoord_size = 8*2*sizeof(GLfloat);
     }
 }
 
--(void) release
+-(void)DeleteBuffers
 {
-    squareVertices = 0;
-    squareColors = 0;
-    
-    /* OpenGL name for the sprite texture */
-    mSpriteTexture = 0;   
-    
     glDeleteBuffers(1, &cubeIBO);
     glDeleteBuffers(1, &cubeVBO);
-
 }
 
 @end

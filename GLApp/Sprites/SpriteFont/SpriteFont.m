@@ -118,7 +118,7 @@
     
         glTranslatef(200 + ( i * 20) , 200, 0.0f);     
     
-        [[mSprites objectAtIndex:(NSInteger)i] DrawSprite];
+        [[mSprites objectAtIndex:(NSInteger)i] DrawSpriteWithTexture];
         
         glPopMatrix();
     }    
@@ -130,6 +130,10 @@
     if(![newText isEqualToString:mStringText])
     {
         //First thing's first, clear up after ourselves
+        for(int i = 0; i < [mStringText length]; i++)
+        {
+            [[mSprites objectAtIndex:(NSInteger)i] DeleteBuffers]; 
+        }
         [mStringText release];
         [mSprites release];
         
@@ -145,7 +149,7 @@
         
         glTranslatef(200 + ( i * 20) , 200, 0.0f);     
         
-        [[mSprites objectAtIndex:(NSInteger)i] DrawSprite];
+        [[mSprites objectAtIndex:(NSInteger)i] DrawSpriteWithTexture];
         
         glPopMatrix();
     }    

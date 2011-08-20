@@ -118,7 +118,7 @@
         if (!defaultFramebuffer)
             [self createFramebuffer];
         
-        //glBindFramebuffer(GL_FRAMEBUFFER, defaultFramebuffer);
+        glBindFramebuffer(GL_FRAMEBUFFER, defaultFramebuffer);
         
         glViewport(0, 0, framebufferWidth, framebufferHeight);
     }
@@ -131,7 +131,7 @@
     if (context) {
         [EAGLContext setCurrentContext:context];
         
-        //glBindRenderbuffer(GL_RENDERBUFFER, colorRenderbuffer);
+        glBindRenderbuffer(GL_RENDERBUFFER, colorRenderbuffer);
         
         success = [context presentRenderbuffer:GL_RENDERBUFFER];
     }

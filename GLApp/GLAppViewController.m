@@ -58,7 +58,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     //USE THIS TO INITIALISE OPENGL ES 2
     //Right now we want to use OpenGL ES 1.1. Hence why this is ignored
     
-    if (!aContext)
+    //if (!aContext)
     {
         aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
     }
@@ -262,7 +262,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
         glTranslatef(240.0f, 100.0, 0.0f);
     
         //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-        [mSprite DrawSprite];
+        [mSprite DrawSpriteWithTexture];
     
         glPopMatrix();
     
@@ -271,7 +271,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
         glTranslatef(myPoint.x, myPoint.y, 0.0f);     
     
         //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-        [mSprite DrawSprite];
+        [mSprite DrawSpriteWithTexture];
     
         glPopMatrix();
     
