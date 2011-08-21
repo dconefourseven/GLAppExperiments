@@ -29,14 +29,14 @@
 -(id)init;
 -(id)init: (const NSString*) stringText;
 
--(void)AppendToEndOfString:(const NSString*) stringText;
--(void)ReplaceStringText:(const NSString*) stringText;
 -(void)InitialiseSprites;
 
 -(void) InitTexture: (NSString* const) textureName;
 
 -(void)DrawFont;
 -(void)DrawFont:(const NSString*) newText;
+-(void)DrawFontES2:(int)UniformTranslate: (int)VertexAttribute: (int)TexCoordAttribute: (int)UniformSampler;
+-(void)DrawFontES2:(const NSString*) newText:(int)UniformTranslate: (int)VertexAttribute: (int)TexCoordAttribute: (int)UniformSampler;
 
 -(id)release;
 

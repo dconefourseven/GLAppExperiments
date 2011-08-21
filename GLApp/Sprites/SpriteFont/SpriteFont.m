@@ -51,16 +51,6 @@
     return self;
 }
 
--(void)AppendToEndOfString:(const NSString*) stringText
-{
-    
-}
-
--(void)ReplaceStringText:(const NSString*) stringText
-{
-    
-}
-
 -(void)InitialiseSprites
 {    
     //Create the sprites here as this is called from places other than "init"
@@ -152,6 +142,44 @@
         [[mSprites objectAtIndex:(NSInteger)i] DrawSpriteWithTexture];
         
         glPopMatrix();
+    }    
+}
+
+-(void)DrawFontES2: (int)UniformTranslate: (int)VertexAttribute: (int)TexCoordAttribute: (int)UniformSampler
+{
+    //Loop through all the sprites and draw them
+    for(int i = 0; i < [mStringText length]; i++)
+    { 
+        glUniform2f(UniformTranslate, 200 + (i * 20), 200);    
+        
+        [[mSprites objectAtIndex:(NSInteger)i] DrawSpriteES2WithTexture:VertexAttribute:TexCoordAttribute:UniformSampler];
+    }    
+}
+
+-(void)DrawFontES2:(const NSString*) newText: (int)UniformTranslate: (int)VertexAttribute: (int)TexCoordAttribute: (int)UniformSampler
+{
+    //If the string has changed, something needs to be done
+    if(![newText isEqualToString:mStringText])
+    {
+        //First thing's first, clear up after ourselves
+        for(int i = 0; i < [mStringText length]; i++)
+        {
+            [[mSprites objectAtIndex:(NSInteger)i] DeleteBuffers]; 
+        }
+        [mStringText release];
+        [mSprites release];
+        
+        //Load the new string and initialise the sprites again
+        mStringText = [[NSString alloc] initWithString:(NSString*)newText];
+        [self InitialiseSprites];
+    }
+    
+    //Loop through all the sprites and draw them
+    for(int i = 0; i < [mStringText length]; i++)
+    {
+        glUniform2f(UniformTranslate, 200 + (i * 20), 200);	    
+        
+        [[mSprites objectAtIndex:(NSInteger)i] DrawSpriteES2WithTexture:VertexAttribute:TexCoordAttribute:UniformSampler];
     }    
 }
 

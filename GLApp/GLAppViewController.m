@@ -23,7 +23,6 @@ GLint uniforms[NUM_UNIFORMS];
 // Attribute index.
 enum {
     ATTRIB_VERTEX,
-    ATTRIB_COLOR,
     ATTRIB_TEXTURE,
     NUM_ATTRIBUTES
 };
@@ -51,12 +50,8 @@ static int ScreenWidth = 0, ScreenHeight = 0;
 
 - (void)awakeFromNib
 {
-    EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-    
-    //USE THIS TO INITIALISE OPENGL ES 2
-    //Right now we want to use OpenGL ES 1.1. Hence why this is ignored
-    
-    //if (!aContext)
+    EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];    
+    if (!aContext)
     {
         aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
     }
@@ -86,10 +81,6 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     ScreenWidth = self.view.frame.size.width;
     ScreenHeight = self.view.frame.size.height;
     
-    accelerometer = [UIAccelerometer sharedAccelerometer];
-    accelerometer.updateInterval = .1;
-    accelerometer.delegate = self;
-    
     mSprite = [[Sprite alloc]init:@"Sprite.png"];
     
     mSpriteFont = [[SpriteFont alloc] init:@"Hello World"];
@@ -106,8 +97,8 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         program = 0;
     }
     
-    [mSprite dealloc];
-    [mSpriteFont dealloc];
+    [mSprite release];
+    [mSpriteFont release];
     
     // Tear down context.
     if ([EAGLContext currentContext] == context)
@@ -208,6 +199,12 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     
     #if defined(DEBUG)
     #endif
+    
+    static int testInt = 0;
+    
+    testInt ++;
+    
+    NSString* testNSString = [[NSString alloc]initWithFormat:@"%d", testInt];
         
     if ([context API] == kEAGLRenderingAPIOpenGLES2) {
         
@@ -218,6 +215,13 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         glUniform2f(uniforms[UNIFORM_TRANSLATE], myPoint.x, myPoint.y);	
                 
         [mSprite DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE: UNIFORM_SAMPLER];
+        
+        glUniform2f(uniforms[UNIFORM_TRANSLATE], 240.0f, 100.0f);	
+        
+        [mSprite DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE: UNIFORM_SAMPLER];
+        
+        //[mSpriteFont DrawFontES2: uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
+        [mSpriteFont DrawFontES2: testNSString: uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
         
         // Validate program before drawing. This is a good check, but only really necessary in a debug build.
         // DEBUG macro must be defined in your debug configurations if that's not already the case.
@@ -261,12 +265,6 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         [mSprite DrawSpriteWithTexture];
     
         glPopMatrix();
-    
-        static int testInt = 0;
-        
-        testInt ++;
-    
-        NSString* testNSString = [[NSString alloc]initWithFormat:@"%d", testInt];
     
         [mSpriteFont DrawFont:testNSString];
         //[mSpriteFont DrawFont];
@@ -421,7 +419,6 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     // Bind attribute locations.
     // This needs to be done prior to linking.
     glBindAttribLocation(program, ATTRIB_VERTEX, "position");
-    //glBindAttribLocation(program, ATTRIB_COLOR, "color");
     glBindAttribLocation(program, ATTRIB_TEXTURE, "a_texCoord");
     
     uniforms[UNIFORM_SAMPLER] = glGetUniformLocation(program, "s_Texture");

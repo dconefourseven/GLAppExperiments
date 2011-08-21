@@ -26,8 +26,6 @@
     NSInteger animationFrameInterval;
     id displayLink;	
     
-    UIAccelerometer* accelerometer;
-    
     BOOL displayLinkSupported;
     
     Sprite* mSprite;
