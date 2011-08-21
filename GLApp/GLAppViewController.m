@@ -188,8 +188,6 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     }
 }
 
-
-
 - (void)drawFrame
 {
     [(EAGLView *)self.view setFramebuffer];
@@ -220,7 +218,6 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         
         [mSprite DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE: UNIFORM_SAMPLER];
         
-        //[mSpriteFont DrawFontES2: uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
         [mSpriteFont DrawFontES2: testNSString: uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
         
         // Validate program before drawing. This is a good check, but only really necessary in a debug build.
@@ -252,7 +249,6 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     
         glTranslatef(240.0f, 100.0, 0.0f);
     
-        //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         [mSprite DrawSpriteWithTexture];
     
         glPopMatrix();
@@ -261,13 +257,11 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     
         glTranslatef(myPoint.x, myPoint.y, 0.0f);     
     
-        //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         [mSprite DrawSpriteWithTexture];
     
         glPopMatrix();
     
         [mSpriteFont DrawFont:testNSString];
-        //[mSpriteFont DrawFont];
     
         glPopMatrix();
         

@@ -21,7 +21,7 @@
 
 const GLsizeiptr vertex_size = AmountOfVertices*AmountOfComponentsPerVertex*sizeof(GLfloat);
 const GLsizeiptr texCoord_size = AmountOfTextureCoordinates*AmountOfComponentsPerTextureCoordinate*sizeof(GLfloat);
-const GLsizeiptr color_size = AmountOfColours*AmountOfComponentsPerColor*sizeof(GLubyte);
+const GLsizeiptr color_size = AmountOfColours*AmountOfComponentsPerColor*sizeof(GLushort);
 
 static const GLfloat s_squareVertices[] = { 
     -10.0f, -10.0f, 
@@ -38,7 +38,7 @@ static const GLfloat s_spriteTexcoords[] = {
     1.0f, 1.0f,
 };
 
-static const GLubyte s_squareColors[] = {
+static const GLushort s_squareColors[] = {
     255, 0, 0, 0,
     255, 0, 0, 0,
     0, 0, 0, 0,
@@ -46,7 +46,7 @@ static const GLubyte s_squareColors[] = {
 };
 
 // Describes a box, but without a top and bottom
-static const GLubyte s_squareIndices[] = 
+static const GLushort s_squareIndices[] = 
 {
     0,1,
     2,3,
@@ -116,7 +116,7 @@ static const GLubyte s_squareIndices[] =
     
     // For constrast, instead of glBufferSubData and glMapBuffer, 
     // we can directly supply the data in one-shot
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4*sizeof(GLubyte), s_squareIndices, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4*sizeof(GLushort), s_squareIndices, GL_STATIC_DRAW);
     
 }
 
@@ -156,7 +156,7 @@ static const GLubyte s_squareIndices[] =
      
      // For constrast, instead of glBufferSubData and glMapBuffer, 
      // we can directly supply the data in one-shot
-     glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4*sizeof(GLubyte), s_squareIndices, GL_STATIC_DRAW);
+     glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4*sizeof(GLushort), s_squareIndices, GL_STATIC_DRAW);
     
 }
 
@@ -192,7 +192,7 @@ static const GLubyte s_squareIndices[] =
      
      // For constrast, instead of glBufferSubData and glMapBuffer, 
      // we can directly supply the data in one-shot
-     glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4*sizeof(GLubyte), s_squareIndices, GL_STATIC_DRAW);
+     glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4*sizeof(GLushort), s_squareIndices, GL_STATIC_DRAW);
 }
 
 - (void) DrawSprite
@@ -209,7 +209,7 @@ static const GLubyte s_squareIndices[] =
     glColorPointer(4, GL_UNSIGNED_BYTE, 0, (GLvoid*)((char*)NULL+vertex_size));
     glEnableClientState(GL_COLOR_ARRAY);
     
-    glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_BYTE, (GLvoid*)((char*)NULL));
+    glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT, (GLvoid*)((char*)NULL));
 }
 
 - (void) DrawSpriteWithTexture
@@ -226,7 +226,7 @@ static const GLubyte s_squareIndices[] =
      glEnableClientState(GL_TEXTURE_COORD_ARRAY);
      glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid*)((char*)NULL+vertex_size)); 
      
-     glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_BYTE, (GLvoid*)((char*)NULL));
+     glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT, (GLvoid*)((char*)NULL));
 }
 
 -(void) DrawSpriteES2WithoutTexture:(int)VertexAttribute :(int)ColorAttribute
@@ -241,7 +241,7 @@ static const GLubyte s_squareIndices[] =
     glVertexAttribPointer(ColorAttribute, 4, GL_UNSIGNED_BYTE, 1, 0, (GLvoid*)((char*)NULL+vertex_size));
     glEnableVertexAttribArray(ColorAttribute);
     
-    glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_BYTE, (GLvoid*)((char*)NULL));
+    glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT, (GLvoid*)((char*)NULL));
 }
 
 -(void) DrawSpriteES2WithTexture:(int)VertexAttribute :(int)TexCoordAttribute:(int)UniformSampler
@@ -261,7 +261,7 @@ static const GLubyte s_squareIndices[] =
     glBindTexture(GL_TEXTURE_2D, mSpriteTexture);
     glUniform1i(UniformSampler, mSpriteTexture);
     
-    glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_BYTE, (GLvoid*)((char*)NULL));
+    glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT, (GLvoid*)((char*)NULL));
 }
 
 - (void) InitTexture : (NSString* const) textureName
