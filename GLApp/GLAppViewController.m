@@ -48,8 +48,6 @@ static CGPoint myPoint;
 @synthesize animationTimer;
 
 static int ScreenWidth = 0, ScreenHeight = 0;
-enum ScreenOrientation {Portrait, LandscapeLeft, LandscapeRight, PortraitUpsideDown};
-static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
 
 - (void)awakeFromNib
 {
@@ -96,12 +94,9 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
     
     mSpriteFont = [[SpriteFont alloc] init:@"Hello World"];
     
-    // A system version of 3.1 or greater is required to use CADisplayLink. The NSTimer
-    // class is used as fallback when it isn't available.
-    NSString *reqSysVer = @"3.1";
-    NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
-    if ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending)
-        displayLinkSupported = TRUE;
+    animating = FALSE;
+    animationFrameInterval = 1;
+    self.displayLink = nil;
 }
 
 - (void)dealloc
@@ -182,22 +177,14 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
 
 - (void)startAnimation
 {  
-    if (!animating)
-	{
-		if (displayLinkSupported)
-		{
-			// CADisplayLink is API new to iPhone SDK 3.1. Compiling against earlier versions will result in a warning, but can be dismissed
-			// if the system version runtime check for CADisplayLink exists in -initWithCoder:. The runtime check ensures this code will
-			// not be called in system versions earlier than 3.1.
-			displayLink = [NSClassFromString(@"CADisplayLink") displayLinkWithTarget:self selector:@selector(drawFrame)];
-			[displayLink setFrameInterval:animationFrameInterval];
-			[displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-		}
-		else
-			self.animationTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)((1.0 / 60.0) * animationFrameInterval) target:self selector:@selector(drawView) userInfo:nil repeats:TRUE];
-		
-		animating = TRUE;
-	}
+    if (!animating) {
+        CADisplayLink *aDisplayLink = [[UIScreen mainScreen] displayLinkWithTarget:self selector:@selector(drawFrame)];
+        [aDisplayLink setFrameInterval:animationFrameInterval];
+        [aDisplayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+        self.displayLink = aDisplayLink;
+        
+        animating = TRUE;
+    }
 
 }
 
@@ -298,18 +285,6 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
 {
     UITouch *myTouch = [[event allTouches] anyObject];
     
-    /*if(CurrentScreenOrientation == LandscapeLeft)
-    {
-        myPoint.x = [myTouch locationInView:self.view].x;
-        myPoint.y = -([myTouch locationInView:self.view].y) + ScreenHeight;
-    }
-    
-    if(CurrentScreenOrientation == LandscapeRight)
-    {
-        myPoint.x = -([myTouch locationInView:self.view].x) + ScreenWidth;
-        myPoint.y = [myTouch locationInView:self.view].y;
-    }*/
-    
     myPoint = [myTouch locationInView:self.view];
 }
 
@@ -317,49 +292,7 @@ static enum ScreenOrientation CurrentScreenOrientation = LandscapeRight;
 {
     UITouch *myTouch = [[event allTouches] anyObject];
     
-    /*if(CurrentScreenOrientation == LandscapeLeft)
-    {
-        myPoint.x = [myTouch locationInView:self.view].x;
-        myPoint.y = -([myTouch locationInView:self.view].y) + ScreenHeight;
-    }
-    
-    if(CurrentScreenOrientation == LandscapeRight)
-    {
-        myPoint.x = -([myTouch locationInView:self.view].x) + ScreenWidth;
-        myPoint.y = [myTouch locationInView:self.view].y;
-    }*/
-    
     myPoint = [myTouch locationInView:self.view];    
-}
-
-
--(void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
-{
-	// Get the current device angle
-	float x = [acceleration x];
-	float y = [acceleration y];
-	float angle = atan2(y, x); 
-    
-    if(angle >= -2.25 && angle <= -0.25)
-	{
-        /// Orientation is regular Portrait
-        //CurrentScreenOrientation = Portrait;
-	}
-	else if(angle >= -1.75 && angle <= 0.75)
-	{
-        /// Orientation is Landscape with Home Button on the Left
-        CurrentScreenOrientation = LandscapeLeft;
-	}
-	else if(angle >= 0.75 && angle <= 2.25)
-	{
-        /// Orientation is Portrait flipped upside down
-        //CurrentScreenOrientation = PortraitUpsideDown;
-	}
-	else if(angle >= -2.25 || angle <= 2.25)
-	{
-        /// Orientation is Landscape with Home Button on the Right
-        CurrentScreenOrientation = LandscapeRight;
-	}
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
