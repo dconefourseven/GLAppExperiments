@@ -51,6 +51,8 @@ static int ScreenWidth = 0, ScreenHeight = 0;
 
 - (void)awakeFromNib
 {
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
+    
     EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];    
     if (!aContext)
     {
@@ -89,6 +91,15 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     animating = FALSE;
     animationFrameInterval = 1;
     self.displayLink = nil;
+    
+    mEnemies = [[NSMutableArray alloc]initWithObjects:[[Sprite alloc]init:@"Sprite.png"], [[Sprite alloc]init:@"Sprite.png"], [[Sprite alloc]init:@"Sprite.png"], [[Sprite alloc]init:@"Sprite.png"], nil];
+    
+    mEnemyPositions = malloc(sizeof(EnemyPositions));
+    for(int i = 0; i < 4; i++)
+    {
+        mEnemyPositions->points[i].x = rand() % 480;
+        mEnemyPositions->points[i].y = rand() % 320;
+    }
 }
 
 - (void)dealloc
@@ -101,11 +112,14 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     [mSprite release];
     [mSpriteFont release];
     
+    [mEnemies release];
+    
     // Tear down context.
     if ([EAGLContext currentContext] == context)
         [EAGLContext setCurrentContext:nil];
     
     [context release];
+    free(mEnemyPositions);
     
     [super dealloc];
 }
@@ -207,20 +221,24 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         // Use shader program.
         glUseProgram(program);
         
-        // Update uniform value.
-        glUniform2f(uniforms[UNIFORM_SCALE], 2.0f, 2.0f);
-        glUniform2f(uniforms[UNIFORM_TRANSLATE], myPoint.x, myPoint.y);	
-        
-        [mSprite DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE: UNIFORM_SAMPLER];
-        
         glUniform2f(uniforms[UNIFORM_TRANSLATE], 240.0f, 100.0f);	
         glUniform2f(uniforms[UNIFORM_SCALE], 1.0f, 1.0f);
-        
         [mSprite DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE: UNIFORM_SAMPLER];
         
-        [mSpriteFont DrawFontES2: uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
+        // Update uniform value.
+        glUniform2f(uniforms[UNIFORM_SCALE], 2.0f, 2.0f);
+        glUniform2f(uniforms[UNIFORM_TRANSLATE], myPoint.x, myPoint.y);	        
+        [mSprite DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE: UNIFORM_SAMPLER];
         
-        //[mSpriteFont DrawFontES2: testNSString: uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
+        for (int i = 0; i < mEnemies.count; i++)
+        {
+            glUniform2f(uniforms[UNIFORM_TRANSLATE], mEnemyPositions->points[i].x, mEnemyPositions->points[i].y);
+            [[mEnemies objectAtIndex:i] DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE :UNIFORM_SAMPLER];
+        }
+        
+        glUniform2f(uniforms[UNIFORM_SCALE], 1.0f, 1.0f);
+        //[mSpriteFont DrawFontES2: uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
+        [mSpriteFont DrawFontES2: testNSString: uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
         
         // Validate program before drawing. This is a good check, but only really necessary in a debug build.
         // DEBUG macro must be defined in your debug configurations if that's not already the case.
@@ -267,10 +285,11 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     
         glPopMatrix();
         
-        [testNSString release];
+        
     
     }
     
+    [testNSString release];
     [(EAGLView *)self.view presentFramebuffer];
     
 }

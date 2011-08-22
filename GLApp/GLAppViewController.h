@@ -18,6 +18,11 @@
 #import "Sprites/Sprite.h"
 #import "SpriteFont.h"
 
+typedef struct EnemyPositions
+{
+    CGPoint points[4];
+}EnemyPositions;
+
 @interface GLAppViewController : UIViewController<UIAccelerometerDelegate> {
     EAGLContext *context;
     GLuint program;
@@ -31,6 +36,9 @@
     Sprite* mSprite;
     
     SpriteFont* mSpriteFont;
+    
+    NSMutableArray* mEnemies;
+    EnemyPositions* mEnemyPositions;
 }
 
 @property (readonly, nonatomic, getter=isAnimating) BOOL animating;
@@ -41,5 +49,7 @@
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
+
+
 
 @end
