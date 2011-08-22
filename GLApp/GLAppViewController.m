@@ -195,9 +195,6 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     
-    #if defined(DEBUG)
-    #endif
-    
     static int testInt = 0;
     
     testInt ++;
