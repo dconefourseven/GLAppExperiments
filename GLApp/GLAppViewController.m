@@ -94,6 +94,7 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     
     mEnemies = [[NSMutableArray alloc]initWithObjects:[[Sprite alloc]init:@"Sprite.png"], [[Sprite alloc]init:@"Sprite.png"], [[Sprite alloc]init:@"Sprite.png"], [[Sprite alloc]init:@"Sprite.png"], nil];
     
+    srand(time(NULL));
     mEnemyPositions = malloc(sizeof(EnemyPositions));
     for(int i = 0; i < 4; i++)
     {
