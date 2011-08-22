@@ -12,6 +12,7 @@ attribute vec4 position;
 varying vec4 colorVarying;
 
 uniform vec2 translate;
+uniform vec2 scale;
 
 mat4 OrthoMatrix = mat4( 2.0/480.0, 0.0, 0.0, -1.0,
                              0.0, 2.0/-320.0, 0.0, 1.0,
@@ -22,9 +23,11 @@ attribute vec2 a_texCoord;
 varying vec2 v_texCoord;
 
 void main()
-{
-    
+{ 
     gl_Position = position;
+    
+    gl_Position.x *= scale.x;
+    gl_Position.y *= scale.y;
     
     gl_Position.x += translate.x;
     gl_Position.y += translate.y;

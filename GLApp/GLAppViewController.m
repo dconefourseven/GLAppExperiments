@@ -15,6 +15,7 @@
 enum {
     UNIFORM_TRANSLATE,
     UNIFORM_ORIENTATION,
+    UNIFORM_SCALE,
     UNIFORM_SAMPLER,
     NUM_UNIFORMS
 };
@@ -207,11 +208,13 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         glUseProgram(program);
         
         // Update uniform value.
+        glUniform2f(uniforms[UNIFORM_SCALE], 2.0f, 2.0f);
         glUniform2f(uniforms[UNIFORM_TRANSLATE], myPoint.x, myPoint.y);	
-                
+        
         [mSprite DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE: UNIFORM_SAMPLER];
         
         glUniform2f(uniforms[UNIFORM_TRANSLATE], 240.0f, 100.0f);	
+        glUniform2f(uniforms[UNIFORM_SCALE], 1.0f, 1.0f);
         
         [mSprite DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE: UNIFORM_SAMPLER];
         
@@ -414,8 +417,6 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     glBindAttribLocation(program, ATTRIB_VERTEX, "position");
     glBindAttribLocation(program, ATTRIB_TEXTURE, "a_texCoord");
     
-    uniforms[UNIFORM_SAMPLER] = glGetUniformLocation(program, "s_Texture");
-    
     // Link program.
     if (![self linkProgram:program])
     {
@@ -442,6 +443,8 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     
     // Get uniform locations.
     uniforms[UNIFORM_TRANSLATE] = glGetUniformLocation(program, "translate");
+    uniforms[UNIFORM_SAMPLER] = glGetUniformLocation(program, "s_Texture");
+    uniforms[UNIFORM_SCALE] = glGetUniformLocation(program, "scale");
     
     // Release vertex and fragment shaders.
     if (vertShader)
