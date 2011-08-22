@@ -211,11 +211,10 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     
-    static int testInt = 0;
+
+    NSDate* date1 = [[NSDate alloc]init];
     
-    testInt ++;
-    
-    NSString* testNSString = [[NSString alloc]initWithFormat:@"%d", testInt];
+    NSString* testNSString;
         
     if ([context API] == kEAGLRenderingAPIOpenGLES2) {
         
@@ -236,6 +235,11 @@ static int ScreenWidth = 0, ScreenHeight = 0;
             glUniform2f(uniforms[UNIFORM_TRANSLATE], mEnemyPositions->points[i].x, mEnemyPositions->points[i].y);
             [[mEnemies objectAtIndex:i] DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE :UNIFORM_SAMPLER];
         }
+        
+        NSDate* date2 = [[NSDate alloc]init];
+        NSTimeInterval distanceBetweenDates = [date1 timeIntervalSinceDate:date2];
+        
+        testNSString = [[NSString alloc]initWithFormat:@"%f", distanceBetweenDates];
         
         glUniform2f(uniforms[UNIFORM_SCALE], 1.0f, 1.0f);
         //[mSpriteFont DrawFontES2: uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
@@ -290,7 +294,12 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     
     }
     
-    [testNSString release];
+    
+    
+    if(testNSString != nil){
+        [testNSString release];
+    }
+    
     [(EAGLView *)self.view presentFramebuffer];
     
 }

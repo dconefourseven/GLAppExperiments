@@ -162,7 +162,7 @@
     if(![newText isEqualToString:mStringText])
     {
         //First thing's first, clear up after ourselves
-        for(int i = 0; i < [mStringText length]; i++)
+        for(int i = 0; i < mSprites.count; i++)
         {
             [[mSprites objectAtIndex:(NSInteger)i] DeleteBuffers]; 
         }
