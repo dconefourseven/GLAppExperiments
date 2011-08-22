@@ -83,7 +83,7 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     
     mSprite = [[Sprite alloc]init:@"Sprite.png"];
     
-    mSpriteFont = [[SpriteFont alloc] init:@"Hello World"];
+    mSpriteFont = [[SpriteFont alloc] init:@"Hello. World"];
     
     animating = FALSE;
     animationFrameInterval = 1;
@@ -215,7 +215,9 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         
         [mSprite DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE: UNIFORM_SAMPLER];
         
-        [mSpriteFont DrawFontES2: testNSString: uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
+        [mSpriteFont DrawFontES2: uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
+        
+        //[mSpriteFont DrawFontES2: testNSString: uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
         
         // Validate program before drawing. This is a good check, but only really necessary in a debug build.
         // DEBUG macro must be defined in your debug configurations if that's not already the case.
