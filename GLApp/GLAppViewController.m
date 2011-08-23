@@ -212,7 +212,7 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     glClear(GL_COLOR_BUFFER_BIT);
     
 
-    NSDate* date1 = [[NSDate alloc]init];
+    NSDate* date1 = [NSDate date];
     
     NSString* testNSString;
         
@@ -236,8 +236,7 @@ static int ScreenWidth = 0, ScreenHeight = 0;
             [[mEnemies objectAtIndex:i] DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE :UNIFORM_SAMPLER];
         }
         
-        NSDate* date2 = [[NSDate alloc]init];
-        NSTimeInterval distanceBetweenDates = [date1 timeIntervalSinceDate:date2];
+        NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:date1];
         
         testNSString = [[NSString alloc]initWithFormat:@"%f", distanceBetweenDates];
         
