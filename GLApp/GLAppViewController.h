@@ -51,7 +51,9 @@ typedef struct EnemyPositions
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
 
--(BOOL)TouchedEnemy:(const CGPoint) TouchCoordinates: (const float)EnemyXPos: (const float)EnemyYPos: 
-(const float)XScale: (const float)YScale;
+-(void)ResetEnemies;
+
+-(BOOL)TouchedEnemy:(const CGPoint) TouchCoordinates: (const float) XScale: (const float) YScale: 
+(const float)EnemyXPos: (const float)EnemyYPos: (const float)EnemyXScale: (const float)EnemyYScale;
 
 @end

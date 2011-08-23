@@ -96,10 +96,15 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     
     srand(time(NULL));
     mEnemyPositions = malloc(sizeof(EnemyPositions));
+    [self ResetEnemies];
+}
+
+-(void)ResetEnemies
+{
     for(int i = 0; i < 4; i++)
     {
-        mEnemyPositions->points[i].x = rand() % 480;
-        mEnemyPositions->points[i].y = rand() % 320;
+        mEnemyPositions->points[i].x = (rand() % 440) + 20;
+        mEnemyPositions->points[i].y = (rand() % 280) + 20;
         mEnemyPositions->hasBeenHit[i] = false;
     }
 }
@@ -212,8 +217,7 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     
-
-    NSDate* date1 = [NSDate date];
+    //NSDate* date1 = [NSDate date];
     
     NSString* testNSString;
         
@@ -222,38 +226,36 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         // Use shader program.
         glUseProgram(program);
         
-        glUniform2f(uniforms[UNIFORM_TRANSLATE], 240.0f, 100.0f);	
+        /*glUniform2f(uniforms[UNIFORM_TRANSLATE], 240.0f, 100.0f);	
         glUniform2f(uniforms[UNIFORM_SCALE], 1.0f, 1.0f);
         [mSprite DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE: UNIFORM_SAMPLER];
         
         // Update uniform value.
         glUniform2f(uniforms[UNIFORM_SCALE], 2.0f, 2.0f);
         glUniform2f(uniforms[UNIFORM_TRANSLATE], myPoint.x, myPoint.y);	        
-        [mSprite DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE: UNIFORM_SAMPLER];
+        [mSprite DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE: UNIFORM_SAMPLER];*/
         
+        glUniform2f(uniforms[UNIFORM_SCALE], 2.0f, 2.0f);
+
         for (int i = 0; i < mEnemies.count; i++)
         {
+            if([self TouchedEnemy:myPoint : 20: 20: mEnemyPositions->points[i].x :mEnemyPositions->points[i].y :20 :20])
+                mEnemyPositions->hasBeenHit[i] = YES;
+            
             glUniform2f(uniforms[UNIFORM_TRANSLATE], mEnemyPositions->points[i].x, mEnemyPositions->points[i].y);
             [[mEnemies objectAtIndex:i] DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE :UNIFORM_SAMPLER];
         }
         
-        NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:date1];
+        //NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:date1];
         
         //testNSString = [[NSString alloc]initWithFormat:@"%f", distanceBetweenDates];
         
-        for (int i = 0; i < mEnemies.count; i++)
-        {
-            if([self TouchedEnemy:myPoint :mEnemyPositions->points[i].x :mEnemyPositions->points[i].y :20 :20])
-                mEnemyPositions->hasBeenHit[i] = YES;
-            else
-                mEnemyPositions->hasBeenHit[i] = NO;            
-        }
+        testNSString = [[NSString alloc]initWithFormat:@"%d %d %d %d", mEnemyPositions->hasBeenHit[0], mEnemyPositions->hasBeenHit[1], mEnemyPositions->hasBeenHit[2], mEnemyPositions->hasBeenHit[3]];
         
-        if(mEnemyPositions->hasBeenHit[0] || mEnemyPositions->hasBeenHit[1] || mEnemyPositions->hasBeenHit[2] || mEnemyPositions->hasBeenHit[3])
-            testNSString = [[NSString alloc]initWithFormat:@"HIT"];
-        else
-            testNSString = [[NSString alloc]initWithFormat:@"No hit"];
-        
+        if(mEnemyPositions->hasBeenHit[0] && mEnemyPositions->hasBeenHit[1] && 
+           mEnemyPositions->hasBeenHit[2] && mEnemyPositions->hasBeenHit[3])
+            [self ResetEnemies];
+                                    
         
         glUniform2f(uniforms[UNIFORM_SCALE], 1.0f, 1.0f);
         //[mSpriteFont DrawFontES2: uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
@@ -327,21 +329,21 @@ static int ScreenWidth = 0, ScreenHeight = 0;
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    UITouch *myTouch = [[event allTouches] anyObject];
+    /*UITouch *myTouch = [[event allTouches] anyObject];
     
-    myPoint = [myTouch locationInView:self.view];    
+    myPoint = [myTouch locationInView:self.view]; */   
 }
 
--(BOOL)TouchedEnemy:(const CGPoint) TouchCoordinates: (const float)EnemyXPos: (const float)EnemyYPos: 
-(const float)XScale: (const float)YScale
+-(BOOL)TouchedEnemy:(const CGPoint) TouchCoordinates: (const float) XScale: (const float) YScale: 
+(const float)EnemyXPos: (const float)EnemyYPos: (const float)EnemyXScale: (const float)EnemyYScale
 {     
-    if(TouchCoordinates.x > EnemyXPos + (XScale/2))
+    if(TouchCoordinates.x - (XScale/2) > EnemyXPos + (EnemyXScale/2))
         return NO;
-    if(TouchCoordinates.x < EnemyXPos - (XScale/2))
+    if(TouchCoordinates.x + (XScale/2) < EnemyXPos - (EnemyXScale/2))
         return NO;
-    if(TouchCoordinates.y > EnemyYPos + (YScale/2))
+    if(TouchCoordinates.y - (YScale/2) > EnemyYPos + (EnemyYScale/2))
         return NO;
-    if(TouchCoordinates.y < EnemyYPos - (YScale/2))
+    if(TouchCoordinates.y + (YScale/2) < EnemyYPos - (EnemyYScale/2))
         return NO;
     
     return YES;

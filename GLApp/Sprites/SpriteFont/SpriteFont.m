@@ -106,7 +106,7 @@
     {
         glPushMatrix();
     
-        glTranslatef(200 + ( i * 20) , 200, 0.0f);     
+        glTranslatef(10 + ( i * 20) , 10, 0.0f);     
     
         [[mSprites objectAtIndex:(NSInteger)i] DrawSpriteWithTexture];
         
@@ -137,7 +137,7 @@
     {
         glPushMatrix();
         
-        glTranslatef(200 + ( i * 20) , 200, 0.0f);     
+        glTranslatef(10 + ( i * 20) , 10, 0.0f);     
         
         [[mSprites objectAtIndex:(NSInteger)i] DrawSpriteWithTexture];
         
@@ -150,7 +150,7 @@
     //Loop through all the sprites and draw them
     for(int i = 0; i < [mStringText length]; i++)
     { 
-        glUniform2f(UniformTranslate, 200 + (i * 20), 200);    
+        glUniform2f(UniformTranslate, 10 + (i * 20), 10);    
         
         [[mSprites objectAtIndex:(NSInteger)i] DrawSpriteES2WithTexture:VertexAttribute:TexCoordAttribute:UniformSampler];
     }    
@@ -177,7 +177,7 @@
     //Loop through all the sprites and draw them
     for(int i = 0; i < [mStringText length]; i++)
     {
-        glUniform2f(UniformTranslate, 200 + (i * 20), 200);	    
+        glUniform2f(UniformTranslate, 10 + (i * 20), 10);	    
         
         [[mSprites objectAtIndex:(NSInteger)i] DrawSpriteES2WithTexture:VertexAttribute:TexCoordAttribute:UniformSampler];
     }    
