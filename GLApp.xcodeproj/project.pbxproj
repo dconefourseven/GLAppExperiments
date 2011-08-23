@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		E51F1CED13FADB9C00D4360C /* SpriteSheet.png in Resources */ = {isa = PBXBuildFile; fileRef = E51F1CEC13FADB9C00D4360C /* SpriteSheet.png */; };
+		E53AD14914040828003D420E /* Game.png in Resources */ = {isa = PBXBuildFile; fileRef = E53AD14814040828003D420E /* Game.png */; };
+		E53AD14B1404086A003D420E /* GameSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = E53AD14A1404086A003D420E /* GameSmall.png */; };
 		E5D55AA513F48F3D00667BA4 /* Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D55AA413F48F3D00667BA4 /* Sprite.m */; };
 		E5D55AAB13F4B24300667BA4 /* Sprite.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D55AAA13F4B24300667BA4 /* Sprite.png */; };
 		E5D55AB113F4B83900667BA4 /* SpriteFont.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D55AB013F4B83900667BA4 /* SpriteFont.m */; };
@@ -30,6 +32,8 @@
 
 /* Begin PBXFileReference section */
 		E51F1CEC13FADB9C00D4360C /* SpriteSheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpriteSheet.png; sourceTree = "<group>"; };
+		E53AD14814040828003D420E /* Game.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Game.png; sourceTree = "<group>"; };
+		E53AD14A1404086A003D420E /* GameSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameSmall.png; sourceTree = "<group>"; };
 		E5D55AA313F48F3D00667BA4 /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
 		E5D55AA413F48F3D00667BA4 /* Sprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sprite.m; sourceTree = "<group>"; };
 		E5D55AAA13F4B24300667BA4 /* Sprite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite.png; sourceTree = "<group>"; };
@@ -105,6 +109,8 @@
 		E5DC704413EC65550053BD04 = {
 			isa = PBXGroup;
 			children = (
+				E53AD14A1404086A003D420E /* GameSmall.png */,
+				E53AD14814040828003D420E /* Game.png */,
 				E5DC705D13EC65550053BD04 /* GLApp */,
 				E5DC705213EC65550053BD04 /* Frameworks */,
 				E5DC705013EC65550053BD04 /* Products */,
@@ -218,6 +224,8 @@
 				E5D55AAB13F4B24300667BA4 /* Sprite.png in Resources */,
 				E51F1CED13FADB9C00D4360C /* SpriteSheet.png in Resources */,
 				E5ED90E513FD3D0400FD44BC /* CharMap.plist in Resources */,
+				E53AD14914040828003D420E /* Game.png in Resources */,
+				E53AD14B1404086A003D420E /* GameSmall.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,7 +326,7 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "GLApp/GLApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = GLApp;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -331,7 +339,7 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "GLApp/GLApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = GLApp;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
