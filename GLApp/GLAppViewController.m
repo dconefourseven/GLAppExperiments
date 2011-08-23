@@ -100,6 +100,7 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     {
         mEnemyPositions->points[i].x = rand() % 480;
         mEnemyPositions->points[i].y = rand() % 320;
+        mEnemyPositions->hasBeenHit[i] = false;
     }
 }
 
@@ -238,7 +239,21 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         
         NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:date1];
         
-        testNSString = [[NSString alloc]initWithFormat:@"%f", distanceBetweenDates];
+        //testNSString = [[NSString alloc]initWithFormat:@"%f", distanceBetweenDates];
+        
+        for (int i = 0; i < mEnemies.count; i++)
+        {
+            if([self TouchedEnemy:myPoint :mEnemyPositions->points[i].x :mEnemyPositions->points[i].y :20 :20])
+                mEnemyPositions->hasBeenHit[i] = YES;
+            else
+                mEnemyPositions->hasBeenHit[i] = NO;            
+        }
+        
+        if(mEnemyPositions->hasBeenHit[0] || mEnemyPositions->hasBeenHit[1] || mEnemyPositions->hasBeenHit[2] || mEnemyPositions->hasBeenHit[3])
+            testNSString = [[NSString alloc]initWithFormat:@"HIT"];
+        else
+            testNSString = [[NSString alloc]initWithFormat:@"No hit"];
+        
         
         glUniform2f(uniforms[UNIFORM_SCALE], 1.0f, 1.0f);
         //[mSpriteFont DrawFontES2: uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
@@ -315,6 +330,21 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     UITouch *myTouch = [[event allTouches] anyObject];
     
     myPoint = [myTouch locationInView:self.view];    
+}
+
+-(BOOL)TouchedEnemy:(const CGPoint) TouchCoordinates: (const float)EnemyXPos: (const float)EnemyYPos: 
+(const float)XScale: (const float)YScale
+{     
+    if(TouchCoordinates.x > EnemyXPos + (XScale/2))
+        return NO;
+    if(TouchCoordinates.x < EnemyXPos - (XScale/2))
+        return NO;
+    if(TouchCoordinates.y > EnemyYPos + (YScale/2))
+        return NO;
+    if(TouchCoordinates.y < EnemyYPos - (YScale/2))
+        return NO;
+    
+    return YES;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation

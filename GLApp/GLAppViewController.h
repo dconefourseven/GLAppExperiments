@@ -21,6 +21,7 @@
 typedef struct EnemyPositions
 {
     CGPoint points[4];
+    BOOL hasBeenHit[4];
 }EnemyPositions;
 
 @interface GLAppViewController : UIViewController<UIAccelerometerDelegate> {
@@ -50,6 +51,7 @@ typedef struct EnemyPositions
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
 
-
+-(BOOL)TouchedEnemy:(const CGPoint) TouchCoordinates: (const float)EnemyXPos: (const float)EnemyYPos: 
+(const float)XScale: (const float)YScale;
 
 @end
