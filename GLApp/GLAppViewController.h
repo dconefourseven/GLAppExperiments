@@ -14,9 +14,11 @@
 #import <OpenGLES/ES1/glext.h>
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
+#import <AVFoundation/AVFoundation.h>
 
 #import "Sprites/Sprite.h"
 #import "SpriteFont.h"
+
 
 typedef struct EnemyPositions
 {
