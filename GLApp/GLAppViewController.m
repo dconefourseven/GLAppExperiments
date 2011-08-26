@@ -97,6 +97,17 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     srand(time(NULL));
     mEnemyPositions = malloc(sizeof(EnemyPositions));
     [self ResetEnemies];
+    
+    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/sound.caf", [[NSBundle mainBundle] resourcePath]]];
+    
+	NSError *error;
+	audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+	audioPlayer.numberOfLoops = -1;
+    
+	if (audioPlayer == nil)
+		NSLog([error description]);
+	else
+		[audioPlayer play];
 }
 
 -(void)ResetEnemies
@@ -115,6 +126,8 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         glDeleteProgram(program);
         program = 0;
     }
+    
+    [audioPlayer release];
     
     [mSprite release];
     [mSpriteFont release];

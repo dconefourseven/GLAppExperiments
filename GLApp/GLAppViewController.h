@@ -42,6 +42,8 @@ typedef struct EnemyPositions
     
     NSMutableArray* mEnemies;
     EnemyPositions* mEnemyPositions;
+    
+    AVAudioPlayer *audioPlayer;
 }
 
 @property (readonly, nonatomic, getter=isAnimating) BOOL animating;
