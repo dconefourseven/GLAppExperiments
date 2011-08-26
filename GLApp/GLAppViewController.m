@@ -232,14 +232,14 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         
         // Update uniform value.
         glUniform2f(uniforms[UNIFORM_SCALE], 2.0f, 2.0f);
-        glUniform2f(uniforms[UNIFORM_TRANSLATE], myPoint.x, myPoint.y);	        
+        glUniform2f(uniforms[UNIFORM_TRANSLATE], m        yPoint.x, myPoint.y);	        
         [mSprite DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE: UNIFORM_SAMPLER];*/
         
         glUniform2f(uniforms[UNIFORM_SCALE], 2.0f, 2.0f);
 
         for (int i = 0; i < mEnemies.count; i++)
         {
-            if([self TouchedEnemy:myPoint : 20: 20: mEnemyPositions->points[i].x :mEnemyPositions->points[i].y :20 :20])
+            if([self TouchedEnemy:myPoint : 30: 30: mEnemyPositions->points[i].x :mEnemyPositions->points[i].y :30 :30])
                 mEnemyPositions->hasBeenHit[i] = YES;
             
             glUniform2f(uniforms[UNIFORM_TRANSLATE], mEnemyPositions->points[i].x, mEnemyPositions->points[i].y);
