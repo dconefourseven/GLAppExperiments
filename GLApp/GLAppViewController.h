@@ -26,7 +26,7 @@ typedef struct EnemyPositions
     BOOL hasBeenHit[4];
 }EnemyPositions;
 
-@interface GLAppViewController : UIViewController<UIAccelerometerDelegate> {
+@interface GLAppViewController : UIViewController<UIAccelerometerDelegate, AVAudioSessionDelegate> {
     EAGLContext *context;
     GLuint program;
     
@@ -43,6 +43,7 @@ typedef struct EnemyPositions
     NSMutableArray* mEnemies;
     EnemyPositions* mEnemyPositions;
     
+    AVAudioSession *audioSession;
     AVAudioPlayer *audioPlayer;
 }
 
@@ -59,5 +60,10 @@ typedef struct EnemyPositions
 
 -(BOOL)TouchedEnemy:(const CGPoint) TouchCoordinates: (const float) XScale: (const float) YScale: 
 (const float)EnemyXPos: (const float)EnemyYPos: (const float)EnemyXScale: (const float)EnemyYScale;
+
+- (void)beginInterruption;
+- (void)endInterruption;
+- (void)endInterruptionWithFlags:(NSUInteger)flags;
+- (void)inputIsAvailableChanged:(BOOL)isInputAvailable;
 
 @end

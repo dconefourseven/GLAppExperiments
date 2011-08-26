@@ -7,6 +7,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 #import "GLAppViewController.h"
 #import "EAGLView.h"
@@ -98,15 +99,37 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     mEnemyPositions = malloc(sizeof(EnemyPositions));
     [self ResetEnemies];
     
+    AudioSessionInitialize(NULL, NULL, NULL, NULL);
+    
+    UInt32 otherAudioIsPlaying = 0;                                   // 1
+    UInt32 propertySize = sizeof (otherAudioIsPlaying);
+    
+    AudioSessionGetProperty (                                     // 2
+                             kAudioSessionProperty_OtherAudioIsPlaying,
+                             &propertySize,
+                             &otherAudioIsPlaying
+                             );
+    
+    
+    audioSession = [AVAudioSession sharedInstance];
+    NSError *errRet;
+    [audioSession setCategory:AVAudioSessionCategoryAmbient error:&errRet];
+    [audioSession setActive:YES error:&errRet];
+
+    audioSession.delegate = self;
+    
+    NSLog(@"\nOther audio is playing: %lu", otherAudioIsPlaying);
+    
     NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/sound.caf", [[NSBundle mainBundle] resourcePath]]];
     
 	NSError *error;
 	audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
 	audioPlayer.numberOfLoops = -1;
-    
-	if (audioPlayer == nil)
-		NSLog([error description]);
-	else
+
+    /*if (audioPlayer == nil)
+     NSLog([error description]);
+     else*/  
+    if(!otherAudioIsPlaying)
 		[audioPlayer play];
 }
 
@@ -133,14 +156,13 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     [mSpriteFont release];
     
     [mEnemies release];
+    free(mEnemyPositions);
     
     // Tear down context.
     if ([EAGLContext currentContext] == context)
         [EAGLContext setCurrentContext:nil];
     
-    [context release];
-    free(mEnemyPositions);
-    
+    [context release];    
     [super dealloc];
 }
 
@@ -526,6 +548,22 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         glDeleteShader(fragShader);
     
     return TRUE;
+}
+
+- (void)beginInterruption 
+{
+}
+
+- (void)endInterruption 
+{
+}
+
+- (void)endInterruptionWithFlags:(NSUInteger)flags 
+{
+}
+
+- (void)inputIsAvailableChanged:(BOOL)isInputAvailable 
+{
 }
 
 @end

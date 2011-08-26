@@ -12,6 +12,7 @@
 		E53AD14B1404086A003D420E /* GameSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = E53AD14A1404086A003D420E /* GameSmall.png */; };
 		E53F5BDE1407CBF400A6E946 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E53F5BDD1407CBF400A6E946 /* AVFoundation.framework */; };
 		E53F5BE21407CCFE00A6E946 /* sound.caf in Resources */ = {isa = PBXBuildFile; fileRef = E53F5BE11407CCFE00A6E946 /* sound.caf */; };
+		E55682761407FAE4007A57CB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55682751407FAE4007A57CB /* AudioToolbox.framework */; };
 		E5D55AA513F48F3D00667BA4 /* Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D55AA413F48F3D00667BA4 /* Sprite.m */; };
 		E5D55AAB13F4B24300667BA4 /* Sprite.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D55AAA13F4B24300667BA4 /* Sprite.png */; };
 		E5D55AB113F4B83900667BA4 /* SpriteFont.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D55AB013F4B83900667BA4 /* SpriteFont.m */; };
@@ -38,6 +39,7 @@
 		E53AD14A1404086A003D420E /* GameSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameSmall.png; sourceTree = "<group>"; };
 		E53F5BDD1407CBF400A6E946 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		E53F5BE11407CCFE00A6E946 /* sound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.caf; sourceTree = "<group>"; };
+		E55682751407FAE4007A57CB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		E5D55AA313F48F3D00667BA4 /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
 		E5D55AA413F48F3D00667BA4 /* Sprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sprite.m; sourceTree = "<group>"; };
 		E5D55AAA13F4B24300667BA4 /* Sprite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite.png; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E55682761407FAE4007A57CB /* AudioToolbox.framework in Frameworks */,
 				E53F5BDE1407CBF400A6E946 /* AVFoundation.framework in Frameworks */,
 				E5DC705413EC65550053BD04 /* UIKit.framework in Frameworks */,
 				E5DC705613EC65550053BD04 /* Foundation.framework in Frameworks */,
@@ -143,6 +146,7 @@
 		E5DC705213EC65550053BD04 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E55682751407FAE4007A57CB /* AudioToolbox.framework */,
 				E53F5BDD1407CBF400A6E946 /* AVFoundation.framework */,
 				E5DC705313EC65550053BD04 /* UIKit.framework */,
 				E5DC705513EC65550053BD04 /* Foundation.framework */,
