@@ -73,10 +73,11 @@
 {
 }
 
--(void)release
+-(void)dealloc
 {
     [audioPlayer release];
     [audioSession release];
+    [super dealloc];
 }
 
 @end

@@ -19,6 +19,6 @@
 - (void)endInterruptionWithFlags:(NSUInteger)flags;
 - (void)inputIsAvailableChanged:(BOOL)isInputAvailable;
 
--(void)release;
+-(void)dealloc;
 
 @end

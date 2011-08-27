@@ -228,7 +228,7 @@
     }
 }
 
--(id)release
+-(void)dealloc
 {
     [mStringText release];
     [mSprites release];
@@ -237,7 +237,7 @@
     
     mSpriteTexture = 0;
     
-    return self;
+    [super dealloc];
 }
 
 @end

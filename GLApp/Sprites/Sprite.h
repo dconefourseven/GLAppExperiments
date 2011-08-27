@@ -45,4 +45,6 @@
 
 -(void) DeleteBuffers;
 
+-(void) dealloc;
+
 @end

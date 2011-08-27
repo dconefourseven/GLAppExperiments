@@ -118,10 +118,10 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         program = 0;
     }
     
-    [mAudio release];
+    [mAudio dealloc];
     
-    [mSprite release];
-    [mSpriteFont release];
+    [mSprite dealloc];
+    [mSpriteFont dealloc];
     
     [mEnemies release];
     free(mEnemyPositions);

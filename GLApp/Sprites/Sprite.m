@@ -315,4 +315,11 @@ static const GLushort s_squareIndices[] =
     glDeleteBuffers(1, &cubeVBO);
 }
 
+-(void)dealloc
+{
+    [self DeleteBuffers];
+    
+    [super dealloc];
+}
+
 @end

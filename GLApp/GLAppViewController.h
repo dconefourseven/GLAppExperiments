@@ -20,14 +20,13 @@
 #import "SpriteFont.h"
 #import "Audio.h"
 
-
 typedef struct EnemyPositions
 {
     CGPoint points[4];
     BOOL hasBeenHit[4];
 }EnemyPositions;
 
-@interface GLAppViewController : UIViewController<UIAccelerometerDelegate, AVAudioSessionDelegate> {
+@interface GLAppViewController : UIViewController<UIAccelerometerDelegate> {
     EAGLContext *context;
     GLuint program;
     
