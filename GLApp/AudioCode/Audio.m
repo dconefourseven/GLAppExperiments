@@ -60,23 +60,12 @@
 
 - (void)endInterruption 
 {
-    AudioSessionInitialize(NULL, NULL, NULL, NULL);
+    
 }
 
 - (void)endInterruptionWithFlags:(NSUInteger)flags 
 {
-    AudioSessionInitialize(NULL, NULL, NULL, NULL);
-    
-    UInt32 propertySize = sizeof (otherAudioIsPlaying);
-    
-    AudioSessionGetProperty (                                     // 2
-                             kAudioSessionProperty_OtherAudioIsPlaying,
-                             &propertySize,
-                             &otherAudioIsPlaying
-                             );
-    
-    if(!otherAudioIsPlaying)
-        [audioPlayer play];
+   
 }
 
 - (void)inputIsAvailableChanged:(BOOL)isInputAvailable 
