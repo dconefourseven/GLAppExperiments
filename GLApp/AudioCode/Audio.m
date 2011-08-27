@@ -18,7 +18,7 @@
     if (self) {
         AudioSessionInitialize(NULL, NULL, NULL, NULL);
         
-        UInt32 otherAudioIsPlaying = 0;                                   // 1
+        otherAudioIsPlaying = 0;                                   // 1
         UInt32 propertySize = sizeof (otherAudioIsPlaying);
         
         AudioSessionGetProperty (                                     // 2
@@ -48,10 +48,6 @@
          else*/  
         if(!otherAudioIsPlaying)
             [audioPlayer play];
-        
-        [url release];
-        [error release];
-        [errRet release];
     }
     
     return self;
@@ -59,14 +55,28 @@
 
 - (void)beginInterruption 
 {
+    
 }
 
 - (void)endInterruption 
 {
+    AudioSessionInitialize(NULL, NULL, NULL, NULL);
 }
 
 - (void)endInterruptionWithFlags:(NSUInteger)flags 
 {
+    AudioSessionInitialize(NULL, NULL, NULL, NULL);
+    
+    UInt32 propertySize = sizeof (otherAudioIsPlaying);
+    
+    AudioSessionGetProperty (                                     // 2
+                             kAudioSessionProperty_OtherAudioIsPlaying,
+                             &propertySize,
+                             &otherAudioIsPlaying
+                             );
+    
+    if(!otherAudioIsPlaying)
+        [audioPlayer play];
 }
 
 - (void)inputIsAvailableChanged:(BOOL)isInputAvailable 
@@ -75,6 +85,8 @@
 
 -(void)dealloc
 {
+    otherAudioIsPlaying = 0;
+    
     [audioPlayer release];
     [audioSession release];
     [super dealloc];

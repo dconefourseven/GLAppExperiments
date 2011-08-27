@@ -92,12 +92,6 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     animationFrameInterval = 1;
     self.displayLink = nil;
     
-    mEnemies = [[NSMutableArray alloc]initWithObjects:[[Sprite alloc]init:@"Sprite.png"], [[Sprite alloc]init:@"Sprite.png"], [[Sprite alloc]init:@"Sprite.png"], [[Sprite alloc]init:@"Sprite.png"], nil];
-    
-    srand(time(NULL));
-    mEnemyPositions = malloc(sizeof(EnemyPositions));
-    [self ResetEnemies];
-    
     mAudio = [[Audio alloc]init];
     
     mEnemy = [[Enemy alloc]init];
@@ -105,12 +99,7 @@ static int ScreenWidth = 0, ScreenHeight = 0;
 
 -(void)ResetEnemies
 {
-    for(int i = 0; i < 4; i++)
-    {
-        mEnemyPositions->points[i].x = (rand() % 440) + 20;
-        mEnemyPositions->points[i].y = (rand() % 280) + 20;
-        mEnemyPositions->hasBeenHit[i] = false;
-    }
+    
 }
 
 - (void)dealloc
@@ -120,13 +109,13 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         program = 0;
     }
     
-    [mAudio dealloc];
+    //[mAudio dealloc];
     
     [mSprite dealloc];
     [mSpriteFont dealloc];
     
-    [mEnemies release];
-    free(mEnemyPositions);
+    //[mEnemies release];
+    [mEnemy release];
     
     // Tear down context.
     if ([EAGLContext currentContext] == context)
@@ -222,7 +211,7 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     
-    //NSDate* date1 = [NSDate date];
+    NSDate* date1 = [NSDate date];
     
     NSString* testNSString;
         
@@ -231,37 +220,18 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         // Use shader program.
         glUseProgram(program);
         
-        /*glUniform2f(uniforms[UNIFORM_TRANSLATE], 240.0f, 100.0f);	
-        glUniform2f(uniforms[UNIFORM_SCALE], 1.0f, 1.0f);
-        [mSprite DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE: UNIFORM_SAMPLER];
-        
-        // Update uniform value.
         glUniform2f(uniforms[UNIFORM_SCALE], 2.0f, 2.0f);
-        glUniform2f(uniforms[UNIFORM_TRANSLATE], m        yPoint.x, myPoint.y);	        
-        [mSprite DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE: UNIFORM_SAMPLER];*/
-        
-        glUniform2f(uniforms[UNIFORM_SCALE], 2.0f, 2.0f);
-
-        for (int i = 0; i < mEnemies.count; i++)
-        {
-            if([self TouchedEnemy:myPoint : 30: 30: mEnemyPositions->points[i].x :mEnemyPositions->points[i].y :30 :30])
-                mEnemyPositions->hasBeenHit[i] = YES;
-            
-            //glUniform2f(uniforms[UNIFORM_TRANSLATE], mEnemyPositions->points[i].x, mEnemyPositions->points[i].y);
-            //[[mEnemies objectAtIndex:i] DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE :UNIFORM_SAMPLER];
-        }
         
         glUniform2f(uniforms[UNIFORM_TRANSLATE], [mEnemy mPosition].x, [mEnemy mPosition].y); 
         [mEnemy DrawES2:ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
-        //NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:date1];
         
-        //testNSString = [[NSString alloc]initWithFormat:@"%f", distanceBetweenDates];
+        NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:date1];
+        testNSString = [[NSString alloc]initWithFormat:@"%f", distanceBetweenDates];
         
-        testNSString = [[NSString alloc]initWithFormat:@"%d %d %d %d", mEnemyPositions->hasBeenHit[0], mEnemyPositions->hasBeenHit[1], mEnemyPositions->hasBeenHit[2], mEnemyPositions->hasBeenHit[3]];
+        //testNSString = [[NSString alloc]initWithFormat:@"%d %d %d %d", mEnemyPositions->hasBeenHit[0], mEnemyPositions->hasBeenHit[1], mEnemyPositions->hasBeenHit[2], mEnemyPositions->hasBeenHit[3]];
         
-        if(mEnemyPositions->hasBeenHit[0] && mEnemyPositions->hasBeenHit[1] && 
-           mEnemyPositions->hasBeenHit[2] && mEnemyPositions->hasBeenHit[3])
-            [self ResetEnemies];
+        //if(mEnemyPositions->hasBeenHit[0] && mEnemyPositions->hasBeenHit[1] && mEnemyPositions->hasBeenHit[2] && mEnemyPositions->hasBeenHit[3])
+            //[self ResetEnemies];
                                     
         
         glUniform2f(uniforms[UNIFORM_SCALE], 1.0f, 1.0f);

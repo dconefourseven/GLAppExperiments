@@ -12,6 +12,8 @@
 {
     AVAudioSession *audioSession;
     AVAudioPlayer *audioPlayer;
+    
+    UInt32 otherAudioIsPlaying;
 }
 
 - (void)beginInterruption;

@@ -21,11 +21,6 @@
 #import "Audio.h"
 #import "Enemy.h"
 
-typedef struct EnemyPositions
-{
-    CGPoint points[4];
-    BOOL hasBeenHit[4];
-}EnemyPositions;
 
 @interface GLAppViewController : UIViewController<UIAccelerometerDelegate> {
     EAGLContext *context;
@@ -41,12 +36,10 @@ typedef struct EnemyPositions
     
     SpriteFont* mSpriteFont;
     
-    NSMutableArray* mEnemies;
-    EnemyPositions* mEnemyPositions;
-    
     Audio* mAudio;
     
     Enemy* mEnemy;
+    NSMutableArray* mEnemies;
 }
 
 @property (readonly, nonatomic, getter=isAnimating) BOOL animating;
