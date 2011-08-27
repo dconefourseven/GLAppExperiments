@@ -244,7 +244,7 @@ static const GLushort s_squareIndices[] =
     glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT, (GLvoid*)((char*)NULL));
 }
 
--(void) DrawSpriteES2WithTexture:(int)VertexAttribute :(int)TexCoordAttribute:(int)UniformSampler
+-(void) DrawSpriteES2WithTexture:(int)VertexAttribute :(int) TexCoordAttribute:(int) UniformSampler
 {
     glBindTexture(GL_TEXTURE_2D, mSpriteTexture);
     

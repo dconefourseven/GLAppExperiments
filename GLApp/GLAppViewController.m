@@ -99,6 +99,8 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     [self ResetEnemies];
     
     mAudio = [[Audio alloc]init];
+    
+    mEnemy = [[Enemy alloc]init];
 }
 
 -(void)ResetEnemies
@@ -245,10 +247,12 @@ static int ScreenWidth = 0, ScreenHeight = 0;
             if([self TouchedEnemy:myPoint : 30: 30: mEnemyPositions->points[i].x :mEnemyPositions->points[i].y :30 :30])
                 mEnemyPositions->hasBeenHit[i] = YES;
             
-            glUniform2f(uniforms[UNIFORM_TRANSLATE], mEnemyPositions->points[i].x, mEnemyPositions->points[i].y);
-            [[mEnemies objectAtIndex:i] DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE :UNIFORM_SAMPLER];
+            //glUniform2f(uniforms[UNIFORM_TRANSLATE], mEnemyPositions->points[i].x, mEnemyPositions->points[i].y);
+            //[[mEnemies objectAtIndex:i] DrawSpriteES2WithTexture:ATTRIB_VERTEX :ATTRIB_TEXTURE :UNIFORM_SAMPLER];
         }
         
+        glUniform2f(uniforms[UNIFORM_TRANSLATE], [mEnemy mPosition].x, [mEnemy mPosition].y); 
+        [mEnemy DrawES2:ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
         //NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:date1];
         
         //testNSString = [[NSString alloc]initWithFormat:@"%f", distanceBetweenDates];

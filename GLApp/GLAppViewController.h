@@ -19,6 +19,7 @@
 #import "Sprites/Sprite.h"
 #import "SpriteFont.h"
 #import "Audio.h"
+#import "Enemy.h"
 
 typedef struct EnemyPositions
 {
@@ -44,6 +45,8 @@ typedef struct EnemyPositions
     EnemyPositions* mEnemyPositions;
     
     Audio* mAudio;
+    
+    Enemy* mEnemy;
 }
 
 @property (readonly, nonatomic, getter=isAnimating) BOOL animating;

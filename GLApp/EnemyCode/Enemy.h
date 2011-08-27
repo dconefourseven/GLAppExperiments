@@ -11,15 +11,21 @@
 
 @interface Enemy : NSObject
 {
-    CGPoint* mPosition;
+    CGPoint mPosition;
     BOOL hasBeenHit;
     
     Sprite* mSprite;
 }
 
-@property CGPoint* mPosition;
+@property CGPoint mPosition;
 @property BOOL hasBeenHit;
 @property (assign) Sprite* mSprite; 
+
+-(void)Reset;
+
+-(void)Update;
+-(void)Draw;
+-(void)DrawES2:(int)VertexAttribute :(int) TexCoordAttribute:(int) UniformSampler;
 
 -(void)dealloc;
 
