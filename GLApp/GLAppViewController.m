@@ -6,6 +6,8 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+#define NUMBEROFENEMIES 4
+
 #import <QuartzCore/QuartzCore.h>
 
 #import "GLAppViewController.h"
@@ -51,6 +53,7 @@ static int ScreenWidth = 0, ScreenHeight = 0;
 
 - (void)awakeFromNib
 {
+    srand(time(NULL));
     [UIApplication sharedApplication].idleTimerDisabled = NO;
     
     EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];    
@@ -78,7 +81,7 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     displayLinkSupported = false;
     self.displayLink = nil;
     animationTimer = nil;
-  
+    
     myPoint = CGPointMake(0.0f, 0.0f);
     
     ScreenWidth = self.view.frame.size.width;
@@ -94,12 +97,17 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     
     mAudio = [[Audio alloc]init];
     
-    mEnemy = [[Enemy alloc]init];
+    //mEnemy = [[Enemy alloc]init];
+    
+    mEnemies = [[NSMutableArray alloc]initWithObjects:[[Enemy alloc]init], [[Enemy alloc]init], [[Enemy alloc]init], [[Enemy alloc]init], nil];
 }
 
 -(void)ResetEnemies
 {
-    
+    for(int i = 0; i < NUMBEROFENEMIES; i++)
+    {        
+        [[mEnemies objectAtIndex:i] Reset];
+    }
 }
 
 - (void)dealloc
@@ -114,8 +122,8 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     [mSprite dealloc];
     [mSpriteFont dealloc];
     
-    //[mEnemies release];
-    [mEnemy release];
+    [mEnemies release];
+    //[mEnemy release];
     
     // Tear down context.
     if ([EAGLContext currentContext] == context)
@@ -154,7 +162,7 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         glDeleteProgram(program);
         program = 0;
     }
-
+    
     // Tear down context.
     if ([EAGLContext currentContext] == context)
         [EAGLContext setCurrentContext:nil];
@@ -192,7 +200,7 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         
         animating = TRUE;
     }
-
+    
 }
 
 - (void)stopAnimation
@@ -211,10 +219,10 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     
-    NSDate* date1 = [NSDate date];
+    //NSDate* date1 = [NSDate date];
     
     NSString* testNSString;
-        
+    
     if ([context API] == kEAGLRenderingAPIOpenGLES2) {
         
         // Use shader program.
@@ -222,17 +230,23 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         
         glUniform2f(uniforms[UNIFORM_SCALE], 2.0f, 2.0f);
         
-        glUniform2f(uniforms[UNIFORM_TRANSLATE], [mEnemy mPosition].x, [mEnemy mPosition].y); 
-        [mEnemy DrawES2:ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
+        //glUniform2f(uniforms[UNIFORM_TRANSLATE], [mEnemy mPosition].x, [mEnemy mPosition].y); 
+        //[mEnemy DrawES2:ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
         
-        NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:date1];
-        testNSString = [[NSString alloc]initWithFormat:@"%f", distanceBetweenDates];
+        if([[mEnemies objectAtIndex:0] hasBeenHit] && [[mEnemies objectAtIndex:1] hasBeenHit] && [[mEnemies objectAtIndex:2] hasBeenHit] && [[mEnemies objectAtIndex:3] hasBeenHit])
+            [self ResetEnemies];
         
-        //testNSString = [[NSString alloc]initWithFormat:@"%d %d %d %d", mEnemyPositions->hasBeenHit[0], mEnemyPositions->hasBeenHit[1], mEnemyPositions->hasBeenHit[2], mEnemyPositions->hasBeenHit[3]];
+        for(int i = 0; i < NUMBEROFENEMIES; i++)
+        {
+            glUniform2f(uniforms[UNIFORM_TRANSLATE], [[mEnemies objectAtIndex:i]mPosition].x, [[mEnemies objectAtIndex:i]mPosition].y);
+            
+            [[mEnemies objectAtIndex:i] DrawES2:ATTRIB_VERTEX :ATTRIB_TEXTURE :UNIFORM_SAMPLER];
+        }
         
-        //if(mEnemyPositions->hasBeenHit[0] && mEnemyPositions->hasBeenHit[1] && mEnemyPositions->hasBeenHit[2] && mEnemyPositions->hasBeenHit[3])
-            //[self ResetEnemies];
-                                    
+        //NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:date1];
+        //testNSString = [[NSString alloc]initWithFormat:@"%f", distanceBetweenDates];
+        
+        testNSString = [[NSString alloc]initWithFormat:@"%d %d %d %d", [[mEnemies objectAtIndex:0] hasBeenHit], [[mEnemies objectAtIndex:1] hasBeenHit], [[mEnemies objectAtIndex:2] hasBeenHit], [[mEnemies objectAtIndex:3] hasBeenHit]];                                    
         
         glUniform2f(uniforms[UNIFORM_SCALE], 1.0f, 1.0f);
         //[mSpriteFont DrawFontES2: uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
@@ -246,45 +260,45 @@ static int ScreenWidth = 0, ScreenHeight = 0;
             return;
         }
 #endif
-
+        
     }
     else
     {
-    
+        
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-
+        
         glOrthof(0, ScreenHeight, ScreenWidth, 0, -1.0f, 1.0f);  
-    
+        
         glPushMatrix();   // Push a matrix to the stack
-    
+        
         /// Draw Stuff
         
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
-    
+        
         glPushMatrix();
-    
+        
         glTranslatef(240.0f, 100.0, 0.0f);
-    
+        
         [mSprite DrawSpriteWithTexture];
-    
+        
         glPopMatrix();
-    
+        
         glPushMatrix();
-    
+        
         glTranslatef(myPoint.x, myPoint.y, 0.0f);     
-    
+        
         [mSprite DrawSpriteWithTexture];
-    
+        
         glPopMatrix();
-    
+        
         [mSpriteFont DrawFont:testNSString];
-    
+        
         glPopMatrix();
         
         
-    
+        
     }
     
     
@@ -307,8 +321,8 @@ static int ScreenWidth = 0, ScreenHeight = 0;
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     /*UITouch *myTouch = [[event allTouches] anyObject];
-    
-    myPoint = [myTouch locationInView:self.view]; */   
+     
+     myPoint = [myTouch locationInView:self.view]; */   
 }
 
 -(BOOL)TouchedEnemy:(const CGPoint) TouchCoordinates: (const float) XScale: (const float) YScale: 

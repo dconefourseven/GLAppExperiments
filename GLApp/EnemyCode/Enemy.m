@@ -16,7 +16,6 @@
 
 - (id)init
 {
-    srand(time(NULL));
     self = [super init];
     if (self) {
         // Initialization code here.

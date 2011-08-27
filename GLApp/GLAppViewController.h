@@ -38,7 +38,7 @@
     
     Audio* mAudio;
     
-    Enemy* mEnemy;
+    //Enemy* mEnemy;
     NSMutableArray* mEnemies;
 }
 
@@ -53,8 +53,7 @@
 
 -(void)ResetEnemies;
 
--(BOOL)TouchedEnemy:(const CGPoint) TouchCoordinates: (const float) XScale: (const float) YScale: 
-    (const float)EnemyXPos: (const float)EnemyYPos: (const float)EnemyXScale: (const float)EnemyYScale;
+-(BOOL)TouchedEnemy:(const CGPoint) TouchCoordinates: (const float) XScale: (const float) YScale: (const float)EnemyXPos: (const float)EnemyYPos: (const float)EnemyXScale: (const float)EnemyYScale;
 
 
 @end
