@@ -18,10 +18,12 @@
 }
 
 @property CGPoint mPosition;
-@property BOOL hasBeenHit;
+@property (assign) BOOL hasBeenHit;
 @property (assign) Sprite* mSprite; 
 
 -(void)Reset;
+
+-(void)setHasBeenHit:(BOOL)hasBeenHit;
 
 -(void)Update;
 -(void)Draw;

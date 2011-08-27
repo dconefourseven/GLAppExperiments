@@ -238,6 +238,9 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         
         for(int i = 0; i < NUMBEROFENEMIES; i++)
         {
+            if([self TouchedEnemy:myPoint :30.0f :30.0f :[[mEnemies objectAtIndex:i]mPosition].x: [[mEnemies objectAtIndex:i]mPosition].y :30.0f :30.0f])
+                [[mEnemies objectAtIndex:i]setHasBeenHit:true];
+                
             glUniform2f(uniforms[UNIFORM_TRANSLATE], [[mEnemies objectAtIndex:i]mPosition].x, [[mEnemies objectAtIndex:i]mPosition].y);
             
             [[mEnemies objectAtIndex:i] DrawES2:ATTRIB_VERTEX :ATTRIB_TEXTURE :UNIFORM_SAMPLER];
