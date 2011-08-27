@@ -12,6 +12,7 @@
 		E53AD14B1404086A003D420E /* GameSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = E53AD14A1404086A003D420E /* GameSmall.png */; };
 		E53F5BDE1407CBF400A6E946 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E53F5BDD1407CBF400A6E946 /* AVFoundation.framework */; };
 		E53F5BE21407CCFE00A6E946 /* sound.caf in Resources */ = {isa = PBXBuildFile; fileRef = E53F5BE11407CCFE00A6E946 /* sound.caf */; };
+		E5553B0114090A06008D6FBD /* Audio.m in Sources */ = {isa = PBXBuildFile; fileRef = E5553B0014090A06008D6FBD /* Audio.m */; };
 		E55682761407FAE4007A57CB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55682751407FAE4007A57CB /* AudioToolbox.framework */; };
 		E5D55AA513F48F3D00667BA4 /* Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D55AA413F48F3D00667BA4 /* Sprite.m */; };
 		E5D55AAB13F4B24300667BA4 /* Sprite.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D55AAA13F4B24300667BA4 /* Sprite.png */; };
@@ -39,6 +40,8 @@
 		E53AD14A1404086A003D420E /* GameSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameSmall.png; sourceTree = "<group>"; };
 		E53F5BDD1407CBF400A6E946 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		E53F5BE11407CCFE00A6E946 /* sound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.caf; sourceTree = "<group>"; };
+		E5553AFF14090A06008D6FBD /* Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; path = Audio.h; sourceTree = "<group>"; };
+		E5553B0014090A06008D6FBD /* Audio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Audio.m; sourceTree = "<group>"; };
 		E55682751407FAE4007A57CB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		E5D55AA313F48F3D00667BA4 /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
 		E5D55AA413F48F3D00667BA4 /* Sprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sprite.m; sourceTree = "<group>"; };
@@ -94,6 +97,15 @@
 				E53AD14A1404086A003D420E /* GameSmall.png */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		E5553AFD140909D5008D6FBD /* AudioCode */ = {
+			isa = PBXGroup;
+			children = (
+				E5553AFF14090A06008D6FBD /* Audio.h */,
+				E5553B0014090A06008D6FBD /* Audio.m */,
+			);
+			path = AudioCode;
 			sourceTree = "<group>";
 		};
 		E5D55AA213F48F3D00667BA4 /* SpriteCode */ = {
@@ -160,6 +172,7 @@
 		E5DC705D13EC65550053BD04 /* GLApp */ = {
 			isa = PBXGroup;
 			children = (
+				E5553AFD140909D5008D6FBD /* AudioCode */,
 				E5D55AAC13F4B37000667BA4 /* Textures */,
 				E5D55AA213F48F3D00667BA4 /* SpriteCode */,
 				E5DC706613EC65550053BD04 /* GLAppAppDelegate.h */,
@@ -263,6 +276,7 @@
 				E5DC707513EC65550053BD04 /* GLAppViewController.m in Sources */,
 				E5D55AA513F48F3D00667BA4 /* Sprite.m in Sources */,
 				E5D55AB113F4B83900667BA4 /* SpriteFont.m in Sources */,
+				E5553B0114090A06008D6FBD /* Audio.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

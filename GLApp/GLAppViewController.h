@@ -18,6 +18,7 @@
 
 #import "Sprites/Sprite.h"
 #import "SpriteFont.h"
+#import "Audio.h"
 
 
 typedef struct EnemyPositions
@@ -43,8 +44,7 @@ typedef struct EnemyPositions
     NSMutableArray* mEnemies;
     EnemyPositions* mEnemyPositions;
     
-    AVAudioSession *audioSession;
-    AVAudioPlayer *audioPlayer;
+    Audio* mAudio;
 }
 
 @property (readonly, nonatomic, getter=isAnimating) BOOL animating;
@@ -59,11 +59,7 @@ typedef struct EnemyPositions
 -(void)ResetEnemies;
 
 -(BOOL)TouchedEnemy:(const CGPoint) TouchCoordinates: (const float) XScale: (const float) YScale: 
-(const float)EnemyXPos: (const float)EnemyYPos: (const float)EnemyXScale: (const float)EnemyYScale;
+    (const float)EnemyXPos: (const float)EnemyYPos: (const float)EnemyXScale: (const float)EnemyYScale;
 
-- (void)beginInterruption;
-- (void)endInterruption;
-- (void)endInterruptionWithFlags:(NSUInteger)flags;
-- (void)inputIsAvailableChanged:(BOOL)isInputAvailable;
 
 @end
