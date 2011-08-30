@@ -57,10 +57,10 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     [UIApplication sharedApplication].idleTimerDisabled = NO;
     
     EAGLContext *aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];    
-    if (!aContext)
+    /*if (!aContext)
     {
         aContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
-    }
+    }*/
     
     if (!aContext)
         NSLog(@"Failed to create ES context");
@@ -100,6 +100,8 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     //mEnemy = [[Enemy alloc]init];
     
     mEnemies = [[NSMutableArray alloc]initWithObjects:[[Enemy alloc]init], [[Enemy alloc]init], [[Enemy alloc]init], [[Enemy alloc]init], nil];
+    
+    mGameplayScreen = [[GameplayScreen alloc]init];
 }
 
 -(void)ResetEnemies
@@ -222,8 +224,6 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     //NSDate* date1 = [NSDate date];
     
     NSString* testNSString;
-    
-    if ([context API] == kEAGLRenderingAPIOpenGLES2) {
         
         // Use shader program.
         glUseProgram(program);
@@ -264,52 +264,6 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         }
 #endif
         
-    }
-    else
-    {
-        
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        
-        glOrthof(0, ScreenHeight, ScreenWidth, 0, -1.0f, 1.0f);  
-        
-        glPushMatrix();   // Push a matrix to the stack
-        
-        /// Draw Stuff
-        
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
-        
-        glPushMatrix();
-        
-        glTranslatef(240.0f, 100.0, 0.0f);
-        
-        [mSprite DrawSpriteWithTexture];
-        
-        glPopMatrix();
-        
-        glPushMatrix();
-        
-        glTranslatef(myPoint.x, myPoint.y, 0.0f);     
-        
-        [mSprite DrawSpriteWithTexture];
-        
-        glPopMatrix();
-        
-        [mSpriteFont DrawFont:testNSString];
-        
-        glPopMatrix();
-        
-        
-        
-    }
-    
-    
-    
-    if(testNSString != nil){
-        [testNSString release];
-    }
-    
     [(EAGLView *)self.view presentFramebuffer];
     
 }

@@ -20,6 +20,7 @@
 #import "SpriteFont.h"
 #import "Audio.h"
 #import "Enemy.h"
+#import "GameplayScreen.h"
 
 
 @interface GLAppViewController : UIViewController<UIAccelerometerDelegate> {
@@ -40,6 +41,8 @@
     
     //Enemy* mEnemy;
     NSMutableArray* mEnemies;
+    
+    GameplayScreen* mGameplayScreen;
 }
 
 @property (readonly, nonatomic, getter=isAnimating) BOOL animating;
