@@ -13,7 +13,7 @@
 #import "GLAppViewController.h"
 #import "EAGLView.h"
 
-// Uniform index.
+/*// Uniform index.
 enum {
     UNIFORM_TRANSLATE,
     UNIFORM_ORIENTATION,
@@ -28,16 +28,16 @@ enum {
     ATTRIB_VERTEX,
     ATTRIB_TEXTURE,
     NUM_ATTRIBUTES
-};
+};*/
 
 @interface GLAppViewController ()
 @property (nonatomic, retain) EAGLContext *context;
 @property (nonatomic, assign) CADisplayLink *displayLink;
 @property (nonatomic, assign) NSTimer *animationTimer;
-- (BOOL)loadShaders;
+/*- (BOOL)loadShaders;
 - (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file;
 - (BOOL)linkProgram:(GLuint)prog;
-- (BOOL)validateProgram:(GLuint)prog;
+- (BOOL)validateProgram:(GLuint)prog;*/
 @end
 
 static CGPoint myPoint;
@@ -73,8 +73,8 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     [(EAGLView *)self.view setContext:context];
     [(EAGLView *)self.view setFramebuffer];
     
-    if ([context API] == kEAGLRenderingAPIOpenGLES2)
-        [self loadShaders];
+    //if ([context API] == kEAGLRenderingAPIOpenGLES2)
+     //   [self loadShaders];
     
     animating = FALSE;
     animationFrameInterval = 1;
@@ -126,6 +126,8 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     
     [mEnemies release];
     //[mEnemy release];
+    
+    [mGameplayScreen dealloc];
     
     // Tear down context.
     if ([EAGLContext currentContext] == context)
@@ -308,7 +310,7 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     return NO;
 }
 
-- (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file
+/*- (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file
 {
     GLint status;
     const GLchar *source;
@@ -463,6 +465,6 @@ static int ScreenWidth = 0, ScreenHeight = 0;
         glDeleteShader(fragShader);
     
     return TRUE;
-}
+}*/
 
 @end

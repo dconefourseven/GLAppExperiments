@@ -8,13 +8,17 @@
 
 #import "GameScreen.h"
 #import "Sprite.h"
+#import "SpriteFont.h"
 
 @interface GameplayScreen : GameScreen
 {
     Sprite* mSprite;
+    SpriteFont* mSpriteFont;
 }
 
 -(void)Update;
 -(void)Draw;
+
+-(void)dealloc;
 
 @end
