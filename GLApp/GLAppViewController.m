@@ -218,7 +218,9 @@ static int ScreenWidth = 0, ScreenHeight = 0;
 {
     [(EAGLView *)self.view setFramebuffer];
     
-    glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+    [mGameplayScreen Draw];
+    
+    /*glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     
     //NSDate* date1 = [NSDate date];
@@ -262,7 +264,7 @@ static int ScreenWidth = 0, ScreenHeight = 0;
             NSLog(@"Failed to validate program: %d", program);
             return;
         }
-#endif
+#endif*/
         
     [(EAGLView *)self.view presentFramebuffer];
     

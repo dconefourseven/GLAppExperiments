@@ -8,12 +8,41 @@
 
 #import <Foundation/Foundation.h>
 
+#import <OpenGLES/EAGL.h>
+
+#import <OpenGLES/ES2/gl.h>
+#import <OpenGLES/ES2/glext.h>
+
 @interface GameScreen : NSObject
 {
+    GLuint program;
+    
     
 }
 
+// Uniform index.
+enum {
+    UNIFORM_TRANSLATE,
+    UNIFORM_ORIENTATION,
+    UNIFORM_SCALE,
+    UNIFORM_SAMPLER,
+    NUM_UNIFORMS
+};
+GLint uniforms[NUM_UNIFORMS];
+
+// Attribute index.
+enum {
+    ATTRIB_VERTEX,
+    ATTRIB_TEXTURE,
+    NUM_ATTRIBUTES
+};
+
 -(void)Update;
 -(void)Draw;
+
+- (BOOL)loadShaders;
+- (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file;
+- (BOOL)linkProgram:(GLuint)prog;
+- (BOOL)validateProgram:(GLuint)prog;
 
 @end

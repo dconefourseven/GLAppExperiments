@@ -11,8 +11,6 @@
 
 @interface GameplayScreen : GameScreen
 {
-    GLuint program;
-    
     Sprite* mSprite;
 }
 
