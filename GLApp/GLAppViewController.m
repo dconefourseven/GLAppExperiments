@@ -6,13 +6,14 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#define NUMBEROFENEMIES 4
-
 #import <QuartzCore/QuartzCore.h>
 #import "GameplayScreen.h"
 
 #import "GLAppViewController.h"
 #import "EAGLView.h"
+
+#import "Audio.h"
+#import "ScreenManager.h"
 
 @interface GLAppViewController ()
 @property (nonatomic, retain) EAGLContext *context;

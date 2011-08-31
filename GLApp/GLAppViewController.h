@@ -10,15 +10,12 @@
 
 #import <OpenGLES/EAGL.h>
 
-#import <OpenGLES/ES1/gl.h>
-#import <OpenGLES/ES1/glext.h>
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
 #import <AVFoundation/AVFoundation.h>
 
-#import "Audio.h"
-#import "ScreenManager.h"
-
+@class Audio;
+@class ScreenManager;
 
 @interface GLAppViewController : UIViewController<UIAccelerometerDelegate> {
     EAGLContext *context;
