@@ -25,6 +25,7 @@
 -(void)AddScreen:(GameScreen*) screen
 {
     [mScreenQueue addObject:screen];
+    [[mScreenQueue lastObject]LoadScreenManager:self];
     [[mScreenQueue lastObject]LoadContent];
 }
 

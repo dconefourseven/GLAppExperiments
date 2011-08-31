@@ -12,6 +12,8 @@
 
 #import "EAGLView.h"
 
+#import "ScreenManager.h"
+
 @implementation GameplayScreen
 
 - (id)init
@@ -29,6 +31,7 @@
     mSprite = [[Sprite alloc]init:@"Sprite.png"];
     
     mSpriteFont = [[SpriteFont alloc] init:@"Hello. World"];
+    
     
     [self loadShaders];
 }

@@ -23,6 +23,11 @@
     return self;
 }
 
+-(void)LoadScreenManager:(ScreenManager*)screenManager
+{
+    mScreenManager = screenManager;
+}
+
 -(void)LoadContent
 {
     

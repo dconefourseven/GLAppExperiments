@@ -41,6 +41,7 @@ enum {
 }
 
 -(void)LoadContent;
+-(void)LoadScreenManager:(ScreenManager*)screenManager;
 -(void)Update;
 -(void)Draw;
 

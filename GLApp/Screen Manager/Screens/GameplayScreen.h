@@ -10,7 +10,6 @@
 
 @class Sprite;
 @class SpriteFont;
-@class ScreenManager;
 
 @interface GameplayScreen : GameScreen
 {
