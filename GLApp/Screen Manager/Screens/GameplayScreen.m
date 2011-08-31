@@ -17,20 +17,28 @@
     self = [super init];
     if (self) {
         // Initialization code here.
-        mSprite = [[Sprite alloc]init:@"Sprite.png"];
         
-        mSpriteFont = [[SpriteFont alloc] init:@"Hello. World"];
-        
-        [self loadShaders];
 
     }
     
     return self;
 }
 
+-(void)LoadContent
+{
+    mSprite = [[Sprite alloc]init:@"Sprite.png"];
+    
+    mSpriteFont = [[SpriteFont alloc] init:@"Hello. World"];
+    
+    [self loadShaders];
+}
+
+NSString* testNSString;
+static int testInt = 0;
 -(void)Update
 {
     
+    testInt++;
 }
 
 -(void)Draw
@@ -49,9 +57,7 @@
     glUniform2f(uniforms[UNIFORM_SCALE], 1.0f, 1.0f);
     glUniform2f(uniforms[UNIFORM_TRANSLATE], 0.0f, 0.0f);
     
-    NSString* testNSString;
-    static int testInt = 0;
-    testInt++;
+    
     testNSString = [[NSString alloc]initWithFormat:@"HELLO DAVE. %d", testInt];
     //testNSString = [[NSString alloc]initWithFormat:@"%d %d %d %d", [[mEnemies objectAtIndex:0] hasBeenHit], [[mEnemies objectAtIndex:1] hasBeenHit], [[mEnemies objectAtIndex:2] hasBeenHit], [[mEnemies objectAtIndex:3] hasBeenHit]];                                    
     

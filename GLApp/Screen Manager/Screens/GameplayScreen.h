@@ -16,6 +16,7 @@
     SpriteFont* mSpriteFont;
 }
 
+-(void)LoadContent;
 -(void)Update;
 -(void)Draw;
 

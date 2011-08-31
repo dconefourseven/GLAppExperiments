@@ -21,6 +21,11 @@
     return self;
 }
 
+-(void)LoadContent
+{
+    
+}
+
 -(void)Update
 {
     

@@ -15,29 +15,38 @@
     self = [super init];
     if (self) {
         // Initialization code here.
+        mScreenQueue = [[NSMutableArray alloc]init];
     }
     
     return self;
 }
 
--(void)AddScreen
+-(void)AddScreen:(GameScreen*) screen
 {
-    
+    [mScreenQueue addObject:screen];
+    [[mScreenQueue lastObject]LoadContent];
 }
 
 -(void)RemoveScreen
 {
-    
+    [[mScreenQueue lastObject]release];
+    [mScreenQueue removeLastObject];
 }
 
 -(void)Update
 {
-    
+    [[mScreenQueue lastObject]Update];
 }
 
 -(void)Draw
 {
-    
+    [[mScreenQueue lastObject]Draw];
+}
+
+-(void)dealloc
+{
+    [mScreenQueue release];
+    [super dealloc];
 }
 
 @end

@@ -20,6 +20,7 @@
 #import "SpriteFont.h"
 #import "Audio.h"
 #import "Enemy.h"
+#import "ScreenManager.h"
 #import "GameplayScreen.h"
 
 
@@ -42,7 +43,7 @@
     //Enemy* mEnemy;
     NSMutableArray* mEnemies;
     
-    GameplayScreen* mGameplayScreen;
+    ScreenManager* mScreenManager;
 }
 
 @property (readonly, nonatomic, getter=isAnimating) BOOL animating;

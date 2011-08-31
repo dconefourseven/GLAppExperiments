@@ -13,13 +13,6 @@
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
 
-@interface GameScreen : NSObject
-{
-    GLuint program;
-    
-    
-}
-
 // Uniform index.
 enum {
     UNIFORM_TRANSLATE,
@@ -28,7 +21,6 @@ enum {
     UNIFORM_SAMPLER,
     NUM_UNIFORMS
 };
-GLint uniforms[NUM_UNIFORMS];
 
 // Attribute index.
 enum {
@@ -37,6 +29,14 @@ enum {
     NUM_ATTRIBUTES
 };
 
+@interface GameScreen : NSObject
+{
+    GLuint program;
+    
+    GLint uniforms[NUM_UNIFORMS];
+}
+
+-(void)LoadContent;
 -(void)Update;
 -(void)Draw;
 

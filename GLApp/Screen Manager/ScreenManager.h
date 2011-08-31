@@ -7,15 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GameScreen.h"
 
 @interface ScreenManager : NSObject
 {
     NSMutableArray* mScreenQueue;
 }
 
--(void)AddScreen;
+-(void)AddScreen:(GameScreen*) screen;
 -(void)RemoveScreen;
 -(void)Update;
 -(void)Draw;
+
+-(void)dealloc;
 
 @end

@@ -101,7 +101,8 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     
     mEnemies = [[NSMutableArray alloc]initWithObjects:[[Enemy alloc]init], [[Enemy alloc]init], [[Enemy alloc]init], [[Enemy alloc]init], nil];
     
-    mGameplayScreen = [[GameplayScreen alloc]init];
+    mScreenManager = [[ScreenManager alloc]init];
+    [mScreenManager AddScreen:[[GameplayScreen alloc]init]];
 }
 
 -(void)ResetEnemies
@@ -127,7 +128,8 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     [mEnemies release];
     //[mEnemy release];
     
-    [mGameplayScreen dealloc];
+    [mScreenManager dealloc];
+    
     
     // Tear down context.
     if ([EAGLContext currentContext] == context)
@@ -220,7 +222,10 @@ static int ScreenWidth = 0, ScreenHeight = 0;
 {
     [(EAGLView *)self.view setFramebuffer];
     
-    [mGameplayScreen Draw];
+    [mScreenManager Update];
+    [mScreenManager Draw];
+    
+    //[mGameplayScreen Draw];
     
     /*glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
