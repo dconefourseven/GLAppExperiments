@@ -32,6 +32,7 @@ static CGPoint myPoint;
 @synthesize context;
 @synthesize displayLink;
 @synthesize animationTimer;
+@synthesize mScreenManager;
 
 static int ScreenWidth = 0, ScreenHeight = 0;
 
@@ -69,8 +70,10 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     self.displayLink = nil;
     
     mAudio = [[Audio alloc]init];
+
     
     mScreenManager = [[ScreenManager alloc]init];
+    
     [mScreenManager AddScreen:[[GameplayScreen alloc]init]];
     [mScreenManager AddScreen:[[MenuScreen alloc]init]];
 }
@@ -85,7 +88,6 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     [mAudio dealloc];
     
     [mScreenManager dealloc];
-    
     
     // Tear down context.
     if ([EAGLContext currentContext] == context)
@@ -185,12 +187,12 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+/*-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *myTouch = [[event allTouches] anyObject];
     
     myPoint = [myTouch locationInView:self.view];
-}
+}*/
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {

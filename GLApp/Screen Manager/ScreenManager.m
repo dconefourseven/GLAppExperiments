@@ -7,6 +7,7 @@
 //
 
 #import "ScreenManager.h"
+#import "GameScreen.h"
 
 @implementation ScreenManager
 

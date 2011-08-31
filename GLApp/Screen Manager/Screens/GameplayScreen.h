@@ -3,13 +3,14 @@
 //  GLApp
 //
 //  Created by David Clarke on 30/08/2011.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 David Clarke. All rights reserved.
 //
 
 #import "GameScreen.h"
 
 @class Sprite;
 @class SpriteFont;
+@class ScreenManager;
 
 @interface GameplayScreen : GameScreen
 {
@@ -17,10 +18,12 @@
     SpriteFont* mSpriteFont;
 }
 
+
 -(void)LoadContent;
 -(void)Update;
 -(void)Draw;
 
 -(void)dealloc;
+
 
 @end

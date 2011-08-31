@@ -3,14 +3,16 @@
 //  GLApp
 //
 //  Created by David Clarke on 30/08/2011.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 David Clarke. All rights reserved.
 //
 
 #import "GameScreen.h"
 
 
-
 @implementation GameScreen
+
+@synthesize mScreenManager;
+
 - (id)init
 {
     self = [super init];
