@@ -187,12 +187,12 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     
 }
 
-/*-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *myTouch = [[event allTouches] anyObject];
     
     myPoint = [myTouch locationInView:self.view];
-}*/
+}
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
