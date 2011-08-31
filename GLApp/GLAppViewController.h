@@ -16,12 +16,8 @@
 #import <OpenGLES/ES2/glext.h>
 #import <AVFoundation/AVFoundation.h>
 
-#import "Sprites/Sprite.h"
-#import "SpriteFont.h"
 #import "Audio.h"
-#import "Enemy.h"
 #import "ScreenManager.h"
-#import "GameplayScreen.h"
 
 
 @interface GLAppViewController : UIViewController<UIAccelerometerDelegate> {
@@ -34,14 +30,7 @@
     
     BOOL displayLinkSupported;
     
-    Sprite* mSprite;
-    
-    SpriteFont* mSpriteFont;
-    
     Audio* mAudio;
-    
-    //Enemy* mEnemy;
-    NSMutableArray* mEnemies;
     
     ScreenManager* mScreenManager;
 }
@@ -54,8 +43,6 @@
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
-
--(void)ResetEnemies;
 
 -(BOOL)TouchedEnemy:(const CGPoint) TouchCoordinates: (const float) XScale: (const float) YScale: (const float)EnemyXPos: (const float)EnemyYPos: (const float)EnemyXScale: (const float)EnemyYScale;
 

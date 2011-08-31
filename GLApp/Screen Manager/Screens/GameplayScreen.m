@@ -7,7 +7,8 @@
 //
 
 #import "GameplayScreen.h"
-
+#import "Sprite.h"
+#import "SpriteFont.h"
 
 
 @implementation GameplayScreen
@@ -66,6 +67,15 @@ static int testInt = 0;
     [mSpriteFont DrawFontES2: testNSString: uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
     
     [testNSString release];
+    
+    // Validate program before drawing. This is a good check, but only really necessary in a debug build.
+    // DEBUG macro must be defined in your debug configurations if that's not already the case.
+#if defined(DEBUG)
+    if (![self validateProgram:program]) {
+        NSLog(@"Failed to validate program: %d", program);
+        return;
+    }
+#endif
     
 }
 

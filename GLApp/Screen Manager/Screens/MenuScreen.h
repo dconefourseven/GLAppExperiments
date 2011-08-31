@@ -8,11 +8,14 @@
 
 #import "GameScreen.h"
 
+@class Sprite;
+
 @interface MenuScreen : GameScreen
 {
-    
+    Sprite* mSprite;
 }
 
+-(void)LoadContent;
 -(void)Update;
 -(void)Draw;
 

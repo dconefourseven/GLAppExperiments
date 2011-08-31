@@ -7,6 +7,7 @@
 //
 
 #import "MenuScreen.h"
+#import "Sprite.h"
 
 @implementation MenuScreen
 
@@ -18,6 +19,11 @@
     }
     
     return self;
+}
+
+-(void)LoadContent
+{
+    [self loadShaders];
 }
 
 -(void)Update

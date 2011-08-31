@@ -7,8 +7,9 @@
 //
 
 #import "GameScreen.h"
-#import "Sprite.h"
-#import "SpriteFont.h"
+
+@class Sprite;
+@class SpriteFont;
 
 @interface GameplayScreen : GameScreen
 {

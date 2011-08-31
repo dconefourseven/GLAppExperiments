@@ -10,6 +10,7 @@
 #define LETTERHEIGHT 0.125
 
 #import "SpriteFont.h"
+#import "Sprite.h"
 
 @implementation SpriteFont
 
