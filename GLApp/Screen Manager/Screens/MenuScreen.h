@@ -9,10 +9,13 @@
 #import "GameScreen.h"
 
 @class Sprite;
+@class SpriteFont;
 
 @interface MenuScreen : GameScreen
 {
     Sprite* mSprite;
+    
+    SpriteFont* mSpriteFont;
 }
 
 -(void)LoadContent;

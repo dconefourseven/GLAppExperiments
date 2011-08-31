@@ -56,8 +56,7 @@ static int testInt = 0;
     [mSprite DrawSpriteES2WithTexture:ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
     
     glUniform2f(uniforms[UNIFORM_SCALE], 1.0f, 1.0f);
-    glUniform2f(uniforms[UNIFORM_TRANSLATE], 0.0f, 0.0f);
-    
+    glUniform2f(uniforms[UNIFORM_TRANSLATE], 0.0f, 0.0f);    
     
     testNSString = [[NSString alloc]initWithFormat:@"HELLO DAVE. %d", testInt];
     //testNSString = [[NSString alloc]initWithFormat:@"%d %d %d %d", [[mEnemies objectAtIndex:0] hasBeenHit], [[mEnemies objectAtIndex:1] hasBeenHit], [[mEnemies objectAtIndex:2] hasBeenHit], [[mEnemies objectAtIndex:3] hasBeenHit]];                                    

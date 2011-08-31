@@ -3,17 +3,19 @@
 //  GLApp
 //
 //  Created by David Clarke on 05/08/2011.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 David Clarke. All rights reserved.
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "GameplayScreen.h"
 
 #import "GLAppViewController.h"
 #import "EAGLView.h"
 
 #import "Audio.h"
 #import "ScreenManager.h"
+
+#import "GameplayScreen.h"
+#import "MenuScreen.h"
 
 @interface GLAppViewController ()
 @property (nonatomic, retain) EAGLContext *context;
@@ -70,6 +72,7 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     
     mScreenManager = [[ScreenManager alloc]init];
     [mScreenManager AddScreen:[[GameplayScreen alloc]init]];
+    [mScreenManager AddScreen:[[MenuScreen alloc]init]];
 }
 
 - (void)dealloc
@@ -178,7 +181,6 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     [mScreenManager Update];
     [mScreenManager Draw];
 
-        
     [(EAGLView *)self.view presentFramebuffer];
     
 }
