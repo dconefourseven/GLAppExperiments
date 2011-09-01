@@ -33,10 +33,6 @@
 		E5DF7275140BD97F00E6D5F4 /* GameSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DF7273140BD97F00E6D5F4 /* GameSmall.png */; };
 		E5DF7277140BD98700E6D5F4 /* sound.caf in Resources */ = {isa = PBXBuildFile; fileRef = E5DF7276140BD98700E6D5F4 /* sound.caf */; };
 		E5ED90E513FD3D0400FD44BC /* CharMap.plist in Resources */ = {isa = PBXBuildFile; fileRef = E5ED90E413FD3D0400FD44BC /* CharMap.plist */; };
-		E5EDBFA0140D0F2800C73CE2 /* ScreenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E5EDBF9F140D0F2800C73CE2 /* ScreenManager.m */; };
-		E5EDBFA7140D18F700C73CE2 /* GameScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = E5EDBFA6140D18F700C73CE2 /* GameScreen.m */; };
-		E5EDBFAD140D1C2800C73CE2 /* MenuScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = E5EDBFAC140D1C2800C73CE2 /* MenuScreen.m */; };
-		E5EDBFB0140D213700C73CE2 /* GameplayScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = E5EDBFAF140D213700C73CE2 /* GameplayScreen.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,14 +72,6 @@
 		E5DF7273140BD97F00E6D5F4 /* GameSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameSmall.png; sourceTree = "<group>"; };
 		E5DF7276140BD98700E6D5F4 /* sound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.caf; sourceTree = "<group>"; };
 		E5ED90E413FD3D0400FD44BC /* CharMap.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CharMap.plist; sourceTree = "<group>"; };
-		E5EDBF9E140D0F2800C73CE2 /* ScreenManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenManager.h; sourceTree = "<group>"; };
-		E5EDBF9F140D0F2800C73CE2 /* ScreenManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenManager.m; sourceTree = "<group>"; };
-		E5EDBFA5140D18F700C73CE2 /* GameScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScreen.h; sourceTree = "<group>"; };
-		E5EDBFA6140D18F700C73CE2 /* GameScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScreen.m; sourceTree = "<group>"; };
-		E5EDBFAB140D1C2800C73CE2 /* MenuScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScreen.h; sourceTree = "<group>"; };
-		E5EDBFAC140D1C2800C73CE2 /* MenuScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuScreen.m; sourceTree = "<group>"; };
-		E5EDBFAE140D213700C73CE2 /* GameplayScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameplayScreen.h; sourceTree = "<group>"; };
-		E5EDBFAF140D213700C73CE2 /* GameplayScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameplayScreen.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,7 +176,6 @@
 		E5DC705D13EC65550053BD04 /* GLApp */ = {
 			isa = PBXGroup;
 			children = (
-				E5EDBF9C140D0F0C00C73CE2 /* Screen Manager */,
 				E52C7098140915A400E46F38 /* EnemyCode */,
 				E5553AFD140909D5008D6FBD /* AudioCode */,
 				E5D55AA213F48F3D00667BA4 /* SpriteCode */,
@@ -254,29 +241,6 @@
 			);
 			name = Sprites;
 			path = GLApp/Resources/Sprites;
-			sourceTree = "<group>";
-		};
-		E5EDBF9C140D0F0C00C73CE2 /* Screen Manager */ = {
-			isa = PBXGroup;
-			children = (
-				E5EDBFA1140D18CE00C73CE2 /* Screens */,
-				E5EDBF9E140D0F2800C73CE2 /* ScreenManager.h */,
-				E5EDBF9F140D0F2800C73CE2 /* ScreenManager.m */,
-			);
-			path = "Screen Manager";
-			sourceTree = "<group>";
-		};
-		E5EDBFA1140D18CE00C73CE2 /* Screens */ = {
-			isa = PBXGroup;
-			children = (
-				E5EDBFA5140D18F700C73CE2 /* GameScreen.h */,
-				E5EDBFA6140D18F700C73CE2 /* GameScreen.m */,
-				E5EDBFAB140D1C2800C73CE2 /* MenuScreen.h */,
-				E5EDBFAC140D1C2800C73CE2 /* MenuScreen.m */,
-				E5EDBFAE140D213700C73CE2 /* GameplayScreen.h */,
-				E5EDBFAF140D213700C73CE2 /* GameplayScreen.m */,
-			);
-			path = Screens;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -358,10 +322,6 @@
 				E5D55AB113F4B83900667BA4 /* SpriteFont.m in Sources */,
 				E5553B0114090A06008D6FBD /* Audio.m in Sources */,
 				E52C709B140915B100E46F38 /* Enemy.m in Sources */,
-				E5EDBFA0140D0F2800C73CE2 /* ScreenManager.m in Sources */,
-				E5EDBFA7140D18F700C73CE2 /* GameScreen.m in Sources */,
-				E5EDBFAD140D1C2800C73CE2 /* MenuScreen.m in Sources */,
-				E5EDBFB0140D213700C73CE2 /* GameplayScreen.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

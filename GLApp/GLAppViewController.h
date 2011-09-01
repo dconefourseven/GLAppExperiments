@@ -15,9 +15,11 @@
 #import <AVFoundation/AVFoundation.h>
 
 @class Audio;
-@class ScreenManager;
+@class Sprite;
+@class SpriteFont;
 
-@interface GLAppViewController : UIViewController<UIAccelerometerDelegate> {
+@interface GLAppViewController : UIViewController<UIAccelerometerDelegate> 
+{ 
     EAGLContext *context;
     GLuint program;
     
@@ -29,12 +31,12 @@
     
     Audio* mAudio;
     
-    ScreenManager* mScreenManager;
+    Sprite* mSprite;
+    SpriteFont* mSpriteFont;
 }
 
 @property (readonly, nonatomic, getter=isAnimating) BOOL animating;
 @property (nonatomic) NSInteger animationFrameInterval;
-@property (readonly, nonatomic) ScreenManager* mScreenManager;
 
 - (void)startAnimation;
 - (void)stopAnimation;
