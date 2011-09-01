@@ -11,6 +11,11 @@
 		E53F5BDE1407CBF400A6E946 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E53F5BDD1407CBF400A6E946 /* AVFoundation.framework */; };
 		E5553B0114090A06008D6FBD /* Audio.m in Sources */ = {isa = PBXBuildFile; fileRef = E5553B0014090A06008D6FBD /* Audio.m */; };
 		E55682761407FAE4007A57CB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55682751407FAE4007A57CB /* AudioToolbox.framework */; };
+		E56949E6140FD50D00BABA1C /* ScreenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E56949DE140FD50D00BABA1C /* ScreenManager.m */; };
+		E56949E7140FD50D00BABA1C /* GameplayScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = E56949E1140FD50D00BABA1C /* GameplayScreen.m */; };
+		E56949E8140FD50D00BABA1C /* GameScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = E56949E3140FD50D00BABA1C /* GameScreen.m */; };
+		E56949E9140FD50D00BABA1C /* MenuScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = E56949E5140FD50D00BABA1C /* MenuScreen.m */; };
+		E56949EC140FD53000BABA1C /* GLAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E56949EB140FD53000BABA1C /* GLAppViewController.m */; };
 		E5D55AA513F48F3D00667BA4 /* Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D55AA413F48F3D00667BA4 /* Sprite.m */; };
 		E5D55AB113F4B83900667BA4 /* SpriteFont.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D55AB013F4B83900667BA4 /* SpriteFont.m */; };
 		E5DC705413EC65550053BD04 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5DC705313EC65550053BD04 /* UIKit.framework */; };
@@ -25,7 +30,6 @@
 		E5DC706D13EC65550053BD04 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = E5DC706C13EC65550053BD04 /* Shader.fsh */; };
 		E5DC706F13EC65550053BD04 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = E5DC706E13EC65550053BD04 /* Shader.vsh */; };
 		E5DC707213EC65550053BD04 /* EAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DC707113EC65550053BD04 /* EAGLView.m */; };
-		E5DC707513EC65550053BD04 /* GLAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DC707413EC65550053BD04 /* GLAppViewController.m */; };
 		E5DC707813EC65550053BD04 /* GLAppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5DC707613EC65550053BD04 /* GLAppViewController.xib */; };
 		E5DF7270140BD96E00E6D5F4 /* Sprite.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DF726E140BD96E00E6D5F4 /* Sprite.png */; };
 		E5DF7271140BD96E00E6D5F4 /* SpriteSheet.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DF726F140BD96E00E6D5F4 /* SpriteSheet.png */; };
@@ -42,6 +46,16 @@
 		E5553AFF14090A06008D6FBD /* Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Audio.h; sourceTree = "<group>"; };
 		E5553B0014090A06008D6FBD /* Audio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Audio.m; sourceTree = "<group>"; };
 		E55682751407FAE4007A57CB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		E56949DD140FD50D00BABA1C /* ScreenManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenManager.h; sourceTree = "<group>"; };
+		E56949DE140FD50D00BABA1C /* ScreenManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenManager.m; sourceTree = "<group>"; };
+		E56949E0140FD50D00BABA1C /* GameplayScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameplayScreen.h; sourceTree = "<group>"; };
+		E56949E1140FD50D00BABA1C /* GameplayScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameplayScreen.m; sourceTree = "<group>"; };
+		E56949E2140FD50D00BABA1C /* GameScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScreen.h; sourceTree = "<group>"; };
+		E56949E3140FD50D00BABA1C /* GameScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScreen.m; sourceTree = "<group>"; };
+		E56949E4140FD50D00BABA1C /* MenuScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScreen.h; sourceTree = "<group>"; };
+		E56949E5140FD50D00BABA1C /* MenuScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuScreen.m; sourceTree = "<group>"; };
+		E56949EA140FD53000BABA1C /* GLAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLAppViewController.h; sourceTree = "<group>"; };
+		E56949EB140FD53000BABA1C /* GLAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLAppViewController.m; sourceTree = "<group>"; };
 		E5D55AA313F48F3D00667BA4 /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
 		E5D55AA413F48F3D00667BA4 /* Sprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sprite.m; sourceTree = "<group>"; };
 		E5D55AAF13F4B83900667BA4 /* SpriteFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteFont.h; sourceTree = "<group>"; };
@@ -63,8 +77,6 @@
 		E5DC706E13EC65550053BD04 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
 		E5DC707013EC65550053BD04 /* EAGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
 		E5DC707113EC65550053BD04 /* EAGLView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EAGLView.m; sourceTree = "<group>"; };
-		E5DC707313EC65550053BD04 /* GLAppViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLAppViewController.h; sourceTree = "<group>"; };
-		E5DC707413EC65550053BD04 /* GLAppViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GLAppViewController.m; sourceTree = "<group>"; };
 		E5DC707713EC65550053BD04 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/GLAppViewController.xib; sourceTree = "<group>"; };
 		E5DF726E140BD96E00E6D5F4 /* Sprite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprite.png; sourceTree = "<group>"; };
 		E5DF726F140BD96E00E6D5F4 /* SpriteSheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpriteSheet.png; sourceTree = "<group>"; };
@@ -119,6 +131,29 @@
 				E5553B0014090A06008D6FBD /* Audio.m */,
 			);
 			path = AudioCode;
+			sourceTree = "<group>";
+		};
+		E56949DC140FD50D00BABA1C /* Screen Manager */ = {
+			isa = PBXGroup;
+			children = (
+				E56949DD140FD50D00BABA1C /* ScreenManager.h */,
+				E56949DE140FD50D00BABA1C /* ScreenManager.m */,
+				E56949DF140FD50D00BABA1C /* Screens */,
+			);
+			path = "Screen Manager";
+			sourceTree = "<group>";
+		};
+		E56949DF140FD50D00BABA1C /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				E56949E0140FD50D00BABA1C /* GameplayScreen.h */,
+				E56949E1140FD50D00BABA1C /* GameplayScreen.m */,
+				E56949E2140FD50D00BABA1C /* GameScreen.h */,
+				E56949E3140FD50D00BABA1C /* GameScreen.m */,
+				E56949E4140FD50D00BABA1C /* MenuScreen.h */,
+				E56949E5140FD50D00BABA1C /* MenuScreen.m */,
+			);
+			path = Screens;
 			sourceTree = "<group>";
 		};
 		E5D55AA213F48F3D00667BA4 /* SpriteCode */ = {
@@ -176,6 +211,7 @@
 		E5DC705D13EC65550053BD04 /* GLApp */ = {
 			isa = PBXGroup;
 			children = (
+				E56949DC140FD50D00BABA1C /* Screen Manager */,
 				E52C7098140915A400E46F38 /* EnemyCode */,
 				E5553AFD140909D5008D6FBD /* AudioCode */,
 				E5D55AA213F48F3D00667BA4 /* SpriteCode */,
@@ -186,8 +222,8 @@
 				E5DC706E13EC65550053BD04 /* Shader.vsh */,
 				E5DC707013EC65550053BD04 /* EAGLView.h */,
 				E5DC707113EC65550053BD04 /* EAGLView.m */,
-				E5DC707313EC65550053BD04 /* GLAppViewController.h */,
-				E5DC707413EC65550053BD04 /* GLAppViewController.m */,
+				E56949EA140FD53000BABA1C /* GLAppViewController.h */,
+				E56949EB140FD53000BABA1C /* GLAppViewController.m */,
 				E5DC707613EC65550053BD04 /* GLAppViewController.xib */,
 				E5DC705E13EC65550053BD04 /* Supporting Files */,
 			);
@@ -317,11 +353,15 @@
 				E5DC706413EC65550053BD04 /* main.m in Sources */,
 				E5DC706813EC65550053BD04 /* GLAppAppDelegate.m in Sources */,
 				E5DC707213EC65550053BD04 /* EAGLView.m in Sources */,
-				E5DC707513EC65550053BD04 /* GLAppViewController.m in Sources */,
 				E5D55AA513F48F3D00667BA4 /* Sprite.m in Sources */,
 				E5D55AB113F4B83900667BA4 /* SpriteFont.m in Sources */,
 				E5553B0114090A06008D6FBD /* Audio.m in Sources */,
 				E52C709B140915B100E46F38 /* Enemy.m in Sources */,
+				E56949E6140FD50D00BABA1C /* ScreenManager.m in Sources */,
+				E56949E7140FD50D00BABA1C /* GameplayScreen.m in Sources */,
+				E56949E8140FD50D00BABA1C /* GameScreen.m in Sources */,
+				E56949E9140FD50D00BABA1C /* MenuScreen.m in Sources */,
+				E56949EC140FD53000BABA1C /* GLAppViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
