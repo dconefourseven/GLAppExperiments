@@ -32,9 +32,9 @@
     
     mSpriteFont = [[SpriteFont alloc] init:@"Hello. World"];
     
-    
     [self loadShaders];
 }
+
 NSString* testNSString;
 static int testInt = 0;
 

@@ -22,4 +22,6 @@
 -(void)Update;
 -(void)Draw;
 
+-(void)dealloc;
+
 @end

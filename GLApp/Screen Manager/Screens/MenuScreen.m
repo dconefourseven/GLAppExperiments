@@ -36,6 +36,7 @@
 
 -(void)touchesBeganWithEvent:(NSSet *)touches withEvent:(UIEvent *)event: (UIView*)view
 {
+    [mScreenManager RemoveScreen];
     [mScreenManager AddScreen:[[GameplayScreen alloc]init]];
 }
 
@@ -75,6 +76,14 @@
         return;
     }
 #endif
+}
+
+-(void)dealloc
+{
+    [mSpriteFont release];
+    [mSprite release];
+    
+    [super dealloc];
 }
 
 @end

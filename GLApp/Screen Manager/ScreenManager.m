@@ -31,7 +31,7 @@
 
 -(void)RemoveScreen
 {
-    [[mScreenQueue lastObject]release];
+    [[mScreenQueue lastObject]dealloc];
     [mScreenQueue removeLastObject];
 }
 
