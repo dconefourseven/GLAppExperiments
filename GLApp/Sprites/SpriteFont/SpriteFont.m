@@ -146,18 +146,18 @@
     }    
 }
 
--(void)DrawFontES2: (int)UniformTranslate: (int)VertexAttribute: (int)TexCoordAttribute: (int)UniformSampler
+-(void)DrawFontES2:(const CGPoint) Position:  (int)UniformTranslate: (int)VertexAttribute: (int)TexCoordAttribute: (int)UniformSampler
 {
     //Loop through all the sprites and draw them
     for(int i = 0; i < [mStringText length]; i++)
     { 
-        glUniform2f(UniformTranslate, 10 + (i * 20), 10);    
+        glUniform2f(UniformTranslate, Position.x + (i * 20), Position.y);  
         
         [[mSprites objectAtIndex:(NSInteger)i] DrawSpriteES2WithTexture:VertexAttribute:TexCoordAttribute:UniformSampler];
     }    
 }
 
--(void)DrawFontES2:(const NSString*) newText: (int)UniformTranslate: (int)VertexAttribute: (int)TexCoordAttribute: (int)UniformSampler
+-(void)DrawFontES2:(const NSString*) newText:(const CGPoint) Position:  (int)UniformTranslate: (int)VertexAttribute: (int)TexCoordAttribute: (int)UniformSampler
 {
     //If the string has changed, something needs to be done
     if(![newText isEqualToString:mStringText])
@@ -178,7 +178,7 @@
     //Loop through all the sprites and draw them
     for(int i = 0; i < [mStringText length]; i++)
     {
-        glUniform2f(UniformTranslate, 10 + (i * 20), 10);	    
+        glUniform2f(UniformTranslate, Position.x + (i * 20), Position.y);	    
         
         [[mSprites objectAtIndex:(NSInteger)i] DrawSpriteES2WithTexture:VertexAttribute:TexCoordAttribute:UniformSampler];
     }    

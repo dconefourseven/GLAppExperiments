@@ -76,7 +76,7 @@ static int testInt = 0;
     
     glUniform2f(uniforms[UNIFORM_SCALE], 1.0f, 1.0f);
     //[mSpriteFont DrawFontES2: uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
-    [mSpriteFont DrawFontES2: testNSString: uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
+    [mSpriteFont DrawFontES2: testNSString: CGPointMake(1.0f, 1.0f): uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
     
     [testNSString release];
     

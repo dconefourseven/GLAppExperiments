@@ -75,10 +75,10 @@
      
     [mSprite DrawSpriteES2WithTexture:VertexAttribute: TexCoordAttribute: UniformSampler];
      
-    //glUniform2f(UniformScale, 1.0f, 1.0f);
-    //glUniform2f(UniformTranslate, 200.0f, 200.0f); 
+    glUniform2f(UniformScale, 1.0f, 1.0f);
+    glUniform2f(UniformTranslate, mPosition.x + 50.0f, mPosition.y); 
      
-    //[mSpriteFont DrawFontES2: UniformTranslate: VertexAttribute: TexCoordAttribute: UniformSampler];
+    [mSpriteFont DrawFontES2: mPosition: UniformTranslate: VertexAttribute: TexCoordAttribute: UniformSampler];
 }
 
 -(void)dealloc

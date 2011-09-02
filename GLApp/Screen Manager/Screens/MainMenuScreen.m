@@ -29,9 +29,9 @@
 
 -(void)LoadContent
 {
-    mSprite = [[Sprite alloc]init:@"Sprite.png"];
+    //mSprite = [[Sprite alloc]init:@"Sprite.png"];
     
-    mSpriteFont = [[SpriteFont alloc] init:@"MAIN MENU"];
+    //mSpriteFont = [[SpriteFont alloc] init:@"MAIN MENU"];
     
     mPlayGameButton = [[GLButton alloc]init];
     
@@ -70,7 +70,7 @@
     // Use shader program.
     glUseProgram(program);
     
-    glUniform2f(uniforms[UNIFORM_SCALE], 2.0f, 2.0f);
+    /*glUniform2f(uniforms[UNIFORM_SCALE], 2.0f, 2.0f);
     glUniform2f(uniforms[UNIFORM_TRANSLATE], 100.0f, 100.0f);
     
     [mSprite DrawSpriteES2WithTexture:ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
@@ -78,9 +78,9 @@
     glUniform2f(uniforms[UNIFORM_SCALE], 1.0f, 1.0f);
     glUniform2f(uniforms[UNIFORM_TRANSLATE], 100.0f, 0.0f); 
     
-    [mSpriteFont DrawFontES2: @"DRAW ME": uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
+    [mSpriteFont DrawFontES2: @"DRAW ME": CGPointMake(100.0f, 0.0f): uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];*/
     
-    //[mPlayGameButton Draw:ATTRIB_VERTEX :ATTRIB_TEXTURE :uniforms[UNIFORM_SAMPLER] :uniforms[UNIFORM_TRANSLATE] :uniforms[UNIFORM_SCALE]];
+    [mPlayGameButton Draw:ATTRIB_VERTEX :ATTRIB_TEXTURE :uniforms[UNIFORM_SAMPLER] :uniforms[UNIFORM_TRANSLATE] :uniforms[UNIFORM_SCALE]];
     
     // Validate program before drawing. This is a good check, but only really necessary in a debug build.
     // DEBUG macro must be defined in your debug configurations if that's not already the case.
@@ -95,8 +95,8 @@
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [mSpriteFont release];
-    [mSprite release];
+    //[mSpriteFont release];
+    //[mSprite release];
     
     [mPlayGameButton release];
     

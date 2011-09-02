@@ -33,8 +33,8 @@
 
 -(void)DrawFont;
 -(void)DrawFont:(const NSString*) newText;
--(void)DrawFontES2:(int)UniformTranslate: (int)VertexAttribute: (int)TexCoordAttribute: (int)UniformSampler;
--(void)DrawFontES2:(const NSString*) newText:(int)UniformTranslate: (int)VertexAttribute: (int)TexCoordAttribute: (int)UniformSampler;
+-(void)DrawFontES2:(const CGPoint) Position: (int)UniformTranslate: (int)VertexAttribute: (int)TexCoordAttribute: (int)UniformSampler;
+-(void)DrawFontES2:(const NSString*) newText:(const CGPoint) Position: (int)UniformTranslate: (int)VertexAttribute: (int)TexCoordAttribute: (int)UniformSampler;
 
 -(void)dealloc;
 
