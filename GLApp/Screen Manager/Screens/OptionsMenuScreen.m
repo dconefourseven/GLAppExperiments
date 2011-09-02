@@ -9,7 +9,7 @@
 #import "OptionsMenuScreen.h"
 
 #import "ScreenManager.h"
-#import "GameplayScreen.h"
+#import "MainMenuScreen.h"
 #import "Sprite.h"
 #import "SpriteFont.h"
 
@@ -29,16 +29,23 @@
 
 -(void)LoadContent
 {
-    mDifficultyButton = [[GLButton alloc]initWithData:CGPointMake(100.0f, 150.0f) :@"difficultyTapped": @"Sprite.png": @"Difficulty"];
+    mDifficultyButton = [[GLButton alloc]initWithData:CGPointMake(100.0f, 100.0f) :@"difficultyTapped": @"Sprite.png": @"Difficulty"];
+    
+    mBackButton = [[GLButton alloc]initWithData:CGPointMake(100.0f, 150.0f) :@"backButtonTapped": @"Sprite.png": @"Back"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(difficultyTappedHandler:) name:@"difficultyTapped" object:nil ];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backTappedHandler:) name:@"backButtonTapped" object:nil ];
     
     [self loadShaders];
 }
 
 -(void)touchesBeganWithEvent:(NSSet *)touches withEvent:(UIEvent *)event: (UIView*)view
 {
-    [mDifficultyButton touchesBeganWithEvent:touches withEvent:event :view];
+    if(![mDifficultyButton touchesBeganWithEvent:touches withEvent:event :view])
+    {
+        [mBackButton touchesBeganWithEvent:touches withEvent:event :view];
+    }
 }
 
 -(void)touchesMovedWithEvent:(NSSet *)touches withEvent:(UIEvent *)event: (UIView*)view
@@ -53,6 +60,16 @@
         NSLog(@"Difficulty tapped event triggered");
         //[mScreenManager RemoveScreen];
         //[mScreenManager AddScreen:[[GameplayScreen alloc]init]];
+    }
+}
+
+-(void)backTappedHandler: (NSNotification *) notification
+{
+    if([notification.name isEqualToString:@"backButtonTapped"])
+    {
+        NSLog(@"back tapped event triggered");
+        [mScreenManager RemoveScreen];
+        [mScreenManager AddScreen:[[MainMenuScreen alloc]init]];
     }
 }
 
@@ -81,6 +98,8 @@
     
     [mDifficultyButton Draw:ATTRIB_VERTEX :ATTRIB_TEXTURE :uniforms[UNIFORM_SAMPLER] :uniforms[UNIFORM_TRANSLATE] :uniforms[UNIFORM_SCALE]];
     
+    [mBackButton Draw:ATTRIB_VERTEX :ATTRIB_TEXTURE :uniforms[UNIFORM_SAMPLER] :uniforms[UNIFORM_TRANSLATE] :uniforms[UNIFORM_SCALE]];
+    
     // Validate program before drawing. This is a good check, but only really necessary in a debug build.
     // DEBUG macro must be defined in your debug configurations if that's not already the case.
 #if defined(DEBUG)
@@ -97,7 +116,10 @@
     //[mSpriteFont release];
     //[mSprite release];
     
+    glDeleteProgram(program);
+    
     [mDifficultyButton release];
+    [mBackButton release];
     
     [super dealloc];
 }

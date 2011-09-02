@@ -107,6 +107,8 @@
     [mPlayGameButton release];
     [mOptionsButton release];
     
+    glDeleteProgram(program);
+    
     [super dealloc];
 }
 

@@ -13,6 +13,7 @@
 @interface OptionsMenuScreen : MenuScreen
 {
     GLButton* mDifficultyButton;
+    GLButton* mBackButton;
 }
 
 @end

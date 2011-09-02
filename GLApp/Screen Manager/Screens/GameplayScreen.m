@@ -96,6 +96,8 @@ static int testInt = 0;
     [mSprite release];
     [mSpriteFont release];
     
+    glDeleteProgram(program);
+    
     [super dealloc];
 }
 
