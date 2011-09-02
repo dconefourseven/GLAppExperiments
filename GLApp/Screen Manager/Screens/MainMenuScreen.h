@@ -12,11 +12,12 @@
 
 @interface MainMenuScreen : MenuScreen
 {
-    Sprite* mSprite;
+    //Sprite* mSprite;
     
-    SpriteFont* mSpriteFont;
+    //SpriteFont* mSpriteFont;
     
     GLButton* mPlayGameButton;
+    GLButton* mOptionsButton;
 }
 
 @end

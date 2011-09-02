@@ -18,6 +18,7 @@
 		E56949EC140FD53000BABA1C /* GLAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E56949EB140FD53000BABA1C /* GLAppViewController.m */; };
 		E5879A49141100E200157302 /* MainMenuScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = E5879A48141100E200157302 /* MainMenuScreen.m */; };
 		E5879A50141104DA00157302 /* GLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E5879A4F141104DA00157302 /* GLButton.m */; };
+		E5D490741411724F00044CB8 /* OptionsMenuScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D490731411724F00044CB8 /* OptionsMenuScreen.m */; };
 		E5D55AA513F48F3D00667BA4 /* Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D55AA413F48F3D00667BA4 /* Sprite.m */; };
 		E5D55AB113F4B83900667BA4 /* SpriteFont.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D55AB013F4B83900667BA4 /* SpriteFont.m */; };
 		E5DC705413EC65550053BD04 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5DC705313EC65550053BD04 /* UIKit.framework */; };
@@ -62,6 +63,8 @@
 		E5879A48141100E200157302 /* MainMenuScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuScreen.m; sourceTree = "<group>"; };
 		E5879A4E141104D900157302 /* GLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLButton.h; sourceTree = "<group>"; };
 		E5879A4F141104DA00157302 /* GLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLButton.m; sourceTree = "<group>"; };
+		E5D490721411724F00044CB8 /* OptionsMenuScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsMenuScreen.h; sourceTree = "<group>"; };
+		E5D490731411724F00044CB8 /* OptionsMenuScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsMenuScreen.m; sourceTree = "<group>"; };
 		E5D55AA313F48F3D00667BA4 /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
 		E5D55AA413F48F3D00667BA4 /* Sprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sprite.m; sourceTree = "<group>"; };
 		E5D55AAF13F4B83900667BA4 /* SpriteFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteFont.h; sourceTree = "<group>"; };
@@ -152,6 +155,8 @@
 		E56949DF140FD50D00BABA1C /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				E5879A4E141104D900157302 /* GLButton.h */,
+				E5879A4F141104DA00157302 /* GLButton.m */,
 				E56949E0140FD50D00BABA1C /* GameplayScreen.h */,
 				E56949E1140FD50D00BABA1C /* GameplayScreen.m */,
 				E56949E2140FD50D00BABA1C /* GameScreen.h */,
@@ -160,8 +165,8 @@
 				E56949E5140FD50D00BABA1C /* MenuScreen.m */,
 				E5879A47141100E200157302 /* MainMenuScreen.h */,
 				E5879A48141100E200157302 /* MainMenuScreen.m */,
-				E5879A4E141104D900157302 /* GLButton.h */,
-				E5879A4F141104DA00157302 /* GLButton.m */,
+				E5D490721411724F00044CB8 /* OptionsMenuScreen.h */,
+				E5D490731411724F00044CB8 /* OptionsMenuScreen.m */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -374,6 +379,7 @@
 				E56949EC140FD53000BABA1C /* GLAppViewController.m in Sources */,
 				E5879A49141100E200157302 /* MainMenuScreen.m in Sources */,
 				E5879A50141104DA00157302 /* GLButton.m in Sources */,
+				E5D490741411724F00044CB8 /* OptionsMenuScreen.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

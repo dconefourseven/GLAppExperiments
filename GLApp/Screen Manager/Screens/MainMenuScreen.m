@@ -10,6 +10,7 @@
 
 #import "ScreenManager.h"
 #import "GameplayScreen.h"
+#import "OptionsMenuScreen.h"
 #import "Sprite.h"
 #import "SpriteFont.h"
 
@@ -28,14 +29,14 @@
 }
 
 -(void)LoadContent
-{
-    //mSprite = [[Sprite alloc]init:@"Sprite.png"];
+{    
+    mPlayGameButton = [[GLButton alloc]initWithData:CGPointMake(100.0f, 100.0f): @"playGameTapped": @"Sprite.png": @"Play Game"];
     
-    //mSpriteFont = [[SpriteFont alloc] init:@"MAIN MENU"];
+    mOptionsButton = [[GLButton alloc]initWithData:CGPointMake(100.0f, 150.0f): @"optionsButtonTapped": @"Sprite.png": @"Options"];
     
-    mPlayGameButton = [[GLButton alloc]init];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playGameTappedHandler:) name:@"playGameTapped" object:nil ];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventHandler:) name:@"buttonTapped" object:nil ];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(optionsTappedHandler:) name:@"optionsButtonTapped" object:nil ];
     
     [self loadShaders];
 }
@@ -43,6 +44,7 @@
 -(void)touchesBeganWithEvent:(NSSet *)touches withEvent:(UIEvent *)event: (UIView*)view
 {
     [mPlayGameButton touchesBeganWithEvent:touches withEvent:event :view];
+    [mOptionsButton touchesBeganWithEvent:touches withEvent:event :view];
 }
 
 -(void)touchesMovedWithEvent:(NSSet *)touches withEvent:(UIEvent *)event: (UIView*)view
@@ -50,19 +52,28 @@
     
 }
 
--(void)eventHandler: (NSNotification *) notification
+-(void)playGameTappedHandler: (NSNotification *) notification
 {
-    if([notification.name isEqualToString:@"buttonTapped"])
+    if([notification.name isEqualToString:@"playGameTapped"])
     {
-        NSLog(@"Button tapped event triggered");
+        NSLog(@"playGameTapped tapped event triggered");
         [mScreenManager RemoveScreen];
         [mScreenManager AddScreen:[[GameplayScreen alloc]init]];
     }
 }
 
+-(void)optionsTappedHandler: (NSNotification *) notification
+{
+    if([notification.name isEqualToString:@"optionsButtonTapped"])
+    {
+        NSLog(@"optionsButtonTapped tapped event triggered");
+        [mScreenManager RemoveScreen];
+        [mScreenManager AddScreen:[[OptionsMenuScreen alloc]init]];
+    }
+}
+
 -(void)Update
 {
-    [mPlayGameButton Update];
 }
 
 -(void)Draw
@@ -73,17 +84,9 @@
     // Use shader program.
     glUseProgram(program);
     
-    /*glUniform2f(uniforms[UNIFORM_SCALE], 2.0f, 2.0f);
-    glUniform2f(uniforms[UNIFORM_TRANSLATE], 100.0f, 100.0f);
-    
-    [mSprite DrawSpriteES2WithTexture:ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
-    
-    glUniform2f(uniforms[UNIFORM_SCALE], 1.0f, 1.0f);
-    glUniform2f(uniforms[UNIFORM_TRANSLATE], 100.0f, 0.0f); 
-    
-    [mSpriteFont DrawFontES2: @"DRAW ME": CGPointMake(100.0f, 0.0f): uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];*/
-    
     [mPlayGameButton Draw:ATTRIB_VERTEX :ATTRIB_TEXTURE :uniforms[UNIFORM_SAMPLER] :uniforms[UNIFORM_TRANSLATE] :uniforms[UNIFORM_SCALE]];
+    
+    [mOptionsButton Draw:ATTRIB_VERTEX :ATTRIB_TEXTURE :uniforms[UNIFORM_SAMPLER] :uniforms[UNIFORM_TRANSLATE] :uniforms[UNIFORM_SCALE]];
     
     // Validate program before drawing. This is a good check, but only really necessary in a debug build.
     // DEBUG macro must be defined in your debug configurations if that's not already the case.
@@ -98,8 +101,6 @@
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    //[mSpriteFont release];
-    //[mSprite release];
     
     [mPlayGameButton release];
     
