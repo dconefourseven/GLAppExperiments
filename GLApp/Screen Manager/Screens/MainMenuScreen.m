@@ -35,11 +35,7 @@
     
     mPlayGameButton = [[GLButton alloc]init];
     
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(eventHandler:)
-     name:@"buttonTapped"
-     object:nil ];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventHandler:) name:@"buttonTapped" object:nil ];
     
     [self loadShaders];
 }
@@ -57,7 +53,8 @@
 
 -(void)eventHandler: (NSNotification *) notification
 {
-    NSLog(@"Button tapped event triggered");
+    if([notification.name isEqualToString:@"buttonTapped"])
+        NSLog(@"Button tapped event triggered");
 }
 
 -(void)Update
@@ -79,9 +76,11 @@
     [mSprite DrawSpriteES2WithTexture:ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
     
     glUniform2f(uniforms[UNIFORM_SCALE], 1.0f, 1.0f);
-    glUniform2f(uniforms[UNIFORM_TRANSLATE], 0.0f, 0.0f); 
+    glUniform2f(uniforms[UNIFORM_TRANSLATE], 100.0f, 0.0f); 
     
-    [mSpriteFont DrawFontES2: uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
+    [mSpriteFont DrawFontES2: @"DRAW ME": uniforms[UNIFORM_TRANSLATE]: ATTRIB_VERTEX: ATTRIB_TEXTURE: UNIFORM_SAMPLER];
+    
+    //[mPlayGameButton Draw:ATTRIB_VERTEX :ATTRIB_TEXTURE :uniforms[UNIFORM_SAMPLER] :uniforms[UNIFORM_TRANSLATE] :uniforms[UNIFORM_SCALE]];
     
     // Validate program before drawing. This is a good check, but only really necessary in a debug build.
     // DEBUG macro must be defined in your debug configurations if that's not already the case.
@@ -98,6 +97,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [mSpriteFont release];
     [mSprite release];
+    
+    [mPlayGameButton release];
     
     [super dealloc];
 }

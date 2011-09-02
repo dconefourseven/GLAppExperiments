@@ -15,11 +15,18 @@
 {
     Sprite* mSprite;
     SpriteFont* mSpriteFont;
+    
+    CGPoint mPosition;
 }
 
+-(void)touchesMovedWithEvent:(NSSet *)touches withEvent:(UIEvent *)event: (UIView*)view;
+-(void)touchesBeganWithEvent:(NSSet *)touches withEvent:(UIEvent *)event: (UIView*)view;
+
+-(BOOL)TouchedTest:(const CGPoint) TouchCoordinates: (const float) TouchXScale: (const float) TouchYScale: (const float)ButtonXScale: (const float)ButtonYScale;
+
 -(void)Update;
--(void)Draw;
+-(void)Draw: (int)VertexAttribute: (int)TexCoordAttribute: (int)UniformSampler: (int)UniformTranslate: (int)UniformScale;
 
-
+-(void)dealloc;
 
 @end
