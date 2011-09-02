@@ -12,10 +12,6 @@
 
 @interface MainMenuScreen : MenuScreen
 {
-    //Sprite* mSprite;
-    
-    //SpriteFont* mSpriteFont;
-    
     GLButton* mPlayGameButton;
     GLButton* mOptionsButton;
 }

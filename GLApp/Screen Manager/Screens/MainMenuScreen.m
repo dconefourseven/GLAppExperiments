@@ -43,8 +43,10 @@
 
 -(void)touchesBeganWithEvent:(NSSet *)touches withEvent:(UIEvent *)event: (UIView*)view
 {
-    [mPlayGameButton touchesBeganWithEvent:touches withEvent:event :view];
-    [mOptionsButton touchesBeganWithEvent:touches withEvent:event :view];
+    if(![mPlayGameButton touchesBeganWithEvent:touches withEvent:event :view])
+    {
+        [mOptionsButton touchesBeganWithEvent:touches withEvent:event :view];
+    }
 }
 
 -(void)touchesMovedWithEvent:(NSSet *)touches withEvent:(UIEvent *)event: (UIView*)view
@@ -103,6 +105,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [mPlayGameButton release];
+    [mOptionsButton release];
     
     [super dealloc];
 }

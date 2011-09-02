@@ -53,18 +53,22 @@
 }
 
 
--(void)touchesBeganWithEvent:(NSSet *)touches withEvent:(UIEvent *)event: (UIView*)view
+-(BOOL)touchesBeganWithEvent:(NSSet *)touches withEvent:(UIEvent *)event: (UIView*)view
 {
     //Create a structure that countains the touch data
     UITouch *myTouch = [[event allTouches] anyObject];
     //Extract the location of the touch
     CGPoint myPoint = [myTouch locationInView:view];
     
+    BOOL isTapped = [self TouchedTest: myPoint: 20: 20: 20: 20 ];
+    
     //If the player touched the button send a message that the button was tapped
-    if([self TouchedTest: myPoint: 20: 20: 20: 20 ])
+    if(isTapped)
     {
         [[NSNotificationCenter defaultCenter]postNotificationName:mNotificationName object:nil];
     }
+    
+    return isTapped;
 }
 -(void)touchesMovedWithEvent:(NSSet *)touches withEvent:(UIEvent *)event: (UIView*)view
 {

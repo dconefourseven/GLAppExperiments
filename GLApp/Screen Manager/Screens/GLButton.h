@@ -25,7 +25,7 @@
 -(id)initWithData:(const CGPoint) position: (const NSString*) notificationName: (const NSString*) spriteName: (const NSString*) buttonText;
 
 -(void)touchesMovedWithEvent:(NSSet *)touches withEvent:(UIEvent *)event: (UIView*)view;
--(void)touchesBeganWithEvent:(NSSet *)touches withEvent:(UIEvent *)event: (UIView*)view;
+-(BOOL)touchesBeganWithEvent:(NSSet *)touches withEvent:(UIEvent *)event: (UIView*)view;
 
 -(BOOL)TouchedTest:(const CGPoint) TouchCoordinates: (const float) TouchXScale: (const float) TouchYScale: (const float)ButtonXScale: (const float)ButtonYScale;
 
