@@ -42,8 +42,7 @@
 
 -(void)touchesBeganWithEvent:(NSSet *)touches withEvent:(UIEvent *)event: (UIView*)view
 {
-    [mScreenManager RemoveScreen];
-    [mScreenManager AddScreen:[[GameplayScreen alloc]init]];
+    [mPlayGameButton touchesBeganWithEvent:touches withEvent:event :view];
 }
 
 -(void)touchesMovedWithEvent:(NSSet *)touches withEvent:(UIEvent *)event: (UIView*)view
@@ -54,7 +53,11 @@
 -(void)eventHandler: (NSNotification *) notification
 {
     if([notification.name isEqualToString:@"buttonTapped"])
+    {
         NSLog(@"Button tapped event triggered");
+        [mScreenManager RemoveScreen];
+        [mScreenManager AddScreen:[[GameplayScreen alloc]init]];
+    }
 }
 
 -(void)Update

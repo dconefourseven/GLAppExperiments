@@ -38,7 +38,7 @@
     
     CGPoint myPoint = [myTouch locationInView:view];
     
-    if([self TouchedTest: myPoint: 10: 10: 10: 10 ])
+    if([self TouchedTest: myPoint: 20: 20: 20: 20 ])
     {
         [[NSNotificationCenter defaultCenter]postNotificationName:@"buttonTapped" object:nil];
     }
@@ -74,11 +74,13 @@
     glUniform2f(UniformTranslate, mPosition.x, mPosition.y);
      
     [mSprite DrawSpriteES2WithTexture:VertexAttribute: TexCoordAttribute: UniformSampler];
-     
+    
+    CGPoint textPosition = CGPointMake(mPosition.x + 40.0f, mPosition.y);
+    
     glUniform2f(UniformScale, 1.0f, 1.0f);
-    glUniform2f(UniformTranslate, mPosition.x + 50.0f, mPosition.y); 
+    //glUniform2f(UniformTranslate, textPosition.x + 20.0f , textPosition.y); 
      
-    [mSpriteFont DrawFontES2: mPosition: UniformTranslate: VertexAttribute: TexCoordAttribute: UniformSampler];
+    [mSpriteFont DrawFontES2: textPosition: UniformTranslate: VertexAttribute: TexCoordAttribute: UniformSampler];
 }
 
 -(void)dealloc
