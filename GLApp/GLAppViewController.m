@@ -14,8 +14,7 @@
 #import "Audio.h"
 #import "ScreenManager.h"
 
-#import "GameplayScreen.h"
-#import "MenuScreen.h"
+#import "MainMenuScreen.h"
 
 @interface GLAppViewController ()
 @property (nonatomic, retain) EAGLContext *context;
@@ -75,7 +74,7 @@ static int ScreenWidth = 0, ScreenHeight = 0;
     mScreenManager = [[ScreenManager alloc]init];
     
     //[mScreenManager AddScreen:[[GameplayScreen alloc]init]];
-    [mScreenManager AddScreen:[[MenuScreen alloc]init]];
+    [mScreenManager AddScreen:[[MainMenuScreen alloc]init]];
 }
 
 - (void)dealloc

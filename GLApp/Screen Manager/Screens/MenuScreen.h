@@ -13,9 +13,7 @@
 
 @interface MenuScreen : GameScreen
 {
-    Sprite* mSprite;
     
-    SpriteFont* mSpriteFont;
 }
 
 -(void)LoadContent;
