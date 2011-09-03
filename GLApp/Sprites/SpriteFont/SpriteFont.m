@@ -85,7 +85,7 @@
         };
         
         //Create the sprite
-        Sprite* sprite = [[Sprite alloc]initWithTexture:mSpriteTexture :texCoords];
+        Sprite* sprite = [[Sprite alloc]initWithoutTexture :texCoords];
         
         //Add it onto the mutable array
         [mSprites addObject:sprite];
@@ -100,51 +100,7 @@
     }
 }
 
--(void)DrawFont
-{
-    //Loop through all the sprites and draw them
-    for(int i = 0; i < [mStringText length]; i++)
-    {
-        glPushMatrix();
-    
-        glTranslatef(10 + ( i * 20) , 10, 0.0f);     
-    
-        [[mSprites objectAtIndex:(NSInteger)i] DrawSpriteWithTexture];
-        
-        glPopMatrix();
-    }    
-}
 
--(void)DrawFont:(const NSString*) newText
-{
-    //If the string has changed, something needs to be done
-    if(![newText isEqualToString:mStringText])
-    {
-        //First thing's first, clear up after ourselves
-        for(int i = 0; i < [mStringText length]; i++)
-        {
-            [[mSprites objectAtIndex:(NSInteger)i] DeleteBuffers]; 
-        }
-        [mStringText release];
-        [mSprites release];
-        
-        //Load the new string and initialise the sprites again
-        mStringText = [[NSString alloc] initWithString:(NSString*)newText];
-        [self InitialiseSprites];
-    }
-        
-    //Loop through all the sprites and draw them
-    for(int i = 0; i < [mStringText length]; i++)
-    {
-        glPushMatrix();
-        
-        glTranslatef(10 + ( i * 20) , 10, 0.0f);     
-        
-        [[mSprites objectAtIndex:(NSInteger)i] DrawSpriteWithTexture];
-        
-        glPopMatrix();
-    }    
-}
 
 -(void)DrawFontES2:(const CGPoint) Position:  (int)UniformTranslate: (int)VertexAttribute: (int)TexCoordAttribute: (int)UniformSampler
 {
@@ -153,7 +109,7 @@
     { 
         glUniform2f(UniformTranslate, Position.x + (i * 20), Position.y);  
         
-        [[mSprites objectAtIndex:(NSInteger)i] DrawSpriteES2WithTexture:VertexAttribute:TexCoordAttribute:UniformSampler];
+        [[mSprites objectAtIndex:(NSInteger)i] DrawSpriteES2WithUniqueTexture: mSpriteTexture:VertexAttribute:TexCoordAttribute:UniformSampler];
     }    
 }
 
@@ -180,7 +136,7 @@
     {
         glUniform2f(UniformTranslate, Position.x + (i * 20), Position.y);	    
         
-        [[mSprites objectAtIndex:(NSInteger)i] DrawSpriteES2WithTexture:VertexAttribute:TexCoordAttribute:UniformSampler];
+        [[mSprites objectAtIndex:(NSInteger)i] DrawSpriteES2WithUniqueTexture: mSpriteTexture:VertexAttribute:TexCoordAttribute:UniformSampler];
     }    
 }
 

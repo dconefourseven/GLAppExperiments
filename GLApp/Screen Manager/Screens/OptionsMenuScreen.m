@@ -69,7 +69,7 @@
     {
         NSLog(@"back tapped event triggered");
         [mScreenManager RemoveScreen];
-        //[mScreenManager AddScreen:[[MainMenuScreen alloc]init]];
+        [mScreenManager AddScreen:[[MainMenuScreen alloc]init]];
     }
 }
 

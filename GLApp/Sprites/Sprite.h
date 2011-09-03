@@ -31,15 +31,15 @@
 -(id) init;
 -(id) init:(NSString* const)textureName;
 -(id) initWithTexture:(GLuint) spriteTexture: (GLfloat[8]) texCoords;
+-(id) initWithoutTexture: (GLfloat[8]) texCoords;
 
 -(void) InitSprite;
 -(void) InitSprite: (NSString* const) textureName;
 -(void) InitSpriteWithTexture: (GLfloat[8]) texCoords;
 
--(void) DrawSprite;
--(void) DrawSpriteWithTexture;
 -(void) DrawSpriteES2WithoutTexture: (int)VertexAttribute: (int)ColorAttribute;
 -(void) DrawSpriteES2WithTexture: (int)VertexAttribute: (int)TexCoordAttribute: (int)UniformSampler;
+-(void) DrawSpriteES2WithUniqueTexture: (GLuint) texture: (int)VertexAttribute: (int)TexCoordAttribute: (int)UniformSampler;
 
 -(void) InitTexture: (NSString* const) textureName;
 
