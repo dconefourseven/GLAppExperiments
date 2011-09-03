@@ -69,7 +69,7 @@
     if([notification.name isEqualToString:@"optionsButtonTapped"])
     {
         NSLog(@"optionsButtonTapped tapped event triggered");
-        [mScreenManager RemoveScreen];
+        //[mScreenManager RemoveScreen];
         [mScreenManager AddScreen:[[OptionsMenuScreen alloc]init]];
     }
 }

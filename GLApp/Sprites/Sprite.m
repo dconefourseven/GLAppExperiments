@@ -319,6 +319,9 @@ static const GLushort s_squareIndices[] =
 {
     [self DeleteBuffers];
     
+    glDeleteVertexArraysOES(sizeof(squareVertices), (const GLuint*)squareVertices);
+    glDeleteTextures(sizeof(mSpriteTexture), &mSpriteTexture);
+    
     [super dealloc];
 }
 

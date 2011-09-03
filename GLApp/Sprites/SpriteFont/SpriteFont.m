@@ -236,7 +236,7 @@
     
     [mCharacterMapDictionary release];
     
-    mSpriteTexture = 0;
+    glDeleteTextures(sizeof(mSpriteTexture), &mSpriteTexture);
     
     [super dealloc];
 }
