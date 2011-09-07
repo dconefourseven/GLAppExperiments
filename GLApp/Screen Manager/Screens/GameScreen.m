@@ -146,7 +146,10 @@
     program = glCreateProgram();
     
     // Create and compile vertex shader.
-    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"vsh"];
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"iPadShader" ofType:@"vsh"];
+    else
+        vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"iPhoneShader" ofType:@"vsh"];
     if (![self compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname])
     {
         NSLog(@"Failed to compile vertex shader");

@@ -18,6 +18,7 @@
 		E56949EC140FD53000BABA1C /* GLAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E56949EB140FD53000BABA1C /* GLAppViewController.m */; };
 		E5879A49141100E200157302 /* MainMenuScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = E5879A48141100E200157302 /* MainMenuScreen.m */; };
 		E5879A50141104DA00157302 /* GLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E5879A4F141104DA00157302 /* GLButton.m */; };
+		E5B145BD141806B700EC098D /* iPadShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = E5B145BC141806B700EC098D /* iPadShader.vsh */; };
 		E5D490741411724F00044CB8 /* OptionsMenuScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D490731411724F00044CB8 /* OptionsMenuScreen.m */; };
 		E5D55AA513F48F3D00667BA4 /* Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D55AA413F48F3D00667BA4 /* Sprite.m */; };
 		E5D55AB113F4B83900667BA4 /* SpriteFont.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D55AB013F4B83900667BA4 /* SpriteFont.m */; };
@@ -31,7 +32,7 @@
 		E5DC706813EC65550053BD04 /* GLAppAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DC706713EC65550053BD04 /* GLAppAppDelegate.m */; };
 		E5DC706B13EC65550053BD04 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5DC706913EC65550053BD04 /* MainWindow.xib */; };
 		E5DC706D13EC65550053BD04 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = E5DC706C13EC65550053BD04 /* Shader.fsh */; };
-		E5DC706F13EC65550053BD04 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = E5DC706E13EC65550053BD04 /* Shader.vsh */; };
+		E5DC706F13EC65550053BD04 /* iPhoneShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = E5DC706E13EC65550053BD04 /* iPhoneShader.vsh */; };
 		E5DC707213EC65550053BD04 /* EAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DC707113EC65550053BD04 /* EAGLView.m */; };
 		E5DC707813EC65550053BD04 /* GLAppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5DC707613EC65550053BD04 /* GLAppViewController.xib */; };
 		E5DF7270140BD96E00E6D5F4 /* Sprite.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DF726E140BD96E00E6D5F4 /* Sprite.png */; };
@@ -63,6 +64,7 @@
 		E5879A48141100E200157302 /* MainMenuScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuScreen.m; sourceTree = "<group>"; };
 		E5879A4E141104D900157302 /* GLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLButton.h; sourceTree = "<group>"; };
 		E5879A4F141104DA00157302 /* GLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLButton.m; sourceTree = "<group>"; };
+		E5B145BC141806B700EC098D /* iPadShader.vsh */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; name = iPadShader.vsh; path = Shaders/iPadShader.vsh; sourceTree = "<group>"; };
 		E5D490721411724F00044CB8 /* OptionsMenuScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsMenuScreen.h; sourceTree = "<group>"; };
 		E5D490731411724F00044CB8 /* OptionsMenuScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsMenuScreen.m; sourceTree = "<group>"; };
 		E5D55AA313F48F3D00667BA4 /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
@@ -83,7 +85,7 @@
 		E5DC706713EC65550053BD04 /* GLAppAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GLAppAppDelegate.m; sourceTree = "<group>"; };
 		E5DC706A13EC65550053BD04 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		E5DC706C13EC65550053BD04 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
-		E5DC706E13EC65550053BD04 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
+		E5DC706E13EC65550053BD04 /* iPhoneShader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = iPhoneShader.vsh; path = Shaders/iPhoneShader.vsh; sourceTree = "<group>"; };
 		E5DC707013EC65550053BD04 /* EAGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
 		E5DC707113EC65550053BD04 /* EAGLView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EAGLView.m; sourceTree = "<group>"; };
 		E5DC707713EC65550053BD04 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/GLAppViewController.xib; sourceTree = "<group>"; };
@@ -234,7 +236,8 @@
 				E5DC706713EC65550053BD04 /* GLAppAppDelegate.m */,
 				E5DC706913EC65550053BD04 /* MainWindow.xib */,
 				E5DC706C13EC65550053BD04 /* Shader.fsh */,
-				E5DC706E13EC65550053BD04 /* Shader.vsh */,
+				E5DC706E13EC65550053BD04 /* iPhoneShader.vsh */,
+				E5B145BC141806B700EC098D /* iPadShader.vsh */,
 				E5DC707013EC65550053BD04 /* EAGLView.h */,
 				E5DC707113EC65550053BD04 /* EAGLView.m */,
 				E56949EA140FD53000BABA1C /* GLAppViewController.h */,
@@ -347,7 +350,8 @@
 				E5DC706213EC65550053BD04 /* InfoPlist.strings in Resources */,
 				E5DC706B13EC65550053BD04 /* MainWindow.xib in Resources */,
 				E5DC706D13EC65550053BD04 /* Shader.fsh in Resources */,
-				E5DC706F13EC65550053BD04 /* Shader.vsh in Resources */,
+				E5DC706F13EC65550053BD04 /* iPhoneShader.vsh in Resources */,
+				E5B145BD141806B700EC098D /* iPadShader.vsh in Resources */,
 				E5DC707813EC65550053BD04 /* GLAppViewController.xib in Resources */,
 				E5ED90E513FD3D0400FD44BC /* CharMap.plist in Resources */,
 				E5DF7270140BD96E00E6D5F4 /* Sprite.png in Resources */,
@@ -442,7 +446,7 @@
 				INFOPLIST_FILE = "GLApp/GLApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = GLApp;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Ad-Hoc";
@@ -499,7 +503,7 @@
 				INFOPLIST_FILE = "GLApp/GLApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = GLApp;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -513,7 +517,7 @@
 				INFOPLIST_FILE = "GLApp/GLApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = GLApp;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
